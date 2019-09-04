@@ -1,0 +1,17 @@
+.messages {
+    list-style: none;
+    padding: 0px;
+    width: 300px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    
+    .message {
+        background-color: #3cb4dc;
+    }
+    
+    .preview {
+        color: white;
+        background-color: red;
+        opacity: 0.5;
+    }
+}
