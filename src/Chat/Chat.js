@@ -5,6 +5,7 @@ import io from 'socket.io-client'
 import ScrollToBottom from 'react-scroll-to-bottom'
 import Textarea from 'react-textarea-autosize'
 import './Chat.css'
+import { IncomingMessage } from 'http';
 
 // on render, client connects to socket.io via server
 const socket = io.connect(config.SERVER_BASE_URL)
@@ -15,12 +16,12 @@ export default class Chat extends Component {
         this.chatInput = React.createRef()
         this.chatSection = React.createRef()
         this.messagesEnd = React.createRef()
-        this.chatRoom = React.createRef()
+        this.roomName = React.createRef()
         this.state = {
             currentMessage: '',
             messages: [],
             userTyping: [],
-            chatRoom: '',
+            roomName: '',
         }
     }
 
@@ -46,9 +47,9 @@ export default class Chat extends Component {
           })
          
         // client listens for 'incoming message' socket connection
-        // then it logs the newMsg  
-        socket.on('incoming message', newMsg => {
-            console.log(newMsg)
+        // then it logs the IncomingMsg  
+        socket.on('incoming message', IncomingMsg => {
+            console.log(IncomingMsg)
         })
 
         // connect to socket if no socket connected
@@ -107,14 +108,24 @@ export default class Chat extends Component {
         //this.context.closeChat()
     }
 
-    handleChatRoom = e => {
+    handleRoomName = e => {
         e.preventDefault()
-        const chatRoom = this.chatRoom
-        
+        const roomName = this.roomName.current.value
+        const info = {
+            roomName,
+            'username': localStorage.username 
+        }
+        console.log(roomName)
         this.setState({
-            chatRoom
+            roomName
         })
-        socket.emit('joinRoom', chatRoom)
+        socket.emit('joinRoom', info)
+        socket.on('welcome message', message => {
+            console.log(message)
+        })
+        socket.on('user joined room', message => {
+            console.log(message)
+        })
     }
 
     handleInput = (message) => {
@@ -135,13 +146,19 @@ export default class Chat extends Component {
         e.preventDefault()
         const newMsg = this.state.currentMessage
         const { username, message } = this.state.currentMessage
-        
+        const roomName = this.state.roomName
+        const messageToRoom = {
+            roomName,
+            username,
+            message
+        }
+
         this.setState({
             messages: [...this.state.messages, newMsg]
         })
         //socket.emit('chat_message', ({ username: username, message: message}))
         this.chatInput.current.value = ''
-        socket.emit('newMessage', newMsg )
+        socket.emit('newMessage', messageToRoom )
         this.setState({
             currentMessage: ''
         })
@@ -152,8 +169,8 @@ export default class Chat extends Component {
         return(
         <>
             <div className={ chatToggle }>
-                <input ref={ this.chatRoom }/>
-                <button onClick={ this.handleChatRoom }>join room</button>
+                <input ref={ this.roomName }/>
+                <button onClick={ this.handleRoomName }>join room</button>
                 <div className="chat_title_container">
                 
                     {/* <button id="close_btn" className="close_btn" href="javascript:void(0)" onClick={e => this.closeChat(e)}><i className="fas fa-times fa-2x"></i></button> */}
