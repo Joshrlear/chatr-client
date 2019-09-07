@@ -1,135 +1,69 @@
 import React, { Component } from 'react'
-//import config from '../config'
+import config from '../config'
 import ChatContext from '../ChatContext';
-//import fetches from '../fetches'
+import fetches from '../fetches'
 
-//const { getProfileImage, getProfilename } = fetches.profileFetches
-
-const imageHeight = Math.ceil(window.outerHeight * 0.35);
-const imageWidth = Math.ceil(window.innerWidth);
+const { createUser, getUser } = fetches.userFetches
 
 export default class Profile extends Component {
     constructor(props) {
       super(props)
-      this.imageUpload = React.createRef()
       this.name = React.createRef()
       this.state = {
+        name_input: '',
         user_id: '',
-        profileImage: `https://via.placeholder.com/${imageWidth}x${imageHeight}`,
         name: '',
-        imageUpload: 'Upload Image',
       }
-    }
-
-    //static contextType = UdownContext;
-    
-    componentDidMount() {
-        
-        // need to set localStorage: user_id
-
-      /* this.setState({
-        "user_id": localStorage.user_id
-      }) */
-    }
-
-    componentDidUpdate() {
-      /* const user_id = localStorage.user_id
-
-      // get profile image
-      const imageResult = Promise.resolve(getProfileImage(user_id, this.props))
-      imageResult.then(value => {
-        if (value.image) {
-          const base64Image = value.image.image
-          const image = `data:image/jpg;base64, ${base64Image}`
-          value.image && (
-            this.state.profileImage !== image  && (
-              this.setState({
-                profileImage: image
-              })
-            )
-          )
-          
-        }
-      })
-
-      // get user phone_number
-      const phoneResult = Promise.resolve(getProfilePhone(user_id, 'phone_number'))
-      phoneResult.then(value => {
-        if (value) {
-          this.state.phone !== value.field && (
-            this.setState({
-              phone: value.field
-            })
-          )
-        }
-      }) */
     }
 
     handleSubmit = (e) => {
       e.preventDefault()
-      /* const user_id = localStorage.user_id
-      const imageUpload = this.imageUpload.current.files[0] ? this.imageUpload.current.files[0] : null
-      const imageName = this.imageUpload.current.files[0] ? `${Date.now()}-${this.imageUpload.current.files[0].name}` : null
-      const phoneNumber = this.phoneNumber.current.value && this.phoneNumber.current.value
-
-      const formData = new FormData()
-      this.imageUpload.current.files[0] && formData.append('image', imageUpload, imageName)
-      formData.append('phone', phoneNumber)
-      fetch(`${config.API_ENDPOINT}profile/${user_id}`, {
-        method: 'POST',
-        body: formData,
-        headers: { "user_id": user_id }
-      })
-      .then(res => {
-        if (!res.ok) {
-          return res.json().then(err => {
-            throw err
-          })
+      // set for quick access everywhere else
+      const username = this.state.name_input
+      console.log('check if username is in use')
+      getUser(username)
+        .then(res => {
+          //username not found
+          if(!res.id) { 
+            createUser(username)
+              .then(user => {
+                const { id, username } = user
+                this.setState({
+                  name_input: '',
+                  user_id: id,
+                  user: username
+                })
+                localStorage.user_id = id
+                localStorage.username = username
+                this.name.current.value = ''
+              })
         }
         else {
-          this.props.history.push('/profile')
-          return res
+          //username found
+          const { id, username } = res
+          localStorage.user_id = id
+          localStorage.username = username
+          this.name.current.value = ''
         }
-      })
-      .catch(err => {
-        console.log(err)
-      }) */
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
     handleInput = e => {
         e.preventDefault();
-        const nameValue = e.target.value
+        const name_input = e.target.value
         this.setState({
-            name: nameValue
+            name_input
         })
-        localStorage.username = nameValue
-    }
-
-    handleValue = () => {
-      const imgName = this.imageUpload.current.value.split('fakepath\\')[1]
-      this.setState({
-        imageUpload: imgName
-      })
     }
 
     render() {
         return (
           <div className="profile_container">
             <div className="profile">
-                <div className="img_container">
-                    <img id='profile-image' className="profile_image" src={this.state.profileImage} alt="User" />
-                </div>
-                <form ref='uploadForm' 
-                  id='uploadForm' 
-                  onSubmit={e => this.handleSubmit(e)}
-                  method='post' 
-                  encType="multipart/form-data">
-                  <input 
-                    ref={ this.imageUpload }
-                    onChange={ this.handleValue } 
-                    type="file" 
-                    name="imageUpload"
-                    id="imageUpload" />
+                <form onSubmit={e => this.handleSubmit(e)}>
                   <label className="name_label">Name</label>
                   <input 
                     ref={ this.name } 

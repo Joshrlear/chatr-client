@@ -2,13 +2,18 @@ import React, { Component } from 'react'
 import config from '../config'
 import io from 'socket.io-client'
 //import UdownContext from '../UdownContext'
+import fetches from '../fetches'
 import ScrollToBottom from 'react-scroll-to-bottom'
 import Textarea from 'react-textarea-autosize'
 import './Chat.css'
 import { IncomingMessage } from 'http';
+import { resolve } from 'path'
+import { reject } from 'q'
 
 // on render, client connects to socket.io via server
 const socket = io.connect(config.SERVER_BASE_URL)
+
+const { roomFetches, userRoomsFetches } = fetches
 
 export default class Chat extends Component {
     constructor(props) {
@@ -22,6 +27,7 @@ export default class Chat extends Component {
             messages: [],
             userTyping: [],
             roomName: '',
+            rooms_id: '',
         }
     }
 
@@ -61,10 +67,17 @@ export default class Chat extends Component {
     }
 
     componentWillUnmount() {
-
-        // client emits 'disconnected' socket
-        // when they leave the chat
-        socket.emit('disconnected', localStorage.username)
+        const user_id = localStorage.user_id
+        const { rooms_id } = this.state
+        userRoomsFetches.userLeavesRoom(user_id, rooms_id)
+            .then(res => {
+                if(res.ok) {
+                    console.log('user has left room and will disconnect from socket room:',res)
+                    // client emits 'disconnected' socket
+                    // when they leave the chat
+                    socket.emit('disconnected', localStorage.username)
+                }
+            })
     }
 
     /* connectSocket() {
@@ -108,17 +121,7 @@ export default class Chat extends Component {
         //this.context.closeChat()
     }
 
-    handleRoomName = e => {
-        e.preventDefault()
-        const roomName = this.roomName.current.value
-        const info = {
-            roomName,
-            'username': localStorage.username 
-        }
-        console.log(roomName)
-        this.setState({
-            roomName
-        })
+    addUserToSocketRoom = info => {
         socket.emit('joinRoom', info)
         socket.on('welcome message', message => {
             console.log(message)
@@ -126,6 +129,110 @@ export default class Chat extends Component {
         socket.on('user joined room', message => {
             console.log(message)
         })
+    }
+
+    handleRoomName = e => {
+        e.preventDefault()
+        const roomName = this.roomName.current.value.replace(/\s+/g, '-').toLowerCase()
+        const username = localStorage.username 
+        const info = {
+            roomName,
+            username
+        }
+
+        console.log('this is the roomName and the username:', roomName, username)
+        this.setState({
+            roomName
+        })
+
+        // check whether roomName exists
+        roomFetches.getRoom(roomName)
+        .then(res => {
+            console.log('determining if res is ok or not', res)
+            if(!res.id) {
+                // if room doesn't exists, create room
+                console.log('room not found')
+                roomFetches.createRoom(roomName)
+                .then(res => {
+                    console.log('res for roomName here:', res)
+                    if(!res.id) {
+                        throw new Error('Could not create room')
+                    }
+                    else {
+                        // now room exists, add user to room
+                        const rooms_id = res.id
+                        const user_id = parseInt(localStorage.user_id)
+                        console.log('room created:', rooms_id)
+                        userRoomsFetches.addUser(user_id, rooms_id)
+                        .then(res => {
+                            console.log('this is the res:', res)
+                            if(!res.ok) {
+                                console.log('we are reaching this part')
+                                throw new Error('user not added')
+                            }
+                            else {
+                                // user has been added to room. update state with room_id
+                                // and add to socket room
+                                console.log('res is ok, we are now updating state with rooms_id')
+                                this.setState({
+                                    rooms_id
+                                })
+                                this.addUserToSocketRoom(info)
+                            }
+                        })
+                    }
+                })
+                
+            }
+            else {
+                console.log('res was good!', res)
+                // if room exists, add user to room
+                const rooms_id = res.id
+                const user_id = localStorage.user_id
+                console.log('room exists:', rooms_id)
+
+                // check if user is already in room
+                userRoomsFetches.getUserRooms(user_id, rooms_id)
+                    .then(res =>{
+                        console.log('this is the res from getuserRooms:', res)
+                        if(!res.ok) {
+                            console.log('are we getting here?')
+                            // user not in room yet. add user
+                            userRoomsFetches.addUser(user_id, rooms_id)
+                                .then(res => {
+                                    console.log('this is the res from addUser:', res)
+                                   if(!res.ok) {
+                                       console.log('this is running')
+                                       throw new Error('user not added')
+                                   }
+                                   else {
+                                       // user added to room. update state to 
+                                       // show which room they are in
+                                       // then add user to socket room
+                                       console.log('Good res')
+                                       this.setState({
+                                           rooms_id
+                                       })
+                                       this.addUserToSocketRoom(info)
+                                   }
+                                })
+                                .catch(err => { return err })
+                        }
+                        else {
+                            // user is in room. update state to show which 
+                            // room they are in then add user to socket room
+                            console.log('user already in room')
+                            this.setState({
+                                rooms_id
+                            })
+                            this.addUserToSocketRoom(info)
+                        }
+                    })
+            }
+        })
+        .catch(err => { return err })  
+
+        this.roomName.current.value = ''
     }
 
     handleInput = (message) => {
