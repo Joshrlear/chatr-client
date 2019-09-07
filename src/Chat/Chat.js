@@ -54,8 +54,15 @@ export default class Chat extends Component {
          
         // client listens for 'incoming message' socket connection
         // then it logs the IncomingMsg  
-        socket.on('incoming message', IncomingMsg => {
-            console.log(IncomingMsg)
+        socket.on('incoming message', incomingMsg => {
+            console.log(incomingMsg)
+            this.setState({
+                messages: [
+                    ...this.state.messages, 
+                    incomingMsg
+                ]
+            })
+
         })
 
         // connect to socket if no socket connected
@@ -263,8 +270,7 @@ export default class Chat extends Component {
         this.setState({
             messages: [...this.state.messages, newMsg]
         })
-        //socket.emit('chat_message', ({ username: username, message: message}))
-        this.chatInput.current.value = ''
+        this.textarea.value = ''
         socket.emit('newMessage', messageToRoom )
         this.setState({
             currentMessage: ''
@@ -310,7 +316,7 @@ export default class Chat extends Component {
                     <div className="input_container">
                         <Textarea
                             maxRows={5}
-                            ref={ this.chatInput } 
+                            inputRef={ tag => (this.textarea = tag) }
                             className="chat_intput" 
                             placeholder="type message..."
                             onChange={e => this.handleInput(e.target.value)}/>
