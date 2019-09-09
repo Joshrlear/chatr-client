@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import config from '../config'
+import AutosizeInput from 'react-input-autosize'
 import ChatContext from '../ChatContext';
 import fetches from '../fetches'
+import './Profile.css'
 
 const { createUser, getUser } = fetches.userFetches
 
@@ -10,16 +12,30 @@ export default class Profile extends Component {
       super(props)
       this.name = React.createRef()
       this.state = {
-        name_input: '',
         user_id: '',
         name: '',
+      }
+    }
+
+    componentWillMount() {
+      let name
+      let user_id
+      
+      if (localStorage.username) {
+        name = localStorage.username
+        user_id = localStorage.user_id
+        this.state.user !== name
+          && this.setState({
+            name, 
+            user_id
+          })
       }
     }
 
     handleSubmit = (e) => {
       e.preventDefault()
       // set for quick access everywhere else
-      const username = this.state.name_input
+      const username = this.state.name
       console.log('check if username is in use')
       getUser(username)
         .then(res => {
@@ -35,15 +51,15 @@ export default class Profile extends Component {
                 })
                 localStorage.user_id = id
                 localStorage.username = username
-                this.name.current.value = ''
               })
+              this.props.history.push('/rooms')
         }
         else {
           //username found
           const { id, username } = res
           localStorage.user_id = id
           localStorage.username = username
-          this.name.current.value = ''
+          this.props.history.push('/rooms')
         }
         })
         .catch(err => {
@@ -51,33 +67,36 @@ export default class Profile extends Component {
         })
     }
 
-    handleInput = e => {
-        e.preventDefault();
-        const name_input = e.target.value
-        this.setState({
-            name_input
-        })
-    }
+    updateInputValue = (input, event) => {
+      const newState = {};
+      newState[input] = event.target.value;
+      this.setState(newState);
+    };
 
     render() {
+      const hasUser = localStorage.user_id 
+        && this.props.location.pathname !== "/profile" 
+          ? "has_user" 
+          : ""
+
         return (
-          <div className="profile_container">
-            <div className="profile">
-                <form onSubmit={e => this.handleSubmit(e)}>
-                  <label className="name_label">Name</label>
-                  <input 
+          <>
+            <div className={`profile_container ${hasUser} main_container`}>
+                <form className={`profile_form ${hasUser}`} onSubmit={e => this.handleSubmit(e)}>
+                  <AutosizeInput
                     ref={ this.name } 
-                    className="name" 
-                    placeholder="Name here" 
-                    defaultValue={ this.state.name }
-                    onChange={ e => this.handleInput(e) }
-                  />
-                  <div className="button_rack">
-                    <input className="save_btn" type='submit' value='Save' />
+                    className={`profile_name ${hasUser} input-1`}
+				          	placeholder={ this.state.name || "Name here..." }
+				          	value={this.state.name}
+				          	onChange={this.updateInputValue.bind(this, 'name')}
+				          />
+                  <div className={`button_rack ${hasUser}`}>
+                    <input className={`cancel_btn ${hasUser} btn-1`} type='button' value='Cancel' />
+                    <input className="save_btn btn-1" type='submit' value='Save' />
                   </div>
                 </form>
             </div>
-          </div>
+          </>
         )
     }
 }

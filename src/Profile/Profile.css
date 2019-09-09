@@ -1,0 +1,102 @@
+/* ------ screen responsiveness ------ */
+/* ------ fonts ------ */
+/* ------ colors ------ */
+/* ------ elements ------ */
+.input-1 > * {
+  line-height: 2.5rem;
+  padding: 0px 15px;
+  border: 0;
+  border-radius: 30px;
+  background-color: #3bbd66;
+  color: white;
+}
+
+.input-1 > *::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.input-1 > *:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.input-1 > *::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.input-1 > *::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.input-1 > *:focus {
+  outline: none;
+}
+
+.btn-1 {
+  border: 0;
+  background-color: transparent;
+  color: #3bbd66;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile_container.has_user {
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.profile_container .profile_form {
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.profile_container .profile_form.has_user {
+  position: relative;
+  left: 0px;
+  float: right;
+}
+
+.profile_container .profile_form .profile_name.has_user {
+  display: block;
+  position: absolute;
+  right: -15px;
+}
+
+.profile_container .button_rack {
+  padding-top: 20px;
+}
+
+.profile_container .button_rack.has_user {
+  padding-top: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.profile_container .button_rack * {
+  margin-bottom: 10px;
+}
+
+.profile_container .button_rack .cancel_btn {
+  display: none;
+}
+
+.profile_container .button_rack .cancel_btn.has_user {
+  display: initial;
+  color: #f1491f;
+}
+/*# sourceMappingURL=Profile.css.map */

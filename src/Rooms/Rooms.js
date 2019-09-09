@@ -1,21 +1,19 @@
 import React, { Component } from 'react'
 import config from '../config'
 import io from 'socket.io-client'
+import AutosizeInput from 'react-input-autosize'
+import ScrollToBottom from 'react-scroll-to-bottom'
 //import UdownContext from '../UdownContext'
 import fetches from '../fetches'
-import ScrollToBottom from 'react-scroll-to-bottom'
 import Textarea from 'react-textarea-autosize'
-import './Chat.css'
-import { IncomingMessage } from 'http';
-import { resolve } from 'path'
-import { reject } from 'q'
+import './Rooms.css'
 
 // on render, client connects to socket.io via server
 const socket = io.connect(config.SERVER_BASE_URL)
 
 const { roomFetches, userRoomsFetches } = fetches
 
-export default class Chat extends Component {
+export default class Rooms extends Component {
     constructor(props) {
         super(props);
         this.chatInput = React.createRef()
@@ -34,6 +32,9 @@ export default class Chat extends Component {
     //static contextType = UdownContext
 
     componentWillMount() {
+        console.log('logging in the Rooms component')
+        !localStorage.user_id && this.props.history.push('/profile')
+        localStorage.rooms_id && this.props.history.push('/chatroom')
 
         // connects to chat namespace 
         let chat = io(`${config.SERVER_BASE_URL}chat`)
@@ -140,7 +141,7 @@ export default class Chat extends Component {
 
     handleRoomName = e => {
         e.preventDefault()
-        const roomName = this.roomName.current.value.replace(/\s+/g, '-').toLowerCase()
+        const roomName = this.state.roomName.replace(/\s+/g, '-').toLowerCase()
         const username = localStorage.username 
         const info = {
             roomName,
@@ -185,6 +186,9 @@ export default class Chat extends Component {
                                     rooms_id
                                 })
                                 this.addUserToSocketRoom(info)
+                                localStorage.rooms_id = rooms_id
+                                this.props.history.push('/chatroom')
+                                window.location.reload()
                             }
                         })
                     }
@@ -221,6 +225,9 @@ export default class Chat extends Component {
                                            rooms_id
                                        })
                                        this.addUserToSocketRoom(info)
+                                       localStorage.rooms_id = rooms_id
+                                       this.props.history.push('/chatroom')
+                                       window.location.reload()
                                    }
                                 })
                                 .catch(err => { return err })
@@ -233,6 +240,9 @@ export default class Chat extends Component {
                                 rooms_id
                             })
                             this.addUserToSocketRoom(info)
+                            localStorage.rooms_id = rooms_id
+                            this.props.history.push('/chatroom')
+                            window.location.reload()
                         }
                     })
             }
@@ -242,53 +252,29 @@ export default class Chat extends Component {
         this.roomName.current.value = ''
     }
 
-    handleInput = (message) => {
-        console.log('message here:',message)
-        
-        //socket.emit('typing', user)
-        const messageInfo = {
-            username: localStorage.username,
-            message: message
-        }
-
-        this.setState({
-            currentMessage: messageInfo
-        })
-    }
-
-    sendMessage = e => {
-        e.preventDefault()
-        const newMsg = this.state.currentMessage
-        const { username, message } = this.state.currentMessage
-        const roomName = this.state.roomName
-        const messageToRoom = {
-            roomName,
-            username,
-            message
-        }
-
-        this.setState({
-            messages: [...this.state.messages, newMsg]
-        })
-        this.textarea.value = ''
-        socket.emit('newMessage', messageToRoom )
-        this.setState({
-            currentMessage: ''
-        })
-    }
+    updateInputValue = (input, event) => {
+        const newState = {};
+        newState[input] = event.target.value;
+        this.setState(newState);
+    };
 
     render() {
-        const chatToggle = !this.context.chatOpened ? 'chat_container' : 'chat_container active'
+        
         return(
         <>
-            <div className={ chatToggle }>
-                <input ref={ this.roomName }/>
-                <button onClick={ this.handleRoomName }>join room</button>
-                <div className="chat_title_container">
-                
-                    {/* <button id="close_btn" className="close_btn" href="javascript:void(0)" onClick={e => this.closeChat(e)}><i className="fas fa-times fa-2x"></i></button> */}
-                    <h1 className="chat_title">Chat</h1>
-                </div>
+            <div className="rooms_container main_container">
+            <form className="rooms_form" onSubmit={e => this.handleRoomName(e)}>
+                  <AutosizeInput
+                    ref={ this.roomName } 
+                    className="input_roomName input-2" 
+					placeholder="room name..."
+					onChange={ this.updateInputValue.bind(this, 'roomName') }
+				/>
+                  <div className="button_rack">
+                    <input className="save_btn btn-2" type='submit' value='Create Room' />
+                  </div>
+                </form>
+                {/* <button onClick={ this.handleRoomName }>join room</button> */}
                 <ScrollToBottom className="chat_section">
                     <ul className="messages">
                         {this.state.messages.map((msg, i) => <li key={i} className="message">
@@ -311,26 +297,6 @@ export default class Chat extends Component {
                     </ul>
                 </ScrollToBottom>
                 <div className="forScroll" ref={ this.messagesEnd }/>
-                <form className="chat_input_section_container"
-                onSubmit={e => {this.sendMessage(e)}}>
-                    <div className="input_container">
-                        <Textarea
-                            maxRows={5}
-                            inputRef={ tag => (this.textarea = tag) }
-                            className="chat_intput" 
-                            placeholder="type message..."
-                            onChange={e => this.handleInput(e.target.value)}/>
-                    </div>
-                    <br/>
-                    <div className="button_container">
-                        <button 
-                            className="send_button" 
-                            type="submit">
-                                Send
-                        </button>
-                    </div>
-                    
-                </form>
             </div>
             </>
     )

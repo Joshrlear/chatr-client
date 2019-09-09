@@ -1,0 +1,57 @@
+@import '../scssImports';
+@include buttons;
+
+.chatroom_container {
+
+    .room_header {
+        width: fit-content;
+        margin: auto;
+        text-align: center;
+
+        h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .message_section {
+        height: 350px;
+        margin-top: 20px;
+
+        .messages {
+            list-style: none;
+            padding: 0px;
+            width: 300px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+    
+            .message {
+                background-color: $greenish;
+            }
+    
+            .preview {
+                color: white;
+                background-color: $orangeish;
+                opacity: 0.5;
+            }
+        }
+    }
+
+    .chat_input_section_container {
+        position: absolute;
+        display: flex;
+        justify-content: space-evenly;
+        margin: auto 5%;
+        bottom: 20px;
+
+        .input_container {
+            width: 70%;
+
+            .chat_intput {
+                width: 100%;
+                border: none;
+                resize: none;
+            }
+        }
+    }
+}

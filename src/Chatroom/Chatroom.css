@@ -1,0 +1,88 @@
+/* ------ screen responsiveness ------ */
+/* ------ fonts ------ */
+/* ------ colors ------ */
+/* ------ elements ------ */
+.btn-3 {
+  border: 0;
+  border-radius: 20px;
+  background-color: #f1491f;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-3:hover {
+  background-color: #b82e0c;
+}
+
+.btn-4 {
+  border: 0;
+  border-radius: 20px;
+  background-color: #3bbd66;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-4:hover {
+  background-color: #298347;
+}
+
+.chatroom_container .room_header {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+  text-align: center;
+}
+
+.chatroom_container .room_header h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.chatroom_container .message_section {
+  height: 350px;
+  margin-top: 20px;
+}
+
+.chatroom_container .message_section .messages {
+  list-style: none;
+  padding: 0px;
+  width: 300px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.chatroom_container .message_section .messages .message {
+  background-color: #3bbd66;
+}
+
+.chatroom_container .message_section .messages .preview {
+  color: white;
+  background-color: #f1491f;
+  opacity: 0.5;
+}
+
+.chatroom_container .chat_input_section_container {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  margin: auto 5%;
+  bottom: 20px;
+}
+
+.chatroom_container .chat_input_section_container .input_container {
+  width: 70%;
+}
+
+.chatroom_container .chat_input_section_container .input_container .chat_intput {
+  width: 100%;
+  border: none;
+  resize: none;
+}
+/*# sourceMappingURL=Chatroom.css.map */

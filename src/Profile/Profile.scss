@@ -1,0 +1,54 @@
+@import '../scssImports';
+@include form-1;
+
+.profile_container {
+
+    &.has_user {
+        z-index: 2;
+        background-color: rgba(white, 0.85)
+    }
+
+    .profile_form {
+        position: absolute;
+        top: 30px;
+        left: 50px;
+        width: fit-content;
+
+        &.has_user {
+            position: relative;
+            left: 0px;
+            float: right;
+        }
+
+        .profile_name.has_user {
+            display: block;
+            position: absolute;
+            right: -15px;
+        }
+    }
+
+    .button_rack {
+        padding-top: 20px;
+
+        &.has_user {
+            padding-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        * {
+            margin-bottom: 10px;
+        }
+
+        .cancel_btn {
+            display: none;
+
+            &.has_user {
+                display: initial;
+                color: #f1491f;
+            }
+        }
+    }
+}
+

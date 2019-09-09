@@ -1,3 +1,13 @@
+@import '../scssImports';
+@include form-2;
+
+.rooms_form {
+    width: fit-content;
+    margin: auto;
+    margin-top: 30px;
+    text-align: center;
+}
+
 .messages {
     list-style: none;
     padding: 0px;

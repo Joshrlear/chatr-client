@@ -1,7 +1,22 @@
+@import './scssImports';
+@include fonts;
+@include main_container;
+@include noFocus;
+
+.App {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 600px auto;
+    grid-template-columns: auto 400px auto;
+    background-image: linear-gradient(to bottom right, red, yellow)
+}
+
 .link_container > * {
     text-decoration: none;
     color: black;
 }
+
 .active {
         color: red;
 }

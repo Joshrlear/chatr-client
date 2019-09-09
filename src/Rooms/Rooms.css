@@ -1,0 +1,82 @@
+/* ------ screen responsiveness ------ */
+/* ------ fonts ------ */
+/* ------ colors ------ */
+/* ------ elements ------ */
+.input-2 > * {
+  line-height: 2.5rem;
+  padding: 0px 15px;
+  border: 0;
+  border-radius: 30px;
+  background-color: transparent;
+  color: grey;
+  text-align: center;
+}
+
+.input-2 > *::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-style: italic;
+  text-align: center;
+}
+
+.input-2 > *:-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-style: italic;
+  text-align: center;
+}
+
+.input-2 > *::-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-style: italic;
+  text-align: center;
+}
+
+.input-2 > *::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-style: italic;
+  text-align: center;
+}
+
+.input-2 > *:focus {
+  outline: none;
+}
+
+.btn-2 {
+  border: 0;
+  border-radius: 20px;
+  background-color: #3bbd66;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-2:hover {
+  background-color: #298347;
+}
+
+.rooms_form {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.messages {
+  list-style: none;
+  padding: 0px;
+  width: 300px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.messages .message {
+  background-color: #3cb4dc;
+}
+
+.messages .preview {
+  color: white;
+  background-color: red;
+  opacity: 0.5;
+}
+/*# sourceMappingURL=Rooms.css.map */

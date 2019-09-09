@@ -1,0 +1,164 @@
+/* ------ screen responsiveness ------ */
+
+@mixin phone {
+    @media (max-width: 599px) { @content; }
+}
+
+@mixin tablet {
+  @media (min-width: 600px) { @content; }
+}
+
+@mixin large-tablet {
+  @media (min-width: 1000px) { @content; }
+}
+
+@mixin desktop {
+  @media (min-width: 1200px) { @content; }
+}
+
+
+/* ------ fonts ------ */
+@mixin fonts {
+    h1 {
+        font-size: 40px;
+    }
+    
+    h2 {
+        font-size: 30px;
+    }
+    
+    h3 {
+        font-size: 25px;
+    }
+    
+    h4 {
+        font-size: 20px;
+    }
+    
+    h5 {
+        font-size: 15px;
+    }
+    
+    p, input, textarea, button {
+        font-size: 25px;
+    }
+}
+
+
+/* ------ colors ------ */
+
+$myBlue: #4169E1;
+$greenish: #3bbd66;
+$orangeish: #f1491f;
+$placeholderDark: rgba(0,0,0,0.5);
+$placeholderLight: rgba(255,255,255,0.5);
+
+
+/* ------ elements ------ */
+
+@mixin form-1 {
+    .input-1 > * {
+        line-height: 2.5rem;
+        padding: 0px 15px;
+        border: 0;
+        border-radius: 30px;
+        background-color: $greenish;
+        color: white;
+
+        &::placeholder {
+            color: $placeholderLight;
+            font-style: italic;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .btn-1 {
+        border: 0;
+        background-color: transparent;
+        color: $greenish;
+        font-weight: 600;
+        cursor: pointer;
+    }
+}
+
+@mixin form-2 {
+    .input-2 > * {
+        line-height: 2.5rem;
+        padding: 0px 15px;
+        border: 0;
+        border-radius: 30px;
+        background-color: transparent;
+        color: grey;
+        text-align: center;
+
+        &::placeholder {
+            color: $placeholderDark;
+            font-style: italic;
+            text-align: center;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .btn-2 {
+        border: 0;
+        border-radius: 20px;
+        background-color: $greenish;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken($greenish,15%);
+        }
+    }
+}
+
+@mixin main_container {
+    .main_container {
+        position: relative;
+        grid-row: 2/2;
+        grid-column: 2/2;
+        background-color: white;
+        border-radius: 20px;
+    }
+}
+
+@mixin buttons {
+    .btn-3 {
+        border: 0;
+        border-radius: 20px;
+        background-color: $orangeish;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken($orangeish,15%);
+        }
+    }
+
+    .btn-4 {
+        border: 0;
+        border-radius: 20px;
+        background-color: $greenish;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken($greenish,15%);
+        }
+    }
+}
+
+@mixin noFocus {
+    textarea:focus, input:focus{
+        outline: none;
+    }
+}
