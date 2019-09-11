@@ -122,7 +122,7 @@ export default class App extends Component {
             component={ LandingPage }
           />
         <Route 
-            path={ "/" }
+            path="/"
             component={ Profile }
           />
           <Route 
