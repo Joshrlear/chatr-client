@@ -3,7 +3,7 @@ import config from '../config'
 import io from 'socket.io-client'
 import AutosizeInput from 'react-input-autosize'
 import ScrollToBottom from 'react-scroll-to-bottom'
-//import UdownContext from '../UdownContext'
+import ChatContext from '../ChatContext'
 import fetches from '../fetches'
 import Textarea from 'react-textarea-autosize'
 import './Rooms.css'
@@ -29,12 +29,13 @@ export default class Rooms extends Component {
         }
     }
 
-    //static contextType = UdownContext
+    static contextType = ChatContext
 
     componentWillMount() {
-        console.log('logging in the Rooms component')
+        this.context.checkLocalStorage()
+        console.log('logging in the Rooms component', this.context.user)
         !localStorage.user_id && this.props.history.push('/profile')
-        localStorage.rooms_id && this.props.history.push('/chatroom')
+        localStorage.rooms_id && console.log('component will mount and this is the rooms_id:', localStorage.rooms_id) /* this.props.history.push('/chatroom') */
 
         // connects to chat namespace 
         let chat = io(`${config.SERVER_BASE_URL}chat`)
@@ -75,17 +76,7 @@ export default class Rooms extends Component {
     }
 
     componentWillUnmount() {
-        const user_id = localStorage.user_id
-        const { rooms_id } = this.state
-        userRoomsFetches.userLeavesRoom(user_id, rooms_id)
-            .then(res => {
-                if(res.ok) {
-                    console.log('user has left room and will disconnect from socket room:',res)
-                    // client emits 'disconnected' socket
-                    // when they leave the chat
-                    socket.emit('disconnected', localStorage.username)
-                }
-            })
+        
     }
 
     /* connectSocket() {
@@ -99,28 +90,7 @@ export default class Rooms extends Component {
             })
         })
 
-        // displays: username is typing...
-        socket.on('typing', user => {
-            let timeout = null
-            // if user not found in state
-            if (this.state.userTyping.includes(user)) {
-                // clear any previous timeout
-                clearTimeout(timeout)
-                // begin timeout
-                timeout = setTimeout(() => {
-                    
-                    // after 3 seconds all usernames will be removed
-                    this.setState({
-                        userTyping: []
-                    })
-                }, 3000)
-            }
-            else {
-                this.setState({
-                    userTyping: [...this.state.userTyping, user]
-                })
-            }
-        })
+        
     } */
 
     closeChat = e => {
@@ -129,14 +99,11 @@ export default class Rooms extends Component {
         //this.context.closeChat()
     }
 
-    addUserToSocketRoom = info => {
-        socket.emit('joinRoom', info)
-        socket.on('welcome message', message => {
-            console.log(message)
-        })
-        socket.on('user joined room', message => {
-            console.log(message)
-        })
+    addUserToSocketRoom = (info, rooms_id) => {
+        localStorage.rooms_id = rooms_id
+        localStorage.roomName = info.roomName
+        this.props.history.push('/chatroom')
+        //window.location.reload()
     }
 
     handleRoomName = e => {
@@ -154,7 +121,7 @@ export default class Rooms extends Component {
         })
 
         // check whether roomName exists
-        roomFetches.getRoom(roomName)
+        roomFetches.getRoomByName(roomName)
         .then(res => {
             console.log('determining if res is ok or not', res)
             if(!res.id) {
@@ -185,10 +152,7 @@ export default class Rooms extends Component {
                                 this.setState({
                                     rooms_id
                                 })
-                                this.addUserToSocketRoom(info)
-                                localStorage.rooms_id = rooms_id
-                                this.props.history.push('/chatroom')
-                                window.location.reload()
+                                this.addUserToSocketRoom(info, rooms_id)
                             }
                         })
                     }
@@ -224,10 +188,7 @@ export default class Rooms extends Component {
                                        this.setState({
                                            rooms_id
                                        })
-                                       this.addUserToSocketRoom(info)
-                                       localStorage.rooms_id = rooms_id
-                                       this.props.history.push('/chatroom')
-                                       window.location.reload()
+                                       this.addUserToSocketRoom(info, rooms_id)
                                    }
                                 })
                                 .catch(err => { return err })
@@ -239,10 +200,7 @@ export default class Rooms extends Component {
                             this.setState({
                                 rooms_id
                             })
-                            this.addUserToSocketRoom(info)
-                            localStorage.rooms_id = rooms_id
-                            this.props.history.push('/chatroom')
-                            window.location.reload()
+                            this.addUserToSocketRoom(info, rooms_id)
                         }
                     })
             }
