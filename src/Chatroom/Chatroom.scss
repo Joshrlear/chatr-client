@@ -2,56 +2,123 @@
 @include buttons;
 
 .chatroom_container {
+    display: grid;
+    grid-template-rows: 120px auto 0px auto;
+    align-items: flex-end;
 
     .room_header {
+        grid-row: 1/2;
         width: fit-content;
+        height: 100%;
         margin: auto;
         text-align: center;
 
         h1 {
             font-size: 30px;
-            margin-bottom: 10px;
+            margin: 10px;
         }
     }
 
     .message_section {
-        height: 350px;
-        margin-top: 20px;
+        height: 100%;
+        grid-row: 2/3;
+        overflow: hidden;
+        
+        .message_container {
+            height: inherit;
+            width: 104%;
+        }
+
+        .css-1qyrjaz {
+            right: 40px;
+            bottom: 20px;
+        }
 
         .messages {
             list-style: none;
-            padding: 0px;
+            margin-left: 30px;
+            margin-right: 30px;
             width: 300px;
             word-wrap: break-word;
             overflow-wrap: break-word;
+            color: white;
+
+            .me {
+                position: relative;
+                left: calc(50% - 30px);
+
+                .message {
+                    background-color: $orangeish;
+                }
+            }
+
+            .message, .preview {
+                padding: 12px 20px;
+                margin: 15px 0px;
+
+                .from {
+                    margin-bottom: 7px;
+                }
+            }
     
             .message {
                 background-color: $greenish;
+                border-radius: 20px;
             }
     
             .preview {
                 color: white;
                 background-color: $orangeish;
+                border-radius: 20px;
                 opacity: 0.5;
+            }
+
+            .message > *, .preview > * {
+                margin: 0px 0px 3px 0px;
+            }
+
+            .time_sent {
+                text-align: right;
             }
         }
     }
 
+    .forScroll {
+        grid-row: 3/4;
+    }
+
     .chat_input_section_container {
-        position: absolute;
-        display: flex;
-        justify-content: space-evenly;
-        margin: auto 5%;
-        bottom: 20px;
+        height: fit-content;
+        grid-row: 4/5;
+        position: relative;
+        display: grid;
+        box-sizing: border-box;
+        box-shadow: 0px -1px 12px -4px rgba(0,0,0,0.2);
+        background-color: white;
+        grid-template-columns: 1fr 240px 1fr 80px 1fr;
+        width: 100%;
+        padding: 10px 0px;
+        border-radius: 0px 0px 20px 20px;
+        bottom: 0px;
 
         .input_container {
-            width: 70%;
+            width: 100%;
+            height: inherit;
+            grid-column: 2/3;
 
             .chat_intput {
                 width: 100%;
+                padding-top: 6px;
                 border: none;
                 resize: none;
             }
+        }
+
+        .button_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            grid-column: 4/5;
         }
     }
 }

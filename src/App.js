@@ -14,53 +14,102 @@ let chatRoomsPath
 
 export default class App extends Component {
   state = {
-    username: ''
+    user_id: '',
+    username: '',
+    rooms_id: '',
+    roomName: ''
+  }
+
+  updateRoomName = (info) => {
+    const roomName = info.roomName
+    console.log('updating roomName!', roomName)
+    this.state.roomName !== roomName
+      && this.setState({
+        roomName
+      })
+  }
+
+  updateState = userInfo => {
+    let key
+    let value
+    const { user_id, username, rooms_id, roomName } = this.state
+    const userState = { user_id, username, rooms_id, roomName }
+    userState !== userInfo 
+      && Object.entries(userInfo).map((entry, i) => {
+          key = entry[0]
+          value = entry[1]
+          console.log(key, value)
+          this.setState({
+            [key]: value
+          })
+        })
   }
 
   checkLocalStorage = () => {
-    let userInfo
-    let key
-    let value
-    // if localStorage.username exists
-    localStorage.username && (
-      // not already in state
-      this.state.username !== localStorage.username 
-        && (userInfo = localStorage)
-    )
-    // set state for any available user info in localStorage
-    userInfo && Object.entries(userInfo).map((entry, i) => {
-      key = entry[0]
-      value = entry[1]
-      console.log(key, value)
-      this.setState({
-        [key]: value
-      })
-    })
+    console.log('checking local storage')
+
+    const userState = [
+      this.state.user_id, 
+      this.state.username, 
+      this.state.rooms_id, 
+      this.state.roomName
+    ]
+    const storedUser = [
+      localStorage.user_id == null ? "" : localStorage.user_id, 
+      localStorage.username == null ? "" : localStorage.username, 
+      localStorage.rooms_id == null ? "" : localStorage.rooms_id, 
+      localStorage.roomName == null ? "" : localStorage.roomName
+    ]
+
+    const isEqual = JSON.stringify(userState) == JSON.stringify(storedUser)
+    console.log(JSON.stringify(userState), JSON.stringify(storedUser), isEqual)
+    if (!isEqual) {
+        this.setState({
+          user_id: storedUser[0],
+          username: storedUser[1],
+          rooms_id: storedUser[2],
+          roomName: storedUser[3]
+        })
+    }
   }
 
   // Allow profile to display if "profile" is somewhere in pathname
   profilePath = () => {
-    const displayProfile = window.location.pathname.split('/').includes('profile')
+    /* const displayProfile = window.location.pathname.split('/').includes('profile')
     // if "/profile" is in pathname use pathname otherwise use "/profile"
     profilePath = displayProfile 
           ? (this.state.profilePath !== window.location.pathname) && this.setState({ profilePath: window.location.pathname })
-          : (this.state.profilePath !== "/profile") && this.setState({ profilePath: "/profile" })
+          : (this.state.profilePath !== "/profile") && this.setState({ profilePath: "/profile" }) */
+
+    this.state.user_id
+      ? this.state.profilePath === '/' && this.setState({ profilePath: '/' })
+      : this.state.profilePath === '/profile' && this.setState({ profilePath: '/profile' })
   }
 
   componentWillMount() {
+    console.log('App will mount')
     this.checkLocalStorage()
-    this.profilePath()
+    //window.location.pathname !== '/home' && window.location.replace(`${config.CLIENT_BASE_URL}home`)
   }
 
   componentWillUpdate() {
+    console.log('App will update')
     this.checkLocalStorage()
-    this.profilePath()
   }
 
   render() {
 
+    const { user_id, username, rooms_id, roomName } = this.state
     const contextValue = {
-      user: this.state.user,
+      user: {
+        user_id,
+        username,
+        rooms_id,
+        roomName,
+      },
+      updateRoomName: this.updateRoomName,
+      updateState: this.updateState,
+      checkLocalStorage: this.checkLocalStorage
     }
     //const isExact = this.state.profilePath !== "/profile" ? 'exact' : ''
     setTimeout(() => console.log(profilePath,roomsPath,chatRoomsPath), 0)
@@ -73,7 +122,7 @@ export default class App extends Component {
             component={ LandingPage }
           />
         <Route 
-            path={ this.state.profilePath }
+            path={ "/" }
             component={ Profile }
           />
           <Route 

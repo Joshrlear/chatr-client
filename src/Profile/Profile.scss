@@ -1,7 +1,152 @@
 @import '../scssImports';
 @include form-1;
 
+/* --------- profile closed --------- */
+
 .profile_container {
+    pointer-events: none;
+
+    &.has_user {
+        z-index: 2;
+        background-color: transparent;
+    }
+
+    .profile_form {
+        position: absolute;
+        top: 30px;
+        left: 50px;
+        width: fit-content;
+        pointer-events: all;
+
+        &.has_user {
+            position: relative;
+            left: 0px;
+            float: right;
+        }
+
+        .profile_name, .profile_name > * {
+            font-size: 1.5rem;
+            width: 4px;
+            padding: 0px 18px;
+            cursor: pointer;
+        }
+
+        .profile_name.has_user {
+            right: -20px;
+        }
+    }
+
+    .button_rack, .button_rack > * {
+        display: none;
+    }
+
+    .button_rack {
+        padding-top: 20px;
+
+        &.open {
+            display: block;
+        }
+
+        &.has_user {
+            padding-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        * {
+            margin-bottom: 10px;
+        }
+
+        .cancel_btn.open {
+            display: none;
+
+            &.has_user {
+                display: initial;
+                color: #f1491f;
+            }
+        }
+    }
+}
+
+/* --------- profile open --------- */
+
+.profile_container.open {
+
+    /* &.has_user {
+        z-index: 2;
+        background-color: transparent; */
+
+        &.open {
+            background-color: rgba(white, 0.85)
+        }
+    //}
+
+    .profile_form {
+        position: absolute;
+        top: 30px;
+        left: 50px;
+        width: fit-content;
+
+        &.has_user {
+            position: relative;
+            left: 0px;
+            float: right;
+        }
+
+        .profile_name, .profile_name > * {
+            font-size: 1.5rem;
+            width: unset;
+            padding: 0px 18px;
+            cursor: pointer;
+        }
+
+        .profile_name.has_user {
+            right: -35px;
+        }
+
+        .profile_name.has_user {
+            display: block;
+            position: absolute;
+        }
+    }
+
+    .button_rack, .button_rack > * {
+        display: initial;
+    }
+
+    .button_rack {
+        padding-top: 20px;
+
+        &.open {
+            display: block;
+        }
+
+        &.has_user {
+            padding-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        * {
+            margin-bottom: 10px;
+        }
+
+        .cancel_btn.open {
+            display: none;
+
+            &.has_user {
+                display: initial;
+                color: #f1491f;
+            }
+        }
+    }
+}
+
+/* --------- main profile showing --------- */
+
+.profile_container.profile {
 
     &.has_user {
         z-index: 2;
@@ -20,14 +165,20 @@
             float: right;
         }
 
-        .profile_name.has_user {
+        .profile_name {
             display: block;
-            position: absolute;
+            position: initial;
             right: -15px;
+            padding: 0px;
+        }
+
+        .profile_name > * {
+            cursor: initial;
         }
     }
 
     .button_rack {
+        display: block;
         padding-top: 20px;
 
         &.has_user {
@@ -38,6 +189,7 @@
         }
 
         * {
+            display: block;
             margin-bottom: 10px;
         }
 
@@ -51,4 +203,3 @@
         }
     }
 }
-

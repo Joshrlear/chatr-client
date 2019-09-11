@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,400i&display=swap");
 /* ------ screen responsiveness ------ */
 /* ------ fonts ------ */
 /* ------ colors ------ */
@@ -28,61 +29,156 @@
   background-color: #298347;
 }
 
+.chatroom_container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 120px auto 0px auto;
+      grid-template-rows: 120px auto 0px auto;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
 .chatroom_container .room_header {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1/2;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  height: 100%;
   margin: auto;
   text-align: center;
 }
 
 .chatroom_container .room_header h1 {
   font-size: 30px;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .chatroom_container .message_section {
-  height: 350px;
-  margin-top: 20px;
+  height: 100%;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 1;
+  grid-row: 2/3;
+  overflow: hidden;
+}
+
+.chatroom_container .message_section .message_container {
+  height: inherit;
+  width: 104%;
+}
+
+.chatroom_container .message_section .css-1qyrjaz {
+  right: 40px;
+  bottom: 20px;
 }
 
 .chatroom_container .message_section .messages {
   list-style: none;
-  padding: 0px;
+  margin-left: 30px;
+  margin-right: 30px;
   width: 300px;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  color: white;
+}
+
+.chatroom_container .message_section .messages .me {
+  position: relative;
+  left: calc(50% - 30px);
+}
+
+.chatroom_container .message_section .messages .me .message {
+  background-color: #f1491f;
+}
+
+.chatroom_container .message_section .messages .message, .chatroom_container .message_section .messages .preview {
+  padding: 12px 20px;
+  margin: 15px 0px;
+}
+
+.chatroom_container .message_section .messages .message .from, .chatroom_container .message_section .messages .preview .from {
+  margin-bottom: 7px;
 }
 
 .chatroom_container .message_section .messages .message {
   background-color: #3bbd66;
+  border-radius: 20px;
 }
 
 .chatroom_container .message_section .messages .preview {
   color: white;
   background-color: #f1491f;
+  border-radius: 20px;
   opacity: 0.5;
 }
 
+.chatroom_container .message_section .messages .message > *, .chatroom_container .message_section .messages .preview > * {
+  margin: 0px 0px 3px 0px;
+}
+
+.chatroom_container .message_section .messages .time_sent {
+  text-align: right;
+}
+
+.chatroom_container .forScroll {
+  -ms-grid-row: 3;
+  -ms-grid-row-span: 1;
+  grid-row: 3/4;
+}
+
 .chatroom_container .chat_input_section_container {
-  position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  margin: auto 5%;
-  bottom: 20px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  -ms-grid-row: 4;
+  -ms-grid-row-span: 1;
+  grid-row: 4/5;
+  position: relative;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: 0px -1px 12px -4px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px -1px 12px -4px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  -ms-grid-columns: 1fr 240px 1fr 80px 1fr;
+      grid-template-columns: 1fr 240px 1fr 80px 1fr;
+  width: 100%;
+  padding: 10px 0px;
+  border-radius: 0px 0px 20px 20px;
+  bottom: 0px;
 }
 
 .chatroom_container .chat_input_section_container .input_container {
-  width: 70%;
+  width: 100%;
+  height: inherit;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2/3;
 }
 
 .chatroom_container .chat_input_section_container .input_container .chat_intput {
   width: 100%;
+  padding-top: 6px;
   border: none;
   resize: none;
+}
+
+.chatroom_container .chat_input_section_container .button_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-grid-column: 4;
+  -ms-grid-column-span: 1;
+  grid-column: 4/5;
 }
 /*# sourceMappingURL=Chatroom.css.map */

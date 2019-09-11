@@ -85,9 +85,10 @@ const roomFetches = {
         )
     },
 
-    getRoom(roomName) {
-        console.log(roomName)
-        return fetch(`${SERVER_BASE_URL}rooms/${roomName}`, {
+    getRoomByName(roomName) {
+        const roomQuery = `${roomName}=name`
+        console.log(roomQuery)
+        return fetch(`${SERVER_BASE_URL}rooms/${roomQuery}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -98,6 +99,29 @@ const roomFetches = {
                     console.log('no goos :(')
                     //return res.json()
                     throw new Error('roomName not found')
+                }
+                else {
+                    console.log('success!')
+                    return res.json()
+                }
+            })
+            .catch(err => { return err })
+    },
+
+    getRoomById(rooms_id) {
+        const roomQuery = `${rooms_id}=id`
+        console.log(roomQuery)
+        return fetch(`${SERVER_BASE_URL}rooms/${roomQuery}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => {
+                if(!res.ok) {
+                    console.log('no goos :(')
+                    //return res.json()
+                    throw new Error('rooms_id not found')
                 }
                 else {
                     console.log('success!')

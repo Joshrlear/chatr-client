@@ -14,6 +14,8 @@ export default class Profile extends Component {
       this.state = {
         user_id: '',
         name: '',
+        firstIntitial: '',
+        profileOpen: false
       }
     }
 
@@ -44,10 +46,12 @@ export default class Profile extends Component {
             createUser(username)
               .then(user => {
                 const { id, username } = user
+                const firstIntitial = Object.value(username)[1]
                 this.setState({
                   name_input: '',
                   user_id: id,
-                  user: username
+                  user: username,
+                  firstIntitial
                 })
                 localStorage.user_id = id
                 localStorage.username = username
@@ -73,7 +77,27 @@ export default class Profile extends Component {
       this.setState(newState);
     };
 
+    openProfile = e => {
+      e.preventDefault()
+      console.log('clicked')
+      this.state.profileOpen !== true
+        &&  this.setState({
+              profileOpen: true
+            })
+    }
+
+    closeProfile = e => {
+      e.preventDefault()
+      console.log('clicked')
+      this.state.profileOpen !== false
+        &&  this.setState({
+              profileOpen: false
+            })
+    }
+
     render() {
+      const currentPath = this.props.location.pathname.split('/')[this.props.location.pathname.split('/').length - 1]
+      const opened = this.state.profileOpen ? "open" : ""
       const hasUser = localStorage.user_id 
         && this.props.location.pathname !== "/profile" 
           ? "has_user" 
@@ -81,17 +105,23 @@ export default class Profile extends Component {
 
         return (
           <>
-            <div className={`profile_container ${hasUser} main_container`}>
+            <div className={`profile_container ${hasUser} ${opened} main_container ${currentPath}`}>
                 <form className={`profile_form ${hasUser}`} onSubmit={e => this.handleSubmit(e)}>
                   <AutosizeInput
                     ref={ this.name } 
                     className={`profile_name ${hasUser} input-1`}
 				          	placeholder={ this.state.name || "Name here..." }
 				          	value={this.state.name}
-				          	onChange={this.updateInputValue.bind(this, 'name')}
+                    onChange={this.updateInputValue.bind(this, 'name')}
+                    onClick={e => this.openProfile(e)}
 				          />
                   <div className={`button_rack ${hasUser}`}>
-                    <input className={`cancel_btn ${hasUser} btn-1`} type='button' value='Cancel' />
+                    <input
+                      onClick={e => this.closeProfile(e)}
+                      className={`cancel_btn ${hasUser} btn-0`} 
+                      type='button' 
+                      value='Cancel' 
+                    />
                     <input className="save_btn btn-1" type='submit' value='Save' />
                   </div>
                 </form>

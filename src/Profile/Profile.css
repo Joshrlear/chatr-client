@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,400i&display=swap");
 /* ------ screen responsiveness ------ */
 /* ------ fonts ------ */
 /* ------ colors ------ */
@@ -43,9 +44,22 @@
   cursor: pointer;
 }
 
+.btn-0 {
+  border: 0;
+  background-color: transparent;
+  color: #f1491f;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* --------- profile closed --------- */
+.profile_container {
+  pointer-events: none;
+}
+
 .profile_container.has_user {
   z-index: 2;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: transparent;
 }
 
 .profile_container .profile_form {
@@ -55,6 +69,7 @@
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  pointer-events: all;
 }
 
 .profile_container .profile_form.has_user {
@@ -63,14 +78,27 @@
   float: right;
 }
 
+.profile_container .profile_form .profile_name, .profile_container .profile_form .profile_name > * {
+  font-size: 1.5rem;
+  width: 4px;
+  padding: 0px 18px;
+  cursor: pointer;
+}
+
 .profile_container .profile_form .profile_name.has_user {
-  display: block;
-  position: absolute;
-  right: -15px;
+  right: -20px;
+}
+
+.profile_container .button_rack, .profile_container .button_rack > * {
+  display: none;
 }
 
 .profile_container .button_rack {
   padding-top: 20px;
+}
+
+.profile_container .button_rack.open {
+  display: block;
 }
 
 .profile_container .button_rack.has_user {
@@ -91,11 +119,157 @@
   margin-bottom: 10px;
 }
 
-.profile_container .button_rack .cancel_btn {
+.profile_container .button_rack .cancel_btn.open {
   display: none;
 }
 
-.profile_container .button_rack .cancel_btn.has_user {
+.profile_container .button_rack .cancel_btn.open.has_user {
+  display: initial;
+  color: #f1491f;
+}
+
+/* --------- profile open --------- */
+.profile_container.open {
+  /* &.has_user {
+        z-index: 2;
+        background-color: transparent; */
+}
+
+.profile_container.open.open {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.profile_container.open .profile_form {
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.profile_container.open .profile_form.has_user {
+  position: relative;
+  left: 0px;
+  float: right;
+}
+
+.profile_container.open .profile_form .profile_name, .profile_container.open .profile_form .profile_name > * {
+  font-size: 1.5rem;
+  width: unset;
+  padding: 0px 18px;
+  cursor: pointer;
+}
+
+.profile_container.open .profile_form .profile_name.has_user {
+  right: -35px;
+}
+
+.profile_container.open .profile_form .profile_name.has_user {
+  display: block;
+  position: absolute;
+}
+
+.profile_container.open .button_rack, .profile_container.open .button_rack > * {
+  display: initial;
+}
+
+.profile_container.open .button_rack {
+  padding-top: 20px;
+}
+
+.profile_container.open .button_rack.open {
+  display: block;
+}
+
+.profile_container.open .button_rack.has_user {
+  padding-top: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.profile_container.open .button_rack * {
+  margin-bottom: 10px;
+}
+
+.profile_container.open .button_rack .cancel_btn.open {
+  display: none;
+}
+
+.profile_container.open .button_rack .cancel_btn.open.has_user {
+  display: initial;
+  color: #f1491f;
+}
+
+/* --------- main profile showing --------- */
+.profile_container.profile.has_user {
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.profile_container.profile .profile_form {
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.profile_container.profile .profile_form.has_user {
+  position: relative;
+  left: 0px;
+  float: right;
+}
+
+.profile_container.profile .profile_form .profile_name {
+  display: block;
+  position: initial;
+  right: -15px;
+  padding: 0px;
+}
+
+.profile_container.profile .profile_form .profile_name > * {
+  cursor: initial;
+}
+
+.profile_container.profile .button_rack {
+  display: block;
+  padding-top: 20px;
+}
+
+.profile_container.profile .button_rack.has_user {
+  padding-top: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.profile_container.profile .button_rack * {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.profile_container.profile .button_rack .cancel_btn {
+  display: none;
+}
+
+.profile_container.profile .button_rack .cancel_btn.has_user {
   display: initial;
   color: #f1491f;
 }
