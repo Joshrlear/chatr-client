@@ -10,6 +10,7 @@ const ChatContext = createContext({
     updateRoomName: () => {},
     updateState: () => {},
     checkLocalStorage: () => {},
+    componentConnection: '',
 });
 
 export default ChatContext;

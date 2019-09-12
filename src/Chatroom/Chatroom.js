@@ -143,6 +143,7 @@ export default class Chatroom extends Component {
     }
 
     leaveRoom = e => {
+        this.changePointerEvents()
         console.log('user leaving room')
         const user_id = localStorage.user_id
         const { rooms_id } = this.state
@@ -179,6 +180,7 @@ export default class Chatroom extends Component {
 
     sendMessage = e => {
         e.preventDefault()
+        this.changePointerEvents()
         const newMsg = this.state.currentMessage
         newMsg.timestamp = moment().format('h:mm a').toString()
         const { username, message } = this.state.currentMessage
@@ -199,6 +201,15 @@ export default class Chatroom extends Component {
             currentMessage: ''
         })
         socket.emit('stop typing', username)
+    }
+
+    changePointerEvents = () => {
+        const value = {
+            event: true,
+            connection_id: this.context.componentConnection
+        }
+        console.log('working!', value)
+        socket.emit('changePointerEvents', value)
     }
 
     render() {
@@ -246,7 +257,9 @@ export default class Chatroom extends Component {
                                 inputRef={ tag => (this.textarea = tag) }
                                 className="chat_intput" 
                                 placeholder="type message..."
-                                onChange={e => this.handleInput(e.target.value)}/>
+                                onChange={e => this.handleInput(e.target.value)}
+                                onClick={e => this.changePointerEvents()}
+                            />
                         </div>
                         <br/>
                         <div className="button_container">

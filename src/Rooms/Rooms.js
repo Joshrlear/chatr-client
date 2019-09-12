@@ -216,17 +216,30 @@ export default class Rooms extends Component {
         this.setState(newState);
     };
 
+    changePointerEvents = e => {
+        const value = {
+            event: true,
+            connection_id: this.context.componentConnection
+        }
+        console.log('working!', value)
+        socket.emit('changePointerEvents', value)
+    }
+
     render() {
         
         return(
         <>
             <div className="rooms_container main_container">
-            <form className="rooms_form" onSubmit={e => this.handleRoomName(e)}>
+            <form 
+                className="rooms_form" 
+                onSubmit={e => this.handleRoomName(e)}
+                onClick={e => this.changePointerEvents(e)}
+                >
                   <AutosizeInput
                     ref={ this.roomName } 
                     className="input_roomName input-2" 
 					placeholder="room name..."
-					onChange={ this.updateInputValue.bind(this, 'roomName') }
+                    onChange={ this.updateInputValue.bind(this, 'roomName') }
 				/>
                   <div className="button_rack">
                     <input className="save_btn btn-2" type='submit' value='Create Room' />

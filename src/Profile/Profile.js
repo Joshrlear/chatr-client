@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
+import io from 'socket.io-client'
 import config from '../config'
+import ChatContext from '../ChatContext'
 import AutosizeInput from 'react-input-autosize'
-import ChatContext from '../ChatContext';
 import fetches from '../fetches'
 import './Profile.css'
+
+// on render, client connects to socket.io via server
+const socket = io.connect(config.SERVER_BASE_URL)
 
 const { createUser, getUser } = fetches.userFetches
 
@@ -15,11 +19,15 @@ export default class Profile extends Component {
         user_id: '',
         name: '',
         firstIntitial: '',
-        profileOpen: false
+        profileOpen: false,
+        pointerEvent: false
       }
     }
 
+    static contextType = ChatContext
+
     componentWillMount() {
+      console.log('logging here in profile')
       let name
       let user_id
       
@@ -34,6 +42,16 @@ export default class Profile extends Component {
       }
     }
 
+    componentDidMount() {
+      const connection_id = this.context.componentConnection
+      socket.emit('connect to components', connection_id)
+      console.log('Profile did mount')
+      socket.on('changePointerEvents', value => {
+        console.log('changing pointer event!', value)
+        this.closeProfile()
+      })
+    }
+
     handleSubmit = (e) => {
       e.preventDefault()
       // set for quick access everywhere else
@@ -46,7 +64,7 @@ export default class Profile extends Component {
             createUser(username)
               .then(user => {
                 const { id, username } = user
-                const firstIntitial = Object.value(username)[1]
+                const firstIntitial = Object.values(username).join()
                 this.setState({
                   name_input: '',
                   user_id: id,
@@ -87,7 +105,7 @@ export default class Profile extends Component {
     }
 
     closeProfile = e => {
-      e.preventDefault()
+      e && e.preventDefault()
       console.log('clicked')
       this.state.profileOpen !== false
         &&  this.setState({
@@ -97,7 +115,7 @@ export default class Profile extends Component {
 
     render() {
       const currentPath = this.props.location.pathname.split('/')[this.props.location.pathname.split('/').length - 1]
-      const opened = this.state.profileOpen ? "open" : ""
+      const opened = this.state.profileOpen ? "open" : "closed"
       const hasUser = localStorage.user_id 
         && this.props.location.pathname !== "/profile" 
           ? "has_user" 
@@ -105,7 +123,10 @@ export default class Profile extends Component {
 
         return (
           <>
-            <div className={`profile_container ${hasUser} ${opened} main_container ${currentPath}`}>
+            <div 
+              className={`profile_container ${hasUser} ${opened} main_container ${currentPath}`}
+              onClick={e => e.target.classList.contains("open") && this.closeProfile(e)}
+              >
                 <form className={`profile_form ${hasUser}`} onSubmit={e => this.handleSubmit(e)}>
                   <AutosizeInput
                     ref={ this.name } 
@@ -113,11 +134,11 @@ export default class Profile extends Component {
 				          	placeholder={ this.state.name || "Name here..." }
 				          	value={this.state.name}
                     onChange={this.updateInputValue.bind(this, 'name')}
-                    onClick={e => this.openProfile(e)}
+                    onClick={e => currentPath && this.openProfile(e)}
 				          />
                   <div className={`button_rack ${hasUser}`}>
                     <input
-                      onClick={e => this.closeProfile(e)}
+                      onClick={e => currentPath && this.closeProfile(e)}
                       className={`cancel_btn ${hasUser} btn-0`} 
                       type='button' 
                       value='Cancel' 

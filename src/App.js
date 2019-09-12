@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Route, NavLink } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import ChatContext from './ChatContext';
+import uuid from 'react-uuid'
 import LandingPage from './LandingPage/LandingPage'
 import Profile from './Profile/Profile';
 import Rooms from './Rooms/Rooms';
 import Chatroom from './Chatroom/Chatroom'
 import './App.css';
-import config from './config';
 
 let profilePath
 let roomsPath
@@ -17,7 +17,8 @@ export default class App extends Component {
     user_id: '',
     username: '',
     rooms_id: '',
-    roomName: ''
+    roomName: '',
+    componentConnection: uuid()
   }
 
   updateRoomName = (info) => {
@@ -97,6 +98,15 @@ export default class App extends Component {
     this.checkLocalStorage()
   }
 
+  componentDidMount() {
+    if (!localStorage.componentConnection) {
+      localStorage.componentConnection = this.state.componentConnection
+      /* this.setState({
+        componentConnection: connection_id
+      }) */
+    }
+  }
+
   render() {
 
     const { user_id, username, rooms_id, roomName } = this.state
@@ -109,7 +119,8 @@ export default class App extends Component {
       },
       updateRoomName: this.updateRoomName,
       updateState: this.updateState,
-      checkLocalStorage: this.checkLocalStorage
+      checkLocalStorage: this.checkLocalStorage,
+      componentConnection: this.state.componentConnection
     }
     //const isExact = this.state.profilePath !== "/profile" ? 'exact' : ''
     setTimeout(() => console.log(profilePath,roomsPath,chatRoomsPath), 0)
