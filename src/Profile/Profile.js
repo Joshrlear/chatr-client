@@ -18,6 +18,7 @@ export default class Profile extends Component {
       this.state = {
         user_id: '',
         name: '',
+        username: '',
         firstIntitial: '',
         profileOpen: false,
         pointerEvent: false
@@ -28,15 +29,16 @@ export default class Profile extends Component {
 
     componentWillMount() {
       console.log('logging here in profile')
-      let name
+      let username
       let user_id
       
       if (localStorage.username) {
-        name = localStorage.username
+        username = localStorage.username
         user_id = localStorage.user_id
-        this.state.user !== name
+        this.state.username !== username
           && this.setState({
-            name, 
+            name: username,
+            username,
             user_id
           })
       }
@@ -53,40 +55,48 @@ export default class Profile extends Component {
     }
 
     handleSubmit = (e) => {
-      e.preventDefault()
+      e && e.preventDefault()
       // set for quick access everywhere else
-      const username = this.state.name
+      const userName = this.state.username
+      const inputName = this.state.name
       console.log('check if username is in use')
-      getUser(username)
+      if(userName !== inputName) {
+        this.closeProfile()
+        socket.emit('disconnected', userName)
+        getUser(inputName)
         .then(res => {
           //username not found
           if(!res.id) { 
-            createUser(username)
+            createUser(inputName)
               .then(user => {
                 const { id, username } = user
                 const firstIntitial = Object.values(username).join()
                 this.setState({
-                  name_input: '',
                   user_id: id,
-                  user: username,
+                  username,
                   firstIntitial
                 })
                 localStorage.user_id = id
                 localStorage.username = username
               })
-              this.props.history.push('/rooms')
+              this.props.location.pathname !== "/rooms" && this.props.history.push('/rooms')
         }
         else {
           //username found
           const { id, username } = res
+          this.setState({
+            user_id: id,
+            username,
+          })
           localStorage.user_id = id
           localStorage.username = username
-          this.props.history.push('/rooms')
+          this.props.location.pathname !== "/rooms" && this.props.history.push('/rooms')
         }
         })
         .catch(err => {
           console.log(err)
         })
+      }
     }
 
     updateInputValue = (input, event) => {
@@ -132,7 +142,7 @@ export default class Profile extends Component {
                     ref={ this.name } 
                     className={`profile_name ${hasUser} input-1`}
 				          	placeholder={ this.state.name || "Name here..." }
-				          	value={this.state.name}
+				          	value={ this.state.name }
                     onChange={this.updateInputValue.bind(this, 'name')}
                     onClick={e => currentPath && this.openProfile(e)}
 				          />

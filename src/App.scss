@@ -9,7 +9,7 @@
     display: grid;
     grid-template-rows: auto 700px auto;
     grid-template-columns: auto 480px auto;
-    background-image: linear-gradient(to bottom right, red, yellow)
+    background-image: linear-gradient(to bottom right, $greenish, $lightColor, $orangeish)
 }
 
 .link_container > * {

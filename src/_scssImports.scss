@@ -65,9 +65,10 @@
 
 /* ------ colors ------ */
 
-$myBlue: #4169E1;
-$greenish: #3bbd66;
-$orangeish: #f1491f;
+$myBlue: #ff9a00;
+$lightColor: #f6f7d7;
+$greenish: #3ec1d3;
+$orangeish: lighten(#ff165d, 15%);
 $placeholderDark: rgba(0,0,0,0.5);
 $placeholderLight: rgba(255,255,255,0.5);
 
@@ -99,6 +100,11 @@ $placeholderLight: rgba(255,255,255,0.5);
         color: $greenish;
         font-weight: 600;
         cursor: pointer;
+
+        &:hover {
+            color: darken($greenish,15%);
+            transition: color 0.1s ease-in;
+        }
     }
 
     .btn-0 {
@@ -107,6 +113,11 @@ $placeholderLight: rgba(255,255,255,0.5);
         color: $orangeish;
         font-weight: 600;
         cursor: pointer;
+
+        &:hover {
+            color: darken($orangeish,15%);
+            transition: color 0.1s ease-in;
+        }
     }
 }
 
@@ -138,9 +149,11 @@ $placeholderLight: rgba(255,255,255,0.5);
         color: white;
         font-weight: 600;
         cursor: pointer;
+        transition: background-color 0.3s ease-in;
 
         &:hover {
             background-color: darken($greenish,15%);
+            transition: background-color 0.1s ease-in;
         }
     }
 }
@@ -163,9 +176,11 @@ $placeholderLight: rgba(255,255,255,0.5);
         color: white;
         font-weight: 600;
         cursor: pointer;
+        transition: background-color 0.3s ease-in;
 
         &:hover {
             background-color: darken($orangeish,15%);
+            transition: background-color 0.1s ease-in;
         }
     }
 
@@ -176,9 +191,11 @@ $placeholderLight: rgba(255,255,255,0.5);
         color: white;
         font-weight: 600;
         cursor: pointer;
+        transition: background-color 0.3s ease-in;
 
         &:hover {
             background-color: darken($greenish,15%);
+            transition: background-color 0.1s ease-in;
         }
     }
 }

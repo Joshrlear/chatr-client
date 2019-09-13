@@ -18,10 +18,21 @@
 
         .profile_name, .profile_name > * {
             font-size: 1.65rem;
-            width: 8px !important;
-            padding: 0px 16px;
+            text-transform: capitalize;
+            font-weight: bold;
+            letter-spacing: 1rem;
+            width: 0.75rem !important;
+            height: 1rem;
+            padding: 1rem;
+            padding-left: 1.25rem;
             right: -20px;
             cursor: pointer;
+            transition: background-color 0.3s ease-in;
+        }
+
+        .profile_name > *:hover {
+            background-color: darken($greenish,15%);
+            transition: background-color 0.1s ease-in;
         }
     }
 
@@ -46,12 +57,13 @@
 
 .profile_container.open.has_user {
     z-index: 2;
-    background-color: rgba(white, 0.85);
+    background-color: rgba(white, 0.65);
+    background-image: linear-gradient(to top right, rgba(white, 0.35), rgba(white, 0.85));
     pointer-events: none;
 
     .profile_form {
         position: relative;
-        top: 30px;
+        top: calc(30px + 1.5rem);
         left: 0px;
         float: right;
         width: fit-content;

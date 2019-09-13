@@ -6,27 +6,35 @@
 .btn-3 {
   border: 0;
   border-radius: 20px;
-  background-color: #f1491f;
+  background-color: #ff6392;
   color: white;
   font-weight: 600;
   cursor: pointer;
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
 }
 
 .btn-3:hover {
-  background-color: #b82e0c;
+  background-color: #ff165d;
+  -webkit-transition: background-color 0.1s ease-in;
+  transition: background-color 0.1s ease-in;
 }
 
 .btn-4 {
   border: 0;
   border-radius: 20px;
-  background-color: #3bbd66;
+  background-color: #3ec1d3;
   color: white;
   font-weight: 600;
   cursor: pointer;
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
 }
 
 .btn-4:hover {
-  background-color: #298347;
+  background-color: #2491a0;
+  -webkit-transition: background-color 0.1s ease-in;
+  transition: background-color 0.1s ease-in;
 }
 
 .chatroom_container {
@@ -43,9 +51,7 @@
   -ms-grid-row: 1;
   -ms-grid-row-span: 1;
   grid-row: 1/2;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  width: 100%;
   height: 100%;
   margin: auto;
   text-align: center;
@@ -78,7 +84,8 @@
   list-style: none;
   margin-left: 30px;
   margin-right: 30px;
-  width: 300px;
+  padding: 0px 145px 0px 15px;
+  width: auto;
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: white;
@@ -90,26 +97,68 @@
 }
 
 .chatroom_container .message_section .messages .me .message {
-  background-color: #f1491f;
+  background-color: #ff6392;
+}
+
+.chatroom_container .message_section .messages .me .message, .chatroom_container .message_section .messages .me .preview {
+  margin-left: auto;
+}
+
+.chatroom_container .message_section .messages .me .message:before, .chatroom_container .message_section .messages .me .preview:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 15px solid #ff6392;
+  border-right: 0px solid transparent;
+  border-top: 20px solid #ff6392;
+  border-bottom: 0px solid transparent;
+  border-radius: 2500px 2600px 100px 3750px;
+  right: -4px;
+  top: 47px;
+  -webkit-transform: rotate(324deg) scaleY(1.25);
+          transform: rotate(324deg) scaleY(1.25);
 }
 
 .chatroom_container .message_section .messages .message, .chatroom_container .message_section .messages .preview {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   padding: 12px 20px;
   margin: 15px 0px;
 }
 
 .chatroom_container .message_section .messages .message .from, .chatroom_container .message_section .messages .preview .from {
   margin-bottom: 7px;
+  padding-right: 60px;
+}
+
+.chatroom_container .message_section .messages .not_me:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  display: block;
+  position: relative;
+  margin-top: -30px;
+  border-left: 15px solid #3ec1d3;
+  border-right: 0px solid transparent;
+  border-top: 20px solid #3ec1d3;
+  border-bottom: 0px solid transparent;
+  border-radius: 2500px 2600px 100px 3750px;
+  left: -5px;
+  top: 85px;
+  -webkit-transform: rotate(212deg) scaleY(-1.25);
+          transform: rotate(212deg) scaleY(-1.25);
 }
 
 .chatroom_container .message_section .messages .message {
-  background-color: #3bbd66;
+  background-color: #3ec1d3;
   border-radius: 20px;
 }
 
 .chatroom_container .message_section .messages .preview {
   color: white;
-  background-color: #f1491f;
+  background-color: #ff6392;
   border-radius: 20px;
   opacity: 0.5;
 }
@@ -120,6 +169,32 @@
 
 .chatroom_container .message_section .messages .time_sent {
   text-align: right;
+}
+
+.chatroom_container .message_section .newUserMsg {
+  text-align: center;
+  color: grey;
+  padding-right: 19px;
+}
+
+.chatroom_container .message_section .newUserMsg:before {
+  content: '';
+  display: inline-block;
+  background-color: grey;
+  padding: 0.5px 80px;
+  margin: 1rem 10px 0.25rem 10px;
+}
+
+.chatroom_container .message_section .newUserMsg:after {
+  content: '';
+  display: inline-block;
+  background-color: grey;
+  padding: 0.5px 80px;
+  margin: 1rem 10px 0.25rem 10px;
+}
+
+.chatroom_container .user_typing {
+  list-style: none;
 }
 
 .chatroom_container .forScroll {

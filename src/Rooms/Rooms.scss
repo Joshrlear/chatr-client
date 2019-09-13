@@ -1,5 +1,11 @@
 @import '../scssImports';
 @include form-2;
+@mixin li {
+    color: grey;
+    &:hover {
+        color: $greenish;
+    }
+}
 
 .rooms_form {
     width: fit-content;
@@ -8,20 +14,39 @@
     text-align: center;
 }
 
-.messages {
-    list-style: none;
-    padding: 0px;
-    width: 300px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+.room_section {
+    overflow: hidden;
+    box-shadow: 0px -4px 12px -4px rgba(0,0,0,0.2) inset, 0px 4px 12px -6px rgba(0,0,0,0.2) inset;
+    margin-top: 20px;
+
+    .room_list_container {
+        width: 104%;
+        height: 510px;
+        overflow-y: scroll;
     
-    .message {
-        background-color: #3cb4dc;
-    }
+        .room_list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0px;
+            
+            .room {
+                display: block;
+                cursor: pointer;
     
-    .preview {
-        color: white;
-        background-color: red;
-        opacity: 0.5;
+                .room_name {
+                    margin: 10px;
+                    @include li;
+                    transition: transform 0.5s ease-out 0.15s,
+                                color 0.2s ease-out 0.15s;
+
+                    &:hover {
+                        transform: scale(1.1);
+                        transition: all 0.07s ease;
+                    }
+                }
+            }
+        }
     }
 }

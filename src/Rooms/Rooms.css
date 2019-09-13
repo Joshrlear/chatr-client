@@ -44,14 +44,18 @@
 .btn-2 {
   border: 0;
   border-radius: 20px;
-  background-color: #3bbd66;
+  background-color: #3ec1d3;
   color: white;
   font-weight: 600;
   cursor: pointer;
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
 }
 
 .btn-2:hover {
-  background-color: #298347;
+  background-color: #2491a0;
+  -webkit-transition: background-color 0.1s ease-in;
+  transition: background-color 0.1s ease-in;
 }
 
 .rooms_form {
@@ -63,21 +67,56 @@
   text-align: center;
 }
 
-.messages {
+.room_section {
+  overflow: hidden;
+  -webkit-box-shadow: 0px -4px 12px -4px rgba(0, 0, 0, 0.2) inset, 0px 4px 12px -6px rgba(0, 0, 0, 0.2) inset;
+          box-shadow: 0px -4px 12px -4px rgba(0, 0, 0, 0.2) inset, 0px 4px 12px -6px rgba(0, 0, 0, 0.2) inset;
+  margin-top: 20px;
+}
+
+.room_section .room_list_container {
+  width: 104%;
+  height: 510px;
+  overflow-y: scroll;
+}
+
+.room_section .room_list_container .room_list {
   list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 0px;
-  width: 300px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
 }
 
-.messages .message {
-  background-color: #3cb4dc;
+.room_section .room_list_container .room_list .room {
+  display: block;
+  cursor: pointer;
 }
 
-.messages .preview {
-  color: white;
-  background-color: red;
-  opacity: 0.5;
+.room_section .room_list_container .room_list .room .room_name {
+  margin: 10px;
+  color: grey;
+  -webkit-transition: color 0.2s ease-out 0.15s, -webkit-transform 0.5s ease-out 0.15s;
+  transition: color 0.2s ease-out 0.15s, -webkit-transform 0.5s ease-out 0.15s;
+  transition: transform 0.5s ease-out 0.15s, color 0.2s ease-out 0.15s;
+  transition: transform 0.5s ease-out 0.15s, color 0.2s ease-out 0.15s, -webkit-transform 0.5s ease-out 0.15s;
+}
+
+.room_section .room_list_container .room_list .room .room_name:hover {
+  color: #3ec1d3;
+}
+
+.room_section .room_list_container .room_list .room .room_name:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: all 0.07s ease;
+  transition: all 0.07s ease;
 }
 /*# sourceMappingURL=Rooms.css.map */

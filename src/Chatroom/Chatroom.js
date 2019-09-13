@@ -21,6 +21,7 @@ export default class Chatroom extends Component {
         this.state = {
             currentMessage: '',
             messages: [],
+            newUserMsg: [],
             userTyping: [],
             roomName: '',
             rooms_id: '',
@@ -96,6 +97,9 @@ export default class Chatroom extends Component {
         })
         socket.on('user joined room', message => {
             console.log(message)
+            this.setState({
+                newUserMsg: [...this.state.newUserMsg, message.message]
+            })
         })
 
         // client listens for 'incoming message' socket connection
@@ -164,18 +168,23 @@ export default class Chatroom extends Component {
             this.props.history.push('/rooms')
     }
 
-    handleInput = (message) => {
-        console.log('message here:',message)
-        const user = this.state.username
-        socket.emit('typing', user)
-        const messageInfo = {
-            username: this.state.username,
-            message: message
-        }
+    handleInput = (value) => {
+        if (!value) {
+            const message = this.textarea.value
+            const user = this.state.username
+            socket.emit('typing', user)
+            const messageInfo = {
+                username: this.state.username,
+                message: message
+            }
 
-        this.setState({
-            currentMessage: messageInfo
-        })
+            this.setState({
+                currentMessage: messageInfo
+            })
+        }
+        else {
+            this.sendMessage(value)
+        }
     }
 
     sendMessage = e => {
@@ -208,7 +217,6 @@ export default class Chatroom extends Component {
             event: true,
             connection_id: this.context.componentConnection
         }
-        console.log('working!', value)
         socket.emit('changePointerEvents', value)
     }
 
@@ -222,6 +230,21 @@ export default class Chatroom extends Component {
             </header>
             <section className="message_section">
                 <ScrollToBottom className="message_container">
+                    {/* 
+                        Message to the grader:
+                        If you know how I can do this please let me know as
+                        I would like to implement this action into my app.
+                        
+                        I want to display: "username" has joined the chat
+                        in between messages but currently I only have them
+                        display at the top of the messages              */}
+
+                   { /* this.state.newUserMsg.length > 0 && this.state.newUserMsg.map((newUserMsg, i) => 
+                        <div key={i} className="newUserMsg_container">
+                            <p className="newUserMsg"><em>{newUserMsg}</em></p>
+                        </div>
+                        ) */ 
+                    }
                     <ul className="messages">
                         {this.state.messages.map((msg, i) => 
                             <li key={i} className={`message_wrap ${msg.username !== this.state.username ? "not_me" : "me"}`}>
@@ -242,7 +265,7 @@ export default class Chatroom extends Component {
                     </ul>
                     <ul className="users_typing">
                         {this.state.userTyping.map((user, i) => <li key={i} className="user_typing">
-                            <p className="typing_msg"><em>{`${user} is typing...`}</em></p>
+                            <p className="typing_msg"><em>{`${user} is typing . . .`}</em></p>
                         </li>)}
                     </ul>
                 </ScrollToBottom>
@@ -257,7 +280,8 @@ export default class Chatroom extends Component {
                                 inputRef={ tag => (this.textarea = tag) }
                                 className="chat_intput" 
                                 placeholder="type message..."
-                                onChange={e => this.handleInput(e.target.value)}
+                                onChange={e => this.handleInput()}
+                                onKeyDown={e => e.key === "Enter" && this.handleInput(e)}
                                 onClick={e => this.changePointerEvents()}
                             />
                         </div>

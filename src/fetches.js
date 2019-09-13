@@ -129,6 +129,20 @@ const roomFetches = {
                 }
             })
             .catch(err => { return err })
+    },
+
+    getAllRooms() {
+        console.log('getting all rooms!')
+        return fetch(`${config.SERVER_BASE_URL}rooms`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            console.log('this is the res from getting all rooms', res)
+            return res.json()
+        })
     }
 }
 

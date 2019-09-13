@@ -67,8 +67,8 @@ textarea:focus {
       grid-template-rows: auto 700px auto;
   -ms-grid-columns: auto 480px auto;
       grid-template-columns: auto 480px auto;
-  background-image: -webkit-gradient(linear, left top, right bottom, from(red), to(yellow));
-  background-image: linear-gradient(to bottom right, red, yellow);
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#3ec1d3), color-stop(#f6f7d7), to(#ff6392));
+  background-image: linear-gradient(to bottom right, #3ec1d3, #f6f7d7, #ff6392);
 }
 
 .link_container > * {

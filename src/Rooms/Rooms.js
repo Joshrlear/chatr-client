@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import config from '../config'
 import io from 'socket.io-client'
 import AutosizeInput from 'react-input-autosize'
-import ScrollToBottom from 'react-scroll-to-bottom'
 import ChatContext from '../ChatContext'
 import fetches from '../fetches'
-import Textarea from 'react-textarea-autosize'
 import './Rooms.css'
 
 // on render, client connects to socket.io via server
@@ -21,11 +19,8 @@ export default class Rooms extends Component {
         this.messagesEnd = React.createRef()
         this.roomName = React.createRef()
         this.state = {
-            currentMessage: '',
-            messages: [],
-            userTyping: [],
             roomName: '',
-            rooms_id: '',
+            rooms_id: []
         }
     }
 
@@ -43,60 +38,22 @@ export default class Rooms extends Component {
         chat.on('welcome', msg => {
             console.log(msg)
         })
+    }
 
-        // client listens for 'news' socket then
-        // logs the data emitted from 'news socket
-        socket.on('news', data => {
-            console.log(data);
-
-            // client then emits 'my other event' socket
-            // and sends object my: data to server
-            socket.emit('my other event', { my: 'data' });
-          })
-         
-        // client listens for 'incoming message' socket connection
-        // then it logs the IncomingMsg  
-        socket.on('incoming message', incomingMsg => {
-            console.log(incomingMsg)
-            this.setState({
-                messages: [
-                    ...this.state.messages, 
-                    incomingMsg
-                ]
+    componentDidMount() {
+        roomFetches.getAllRooms()
+            .then(res => {
+                if (res.length > 0) {
+                    console.log('here are all the rooms!', res)
+                    this.setState({
+                        rooms: res
+                    })
+                }
             })
-
-        })
-
-        // connect to socket if no socket connected
-        //!socket && (this.connectSocket())
     }
 
     componentDidUpdate() {
         this.messagesEnd.current && this.messagesEnd.current.scrollIntoView({ behavior: "smooth" })
-    }
-
-    componentWillUnmount() {
-        
-    }
-
-    /* connectSocket() {
-        socket = io(config.API_ENDPOINT)
-        socket.on('chat_message', msg => {
-            this.setState({
-                messages: [
-                    ...this.state.messages, 
-                    msg
-                ]
-            })
-        })
-
-        
-    } */
-
-    closeChat = e => {
-        e.preventDefault()
-        console.log('closing chat')
-        //this.context.closeChat()
     }
 
     addUserToSocketRoom = (info, rooms_id) => {
@@ -107,7 +64,7 @@ export default class Rooms extends Component {
     }
 
     handleRoomName = e => {
-        e.preventDefault()
+        e && e.preventDefault()
         const roomName = this.state.roomName.replace(/\s+/g, '-').toLowerCase()
         const username = localStorage.username 
         const info = {
@@ -216,6 +173,14 @@ export default class Rooms extends Component {
         this.setState(newState);
     };
 
+    setRoomName = roomName => {
+        console.log(roomName)
+        roomName !== this.state.roomName
+            && this.setState({
+                roomName
+            }, () => this.handleRoomName())
+    }
+
     changePointerEvents = e => {
         const value = {
             event: true,
@@ -245,29 +210,26 @@ export default class Rooms extends Component {
                     <input className="save_btn btn-2" type='submit' value='Create Room' />
                   </div>
                 </form>
-                {/* <button onClick={ this.handleRoomName }>join room</button> */}
-                <ScrollToBottom className="chat_section">
-                    <ul className="messages">
-                        {this.state.messages.map((msg, i) => <li key={i} className="message">
-                            <div  className="message_container">
-                                <h3 className="from">{`${msg.username}:`}</h3>
-                                <p className="message_text">{msg.message}</p>
-                            </div>
-                        </li>)}
-                        {this.state.currentMessage && this.state.currentMessage.message && (<li key={0} className="preview">
-                            <div  className="message_container">
-                                <h3 className="from">{`${this.state.currentMessage.username}:`}</h3>
-                                <p className="message_text">{this.state.currentMessage.message}</p>
-                            </div>
-                        </li>)}
-                    </ul>
-                    <ul className="users_typing">
-                        {this.state.userTyping.map((user, i) => <li key={i} className="user_typing">
-                            <p className="typing_msg"><em>{`${user} is typing...`}</em></p>
-                        </li>)}
-                    </ul>
-                </ScrollToBottom>
-                <div className="forScroll" ref={ this.messagesEnd }/>
+                <section className="room_section">
+                    <div className="room_list_container">
+                        <ul className="room_list">
+                            {this.state.rooms && this.state.rooms.map((room, i) => 
+                                <li key={i}
+                                    tabIndex={0} 
+                                    className="room"
+                                    onKeyDown={e => e.key === "Enter" && this.setRoomName(room.name)}
+                                    onClick={e => {
+                                        this.changePointerEvents(room.name)
+                                        this.setRoomName(room.name)
+                                    }}>
+                                    <h3 className="room_name">
+                                        {room.name}
+                                    </h3>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
+                </section>
             </div>
             </>
     )
