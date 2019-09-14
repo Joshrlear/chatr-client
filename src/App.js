@@ -8,17 +8,14 @@ import Rooms from './Rooms/Rooms';
 import Chatroom from './Chatroom/Chatroom'
 import './App.css';
 
-let profilePath
-let roomsPath
-let chatRoomsPath
-
 export default class App extends Component {
   state = {
     user_id: '',
     username: '',
     rooms_id: '',
     roomName: '',
-    componentConnection: uuid()
+    componentConnection: uuid(),
+    profilePath: '/',
   }
 
   updateRoomName = (info) => {
@@ -46,7 +43,9 @@ export default class App extends Component {
         })
   }
 
-  checkLocalStorage = () => {
+  updateAppState = () => {
+    // update profile path
+    this.profilePath()
     console.log('checking local storage')
 
     const userState = [
@@ -74,28 +73,23 @@ export default class App extends Component {
     }
   }
 
-  // Allow profile to display if "profile" is somewhere in pathname
-  profilePath = () => {
-    /* const displayProfile = window.location.pathname.split('/').includes('profile')
-    // if "/profile" is in pathname use pathname otherwise use "/profile"
-    profilePath = displayProfile 
-          ? (this.state.profilePath !== window.location.pathname) && this.setState({ profilePath: window.location.pathname })
-          : (this.state.profilePath !== "/profile") && this.setState({ profilePath: "/profile" }) */
 
-    this.state.user_id
-      ? this.state.profilePath === '/' && this.setState({ profilePath: '/' })
-      : this.state.profilePath === '/profile' && this.setState({ profilePath: '/profile' })
+  profilePath = () => {
+    console.log(window.location.pathname)
+    const profilePath = window.location.pathname === "/" ? "/profile" : "/"
+    profilePath !== this.state.profilePath
+      && this.setState({ profilePath })
   }
 
   componentWillMount() {
     console.log('App will mount')
-    this.checkLocalStorage()
+    this.updateAppState()
     //window.location.pathname !== '/home' && window.location.replace(`${config.CLIENT_BASE_URL}home`)
   }
 
   componentWillUpdate() {
     console.log('App will update')
-    this.checkLocalStorage()
+    this.updateAppState()
   }
 
   componentDidMount() {
@@ -119,11 +113,10 @@ export default class App extends Component {
       },
       updateRoomName: this.updateRoomName,
       updateState: this.updateState,
-      checkLocalStorage: this.checkLocalStorage,
+      updateAppState: this.updateAppState,
       componentConnection: this.state.componentConnection
     }
-    //const isExact = this.state.profilePath !== "/profile" ? 'exact' : ''
-    setTimeout(() => console.log(profilePath,roomsPath,chatRoomsPath), 0)
+    console.log('app is running the render')
     return (
       <ChatContext.Provider value={ contextValue }>
         <div className="App">
@@ -133,7 +126,7 @@ export default class App extends Component {
             component={ LandingPage }
           />
         <Route 
-            path="/"
+            path={ this.state.profilePath }
             component={ Profile }
           />
           <Route 

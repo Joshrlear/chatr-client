@@ -87,7 +87,7 @@ export default class Chatroom extends Component {
 
     componentDidMount() {
         // trigger app rerender
-        this.context.checkLocalStorage()
+        this.context.updateAppState()
         const { username, roomName } = this.state
         const info = { username, roomName }
         console.log('///////', info)
@@ -164,15 +164,19 @@ export default class Chatroom extends Component {
             const next = Promise.resolve(localStorage.removeItem('rooms_id'))
             const updateAppState = next && localStorage.removeItem('roomName')
             // trigger app rerender
-            updateAppState && this.context.checkLocalStorage()
-            this.props.history.push('/rooms')
+            const goToRooms = Promise.resolve(updateAppState && this.context.updateAppState())
+            goToRooms && this.props.history.push('/rooms')
     }
 
     handleInput = (value) => {
         if (!value) {
+            const { roomName } = this.state
             const message = this.textarea.value
-            const user = this.state.username
-            socket.emit('typing', user)
+            const info = {
+                user: this.state.username,
+                roomName
+            }
+            socket.emit('typing', info)
             const messageInfo = {
                 username: this.state.username,
                 message: message
@@ -189,27 +193,33 @@ export default class Chatroom extends Component {
 
     sendMessage = e => {
         e.preventDefault()
-        this.changePointerEvents()
-        const newMsg = this.state.currentMessage
-        newMsg.timestamp = moment().format('h:mm a').toString()
-        const { username, message } = this.state.currentMessage
-        const roomName = this.state.roomName
-        const messageToRoom = {
-            roomName,
-            username,
-            message,
-            timestamp: this.state.currentMessage.timestamp,
-        }
+        if (this.state.currentMessage.message) {
+            this.changePointerEvents()
+            const newMsg = this.state.currentMessage
+            newMsg.timestamp = moment().format('h:mm a').toString()
+            const { username, message } = this.state.currentMessage
+            const roomName = this.state.roomName
+            const messageToRoom = {
+                roomName,
+                username,
+                message,
+                timestamp: this.state.currentMessage.timestamp,
+            }
 
-        this.setState({
-            messages: [...this.state.messages, newMsg]
-        })
-        this.textarea.value = ''
-        socket.emit('newMessage', messageToRoom )
-        this.setState({
-            currentMessage: ''
-        })
-        socket.emit('stop typing', username)
+            this.setState({
+                messages: [...this.state.messages, newMsg]
+            })
+            this.textarea.value = ''
+            socket.emit('newMessage', messageToRoom )
+            this.setState({
+                currentMessage: ''
+            })
+            const info = {
+                user: username,
+                roomName
+            }
+            socket.emit('stop typing', info)
+        }
     }
 
     changePointerEvents = () => {
@@ -231,7 +241,9 @@ export default class Chatroom extends Component {
             <section className="message_section">
                 <ScrollToBottom className="message_container">
                     {/* 
-                        Message to the grader:
+                        Message to the grader: **This will not be included
+                        in version 1 for this project**
+                        
                         If you know how I can do this please let me know as
                         I would like to implement this action into my app.
                         
@@ -288,6 +300,7 @@ export default class Chatroom extends Component {
                         <br/>
                         <div className="button_container">
                             <button 
+                                disabled={ !this.state.currentMessage || this.state.currentMessage.message == '' }
                                 className="send_button btn-4" 
                                 type="submit">
                                     Send

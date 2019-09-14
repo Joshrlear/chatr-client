@@ -1,0 +1,113 @@
+.landingpage {
+  width: 75%;
+  margin: auto;
+}
+
+.landingpage .landingpage_header {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.landingpage .landingpage_header * {
+  margin-top: 0px;
+}
+
+.landingpage .landingpage_header .title {
+  margin-bottom: 2px;
+  font-size: 30px;
+}
+
+.landingpage .landingpage_header .subtitle {
+  margin-bottom: 30px;
+}
+
+.landingpage .enter_btn_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 4rem;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 10px auto;
+  font-size: 20px;
+}
+
+.landingpage .enter_btn {
+  margin: auto;
+  padding-bottom: 3px;
+  text-decoration: none;
+  color: white;
+}
+
+.landingpage .info_section * {
+  margin-bottom: 30px;
+}
+
+.landingpage .info_section .tech_used_contaier .tech_used {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.landingpage .info_section .tech_used_contaier .tech_used:before {
+  content: '';
+  display: inline-block;
+  background-color: grey;
+  padding: 0.5px 15px;
+  margin: 1rem 10px 0.25rem 0px;
+}
+
+.landingpage .info_section .tech_used_contaier .tech_used:after {
+  content: '';
+  display: inline-block;
+  background-color: grey;
+  padding: 0.5px 15px;
+  margin: 1rem 0px 0.25rem 10px;
+}
+
+@supports (text-justify: inter-word) {
+  .landingpage .info_section .tech_used_contaier .tech_used {
+    margin: 20px auto;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+  .landingpage .info_section .tech_used_contaier .tech_used:before {
+    content: '';
+    display: none;
+  }
+  .landingpage .info_section .tech_used_contaier .tech_used:after {
+    content: '';
+    display: none;
+  }
+}
+
+.landingpage .info_section .status_container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.landingpage .footer {
+  width: 50%;
+  margin: 30px auto;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.landingpage .footer span {
+  border-radius: unset;
+  font-weight: 100;
+  -webkit-transition: scale() 0.3s ease-in;
+  transition: scale() 0.3s ease-in;
+}
+
+.landingpage .footer span:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: scale() 0.1s ease-in;
+  transition: scale() 0.1s ease-in;
+}
+/*# sourceMappingURL=LandingPage.css.map */

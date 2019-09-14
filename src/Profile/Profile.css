@@ -82,19 +82,28 @@
   pointer-events: initial;
 }
 
-.profile_container.has_user.closed .profile_form .profile_name, .profile_container.has_user.closed .profile_form .profile_name > * {
+.profile_container.has_user.closed .profile_form .profile_name {
+  position: relative;
+  top: 5px;
+  left: 40px;
+  display: inline-block;
+  padding: 20px;
+  -webkit-transition: width 0.2s ease-out;
+  transition: width 0.2s ease-out;
+}
+
+.profile_container.has_user.closed .profile_form .profile_name > * {
   font-size: 1.65rem;
   text-transform: capitalize;
   font-weight: bold;
   letter-spacing: 1rem;
-  width: 0.75rem !important;
-  height: 1rem;
-  padding: 1rem;
-  padding-left: 1.25rem;
-  right: -20px;
+  width: 20px !important;
+  height: 20px;
+  position: relative;
+  padding: 10px 9px 10px 11px;
   cursor: pointer;
-  -webkit-transition: background-color 0.3s ease-in;
-  transition: background-color 0.3s ease-in;
+  -webkit-transition: background-color 0.3s ease-in, width 0.2s ease-out;
+  transition: background-color 0.3s ease-in, width 0.2s ease-out;
 }
 
 .profile_container.has_user.closed .profile_form .profile_name > *:hover {
@@ -105,7 +114,10 @@
 
 .profile_container.has_user.closed .button_rack {
   padding-top: 50px;
-  display: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  visibility: hidden;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -113,6 +125,9 @@
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+  opacity: 0;
+  -webkit-transition: visibility 0.5s ease-out;
+  transition: visibility 0.5s ease-out;
 }
 
 .profile_container.has_user.closed .button_rack * {
@@ -128,8 +143,8 @@
 .profile_container.open.has_user {
   z-index: 2;
   background-color: rgba(255, 255, 255, 0.65);
-  background-image: -webkit-gradient(linear, left bottom, right top, from(rgba(255, 255, 255, 0.35)), to(rgba(255, 255, 255, 0.85)));
-  background-image: linear-gradient(to top right, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.85));
+  background-image: -webkit-gradient(linear, left bottom, right top, from(rgba(255, 255, 255, 0.05)), to(rgba(255, 255, 255, 0.8)));
+  background-image: linear-gradient(to top right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.8));
   pointer-events: none;
 }
 
@@ -149,13 +164,19 @@
   display: block;
   position: absolute;
   width: unset;
+  max-width: 300px;
   right: -10px;
-  padding: 0px 18px;
+  padding: 0px 0px 0px 18px;
   cursor: initial;
+  -webkit-transition: width 0.2s ease-out, background-color 0.15s ease;
+  transition: width 0.2s ease-out, background-color 0.15s ease;
 }
 
 .profile_container.open.has_user .button_rack, .profile_container.open.has_user .button_rack > * {
   display: initial;
+  opacity: 1;
+  -webkit-transition: visibility 0.5s ease-out;
+  transition: visibility 0.5s ease-out;
 }
 
 .profile_container.open.has_user .button_rack {
@@ -170,15 +191,29 @@
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+  opacity: 1;
+  -webkit-transition: visibility 0.5s ease-out;
+  transition: visibility 0.5s ease-out;
 }
 
 .profile_container.open.has_user .button_rack * {
   margin-bottom: 10px;
 }
 
-.profile_container.open.has_user .button_rack .cancel_btn.open {
+.profile_container.open.has_user .button_rack .cancel_btn {
   display: initial;
-  color: #f1491f;
+}
+
+.profile_container.open.has_user .button_rack .btn-1:disabled {
+  background-color: transparent;
+  color: #dddddd;
+  cursor: unset;
+}
+
+.profile_name.open > input {
+  background-color: #2491a0;
+  -webkit-transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease;
 }
 
 /* --------- main profile showing --------- */
@@ -215,5 +250,11 @@
 
 .profile_container.profile .button_rack .cancel_btn {
   display: none;
+}
+
+.profile_container.profile .button_rack .btn-1:disabled {
+  background-color: transparent;
+  color: #dddddd;
+  cursor: unset;
 }
 /*# sourceMappingURL=Profile.css.map */

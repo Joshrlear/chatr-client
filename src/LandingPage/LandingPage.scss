@@ -1,0 +1,112 @@
+.landingpage {
+    width: 75%;
+    margin: auto;
+
+    .landingpage_header {
+        text-align: center;
+        margin-top: 30px;
+
+        * {
+            margin-top: 0px;
+        }
+
+        .title {
+            margin-bottom: 2px;
+            font-size: 30px;
+        }
+
+        .subtitle {
+            margin-bottom: 30px;
+        }
+    }
+
+    .enter_btn_container {
+        display: flex;
+        width: 4rem;
+        height: fit-content;
+        margin: 10px auto;
+        font-size: 20px;
+    }
+
+    .enter_btn {
+        margin: auto;
+        padding-bottom: 3px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .info_section {
+
+        * {
+            margin-bottom: 30px;
+        }
+
+        .tech_used_contaier {
+
+            .tech_used {
+                margin: 20px auto;
+                // for browsers that don't support text-justify
+                text-align: center;
+
+                &:before {
+                    content: '';
+                    display: inline-block;
+                    background-color: grey;
+                    padding: 0.5px 15px;
+                    margin: 1rem 10px 0.25rem 0px;
+                }
+        
+                &:after {
+                    content: '';
+                    display: inline-block;
+                    background-color: grey;
+                    padding: 0.5px 15px;
+                    margin: 1rem 0px 0.25rem 10px;
+                }
+            }
+
+            // for browsers that support text-justify
+            @supports (text-justify: inter-word) {
+                .tech_used {
+                    margin: 20px auto;
+                    text-align: justify;
+                    text-justify: inter-word;
+
+                    &:before {
+                        content: '';
+                        display: none;
+                    }
+            
+                    &:after {
+                        content: '';
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .status_container {
+            margin-top: 10px;
+            text-align: center;
+        }
+    }
+
+    .footer {
+        width: 50%;
+        margin: 30px auto;
+        text-align: center;
+        display: flex;
+        justify-content: space-around;
+
+        span {
+            border-radius: unset;
+            font-weight: 100;
+            transition: scale() 0.3s ease-in;
+
+            &:hover {
+                transform: scale(1.1);
+                transition: scale() 0.1s ease-in;
+            }
+        }
+    }
+}

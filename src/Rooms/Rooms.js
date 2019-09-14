@@ -27,7 +27,7 @@ export default class Rooms extends Component {
     static contextType = ChatContext
 
     componentWillMount() {
-        this.context.checkLocalStorage()
+        this.context.updateAppState()
         console.log('logging in the Rooms component', this.context.user)
         !localStorage.user_id && this.props.history.push('/profile')
         localStorage.rooms_id && console.log('component will mount and this is the rooms_id:', localStorage.rooms_id) /* this.props.history.push('/chatroom') */
@@ -114,7 +114,7 @@ export default class Rooms extends Component {
                         })
                     }
                 })
-                
+
             }
             else {
                 console.log('res was good!', res)
@@ -191,7 +191,7 @@ export default class Rooms extends Component {
     }
 
     render() {
-        
+        const scrollShadows = this.state.rooms && this.state.rooms.length > 12 ? " scroll_shadow" : ""
         return(
         <>
             <div className="rooms_container main_container">
@@ -207,10 +207,10 @@ export default class Rooms extends Component {
                     onChange={ this.updateInputValue.bind(this, 'roomName') }
 				/>
                   <div className="button_rack">
-                    <input className="save_btn btn-2" type='submit' value='Create Room' />
+                    <input disabled={ this.state.roomName.length < 3 } className="save_btn btn-2" type='submit' value='Create Room' />
                   </div>
                 </form>
-                <section className="room_section">
+                <section className={`room_section${scrollShadows}`}>
                     <div className="room_list_container">
                         <ul className="room_list">
                             {this.state.rooms && this.state.rooms.map((room, i) => 

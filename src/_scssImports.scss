@@ -50,7 +50,7 @@
     }
     
     p, input, textarea, button {
-        font-size: 17px;
+        font-size: 15px;
     }
 
     button, input .btn {
@@ -203,5 +203,12 @@ $placeholderLight: rgba(255,255,255,0.5);
 @mixin noFocus {
     textarea:focus {
         outline: none;
+    }
+}
+
+@mixin disabled {
+    input[type="submit"]:disabled, button[type="submit"]:disabled {
+        background-color: #dddddd;
+        cursor: unset;
     }
 }

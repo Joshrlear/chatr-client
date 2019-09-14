@@ -3,6 +3,7 @@ import io from 'socket.io-client'
 import config from '../config'
 import ChatContext from '../ChatContext'
 import AutosizeInput from 'react-input-autosize'
+import OutsideClickHandler from 'react-outside-click-handler'
 import fetches from '../fetches'
 import './Profile.css'
 
@@ -21,7 +22,8 @@ export default class Profile extends Component {
         username: '',
         firstIntitial: '',
         profileOpen: false,
-        pointerEvent: false
+        pointerEvent: false,
+        inputActive: false
       }
     }
 
@@ -31,12 +33,14 @@ export default class Profile extends Component {
       console.log('logging here in profile')
       let username
       let user_id
-      
+
       if (localStorage.username) {
         username = localStorage.username
         user_id = localStorage.user_id
+        const firstIntitial = Object.values(username).join()[0]
         this.state.username !== username
           && this.setState({
+            firstIntitial,
             name: username,
             username,
             user_id
@@ -54,13 +58,25 @@ export default class Profile extends Component {
       })
     }
 
+    componentDidUpdate() {
+      if (this.state.username) {
+        const username = this.state.username
+        const firstIntitial = Object.values(username).join()[0]
+        this.state.firstIntitial !== firstIntitial
+          && this.setState({
+            firstIntitial
+          })
+      }
+    }
+
     handleSubmit = (e) => {
       e && e.preventDefault()
       // set for quick access everywhere else
       const userName = this.state.username
       const inputName = this.state.name
       console.log('check if username is in use')
-      if(userName !== inputName) {
+      if(inputName && userName !== inputName) {
+        console.log('here', inputName && userName !== inputName)
         this.closeProfile()
         socket.emit('disconnected', userName)
         getUser(inputName)
@@ -70,16 +86,13 @@ export default class Profile extends Component {
             createUser(inputName)
               .then(user => {
                 const { id, username } = user
-                const firstIntitial = Object.values(username).join()
                 this.setState({
                   user_id: id,
                   username,
-                  firstIntitial
                 })
                 localStorage.user_id = id
                 localStorage.username = username
               })
-              this.props.location.pathname !== "/rooms" && this.props.history.push('/rooms')
         }
         else {
           //username found
@@ -90,13 +103,13 @@ export default class Profile extends Component {
           })
           localStorage.user_id = id
           localStorage.username = username
-          this.props.location.pathname !== "/rooms" && this.props.history.push('/rooms')
         }
         })
         .catch(err => {
           console.log(err)
         })
       }
+      this.props.location.pathname !== "/rooms" && this.props.history.push('/rooms')
     }
 
     updateInputValue = (input, event) => {
@@ -112,13 +125,16 @@ export default class Profile extends Component {
         &&  this.setState({
               profileOpen: true
             })
+      this.state.inputActive !== true
+        && this.setState({
+          inputActive: true
+        })
     }
 
     closeProfile = e => {
-      e && e.preventDefault()
-      console.log('clicked')
       this.state.profileOpen !== false
         &&  this.setState({
+              name: this.state.username,
               profileOpen: false
             })
     }
@@ -130,7 +146,12 @@ export default class Profile extends Component {
         && this.props.location.pathname !== "/profile" 
           ? "has_user" 
           : ""
-
+        console.log(this.props.location.pathname)
+        const usernameVal = this.state.profileOpen 
+          ? this.state.name 
+          : this.props.location.pathname === "/profile" || "/"
+            ? this.state.username 
+            : this.state.firstIntitial
         return (
           <>
             <div 
@@ -138,14 +159,17 @@ export default class Profile extends Component {
               onClick={e => e.target.classList.contains("open") && this.closeProfile(e)}
               >
                 <form className={`profile_form ${hasUser}`} onSubmit={e => this.handleSubmit(e)}>
-                  <AutosizeInput
-                    ref={ this.name } 
-                    className={`profile_name ${hasUser} input-1`}
-				          	placeholder={ this.state.name || "Name here..." }
-				          	value={ this.state.name }
-                    onChange={this.updateInputValue.bind(this, 'name')}
-                    onClick={e => currentPath && this.openProfile(e)}
-				          />
+                <OutsideClickHandler onOutsideClick={() => {
+                   this.state.inputActive && this.setState({ inputActive: false })}}>
+                    <AutosizeInput
+                      ref={ this.name } 
+                      className={`profile_name ${hasUser} ${this.state.inputActive && opened} input-1`}
+				            	placeholder={ this.state.name || "Name here..." }
+                      value={ usernameVal }
+                      onChange={this.updateInputValue.bind(this, 'name')}
+                      onClick={e => currentPath && this.openProfile(e)}
+				            />
+                  </OutsideClickHandler>
                   <div className={`button_rack ${hasUser}`}>
                     <input
                       onClick={e => currentPath && this.closeProfile(e)}
@@ -153,7 +177,7 @@ export default class Profile extends Component {
                       type='button' 
                       value='Cancel' 
                     />
-                    <input className="save_btn btn-1" type='submit' value='Save' />
+                    <input disabled={ this.state.name.length < 3 } className="save_btn btn-1" type='submit' value='Save' />
                   </div>
                 </form>
             </div>

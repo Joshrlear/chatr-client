@@ -16,18 +16,26 @@
         width: fit-content;
         pointer-events: initial;
 
-        .profile_name, .profile_name > * {
+        .profile_name {
+            position: relative;
+            top: 5px;
+            left: 40px;
+            display: inline-block;
+            padding: 20px;
+            transition: width 0.2s ease-out;
+        }
+
+        .profile_name > * {
             font-size: 1.65rem;
             text-transform: capitalize;
             font-weight: bold;
             letter-spacing: 1rem;
-            width: 0.75rem !important;
-            height: 1rem;
-            padding: 1rem;
-            padding-left: 1.25rem;
-            right: -20px;
+            width: 20px !important;
+            height: 20px;
+            position: relative;
+            padding: 10px 9px 10px 11px;
             cursor: pointer;
-            transition: background-color 0.3s ease-in;
+            transition: background-color 0.3s ease-in, width 0.2s ease-out;
         }
 
         .profile_name > *:hover {
@@ -38,9 +46,12 @@
 
     .button_rack {
         padding-top: 50px;
-        display: none;
+        display: flex;
+        visibility: hidden;
         flex-direction: column;
         align-items: flex-end;
+        opacity: 0;
+        transition: visibility 0.5s ease-out;
 
         * {
             margin-bottom: 10px;
@@ -58,7 +69,7 @@
 .profile_container.open.has_user {
     z-index: 2;
     background-color: rgba(white, 0.65);
-    background-image: linear-gradient(to top right, rgba(white, 0.35), rgba(white, 0.85));
+    background-image: linear-gradient(to top right, rgba(white, 0.05), rgba(white, 0.8));
     pointer-events: none;
 
     .profile_form {
@@ -74,14 +85,18 @@
             display: block;
             position: absolute;
             width: unset;
+            max-width: 300px;
             right: -10px;
-            padding: 0px 18px;
+            padding: 0px 0px 0px 18px;
             cursor: initial;
+            transition: width 0.2s ease-out, background-color 0.15s ease;
         }
     }
 
     .button_rack, .button_rack > * {
         display: initial;
+        opacity: 1;
+        transition: visibility 0.5s ease-out;
     }
 
     .button_rack {
@@ -89,16 +104,28 @@
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        opacity: 1;
+        transition: visibility 0.5s ease-out;
 
         * {
             margin-bottom: 10px;
         }
 
-        .cancel_btn.open {
+        .cancel_btn {
             display: initial;
-            color: #f1491f;
+        }
+
+        .btn-1:disabled {
+            background-color: transparent;
+            color: #dddddd;
+            cursor: unset;
         }
     }
+}
+
+.profile_name.open > input {
+    background-color: darken($greenish,15%);
+    transition: background-color 0.15s ease;
 }
 
 /* --------- main profile showing --------- */
@@ -135,7 +162,12 @@
 
         .cancel_btn {
             display: none;
+        }
 
+        .btn-1:disabled {
+            background-color: transparent;
+            color: #dddddd;
+            cursor: unset;
         }
     }
 }

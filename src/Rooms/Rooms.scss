@@ -16,12 +16,16 @@
 
 .room_section {
     overflow: hidden;
-    box-shadow: 0px -4px 12px -4px rgba(0,0,0,0.2) inset, 0px 4px 12px -6px rgba(0,0,0,0.2) inset;
     margin-top: 20px;
+
+    &.scroll_shadow {
+        box-shadow: 0px -4px 12px -4px rgba(0,0,0,0.2) inset, 
+        0px 4px 12px -6px rgba(0,0,0,0.2) inset;
+    }
 
     .room_list_container {
         width: 104%;
-        height: 510px;
+        height: 575px;
         overflow-y: scroll;
     
         .room_list {
@@ -34,17 +38,17 @@
             .room {
                 display: block;
                 cursor: pointer;
+                @include li;
+                transition: transform 0.3s ease-out 0.15s,
+                color 0.1s ease-out;
     
+                &:hover {
+                    transform: scale(1.1);
+                    transition: all 0.07s ease;
+                }
+                
                 .room_name {
                     margin: 10px;
-                    @include li;
-                    transition: transform 0.5s ease-out 0.15s,
-                                color 0.2s ease-out 0.15s;
-
-                    &:hover {
-                        transform: scale(1.1);
-                        transition: all 0.07s ease;
-                    }
                 }
             }
         }
