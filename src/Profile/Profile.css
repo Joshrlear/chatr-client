@@ -82,6 +82,14 @@
   pointer-events: initial;
 }
 
+@media (max-width: 780px) {
+  .profile_container.has_user.closed .profile_form {
+    position: fixed;
+    right: 0px;
+    left: unset;
+  }
+}
+
 .profile_container.has_user.closed .profile_form .profile_name {
   position: relative;
   top: 5px;
@@ -90,6 +98,14 @@
   padding: 20px;
   -webkit-transition: width 0.2s ease-out;
   transition: width 0.2s ease-out;
+}
+
+@media (max-width: 780px) {
+  .profile_container.has_user.closed .profile_form .profile_name {
+    top: 0px;
+    left: 0px;
+    padding: 0px 0px 0px 18px;
+  }
 }
 
 .profile_container.has_user.closed .profile_form .profile_name > * {
@@ -159,17 +175,34 @@
   pointer-events: initial;
 }
 
+@media (max-width: 780px) {
+  .profile_container.open.has_user .profile_form {
+    position: fixed;
+    top: 30px;
+    left: -8px;
+    right: 27px;
+    margin-left: auto;
+  }
+}
+
 .profile_container.open.has_user .profile_form .profile_name, .profile_container.open.has_user .profile_form .profile_name > * {
   font-size: 1.65rem;
   display: block;
   position: absolute;
   width: unset;
   max-width: 300px;
+  min-width: 70px;
   right: -10px;
   padding: 0px 0px 0px 18px;
   cursor: initial;
   -webkit-transition: width 0.2s ease-out, background-color 0.15s ease;
   transition: width 0.2s ease-out, background-color 0.15s ease;
+}
+
+@media (max-width: 780px) {
+  .profile_container.open.has_user .profile_form .profile_name, .profile_container.open.has_user .profile_form .profile_name > * {
+    position: relative;
+  }
 }
 
 .profile_container.open.has_user .button_rack, .profile_container.open.has_user .button_rack > * {
@@ -194,6 +227,14 @@
   opacity: 1;
   -webkit-transition: visibility 0.5s ease-out;
   transition: visibility 0.5s ease-out;
+}
+
+@media (max-width: 780px) {
+  .profile_container.open.has_user .button_rack {
+    padding-top: 10px;
+    position: relative;
+    right: -20px;
+  }
 }
 
 .profile_container.open.has_user .button_rack * {

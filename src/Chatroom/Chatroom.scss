@@ -44,10 +44,19 @@
             word-wrap: break-word;
             overflow-wrap: break-word;
             color: white;
+            @include tablet {
+                margin: 0px;
+                padding: 0px;
+                width: 100vw;
+            }
 
             .me {
                 position: relative;
                 left: calc(50% - 30px);
+                @include tablet {
+                    left: unset;
+                    margin: 0px 20px;
+                }
 
                 .message {
                     background-color: $orangeish;
@@ -55,6 +64,10 @@
 
                 .message, .preview {
                     margin-left: auto;
+                    @include tablet {
+                        margin-right: 0px;
+                        margin-left: auto;
+                    }
                     &:before {
                         content: "";
                         width: 0px;
@@ -72,10 +85,17 @@
                 }
             }
 
+            .preview_warp {
+                @include tablet {
+                    word-break: break-word;
+                }
+            }
+
             .message, .preview {
                 width: fit-content;
                 padding: 12px 20px;
                 margin: 15px 0px;
+                max-width: 360px;
 
                 .from {
                     margin-bottom: 7px;
@@ -84,6 +104,9 @@
             }
             
             .not_me {
+                @include tablet {
+                    margin: 0px 20px;
+                }
                 &:before {
                     content: "";
                     width: 0px;
@@ -99,6 +122,9 @@
                     left: -5px;
                     top: 85px;
                     transform: rotate(212deg) scaleY(-1.25);
+                    @include tablet {
+                        left: -4px;
+                    }
                   }
             }
 
@@ -162,7 +188,7 @@
         box-sizing: border-box;
         box-shadow: 0px -1px 12px -4px rgba(0,0,0,0.2);
         background-color: white;
-        grid-template-columns: 1fr 240px 1fr 80px 1fr;
+        grid-template-columns: 1fr 6fr 1fr 80px 1fr;
         width: 100%;
         padding: 10px 0px;
         border-radius: 0px 0px 20px 20px;
@@ -172,9 +198,10 @@
             width: 100%;
             height: inherit;
             grid-column: 2/3;
+            overflow-x: hidden;
 
             .chat_intput {
-                width: 100%;
+                width: 103%;
                 padding-top: 6px;
                 border: none;
                 resize: none;

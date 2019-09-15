@@ -29,8 +29,6 @@ export default class Rooms extends Component {
     componentWillMount() {
         this.context.updateAppState()
         console.log('logging in the Rooms component', this.context.user)
-        !localStorage.user_id && this.props.history.push('/profile')
-        localStorage.rooms_id && console.log('component will mount and this is the rooms_id:', localStorage.rooms_id) /* this.props.history.push('/chatroom') */
 
         // connects to chat namespace 
         let chat = io(`${config.SERVER_BASE_URL}chat`)
@@ -41,15 +39,28 @@ export default class Rooms extends Component {
     }
 
     componentDidMount() {
-        roomFetches.getAllRooms()
-            .then(res => {
-                if (res.length > 0) {
-                    console.log('here are all the rooms!', res)
-                    this.setState({
-                        rooms: res
-                    })
-                }
-            })
+        if (!localStorage.user_id) {
+            console.log('checking the local storage:', !localStorage.user_id, 'if false, go to room', localStorage)
+            this.props.history.push('/profile')
+        }
+        else {
+            if (!localStorage.rooms_id) {
+                console.log('looks like you are already logged in', localStorage.username, 'but not in a room.')
+                roomFetches.getAllRooms()
+                .then(res => {
+                    if (res.length > 0) {
+                        console.log('here are all the rooms!', res)
+                        this.setState({
+                            rooms: res
+                        })
+                    }
+                })
+            }
+            else {
+                console.log(`${localStorage.username}! you are already in a room. Lets get you back to: ${localStorage.roomName}`)
+                this.props.history.push('/chatroom')
+            }
+        }
     }
 
     componentDidUpdate() {

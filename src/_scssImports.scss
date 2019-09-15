@@ -7,7 +7,7 @@
 }
 
 @mixin tablet {
-  @media (min-width: 600px) { @content; }
+  @media (max-width: 780px) { @content; }
 }
 
 @mixin large-tablet {
@@ -47,10 +47,17 @@
     
     h5 {
         font-size: 15px;
+        @include tablet {
+            font-size: 20px;
+        }
     }
     
-    p, input, textarea, button {
+    p/* , input, textarea, button  */{
         font-size: 15px;
+        @include tablet {
+            font-size: 17px;
+            line-height: 1.5em;
+        }
     }
 
     button, input .btn {
@@ -59,6 +66,9 @@
 
     input, textarea {
         font-size: 18px;
+        @include tablet {
+            font-size: 22px;
+        }
     }
 }
 
@@ -151,6 +161,10 @@ $placeholderLight: rgba(255,255,255,0.5);
         cursor: pointer;
         transition: background-color 0.3s ease-in;
 
+        @include tablet {
+            border-radius: 10px;
+        }
+
         &:hover {
             background-color: darken($greenish,15%);
             transition: background-color 0.1s ease-in;
@@ -178,6 +192,10 @@ $placeholderLight: rgba(255,255,255,0.5);
         cursor: pointer;
         transition: background-color 0.3s ease-in;
 
+        @include tablet {
+            border-radius: 10px;
+        }
+
         &:hover {
             background-color: darken($orangeish,15%);
             transition: background-color 0.1s ease-in;
@@ -192,6 +210,10 @@ $placeholderLight: rgba(255,255,255,0.5);
         font-weight: 600;
         cursor: pointer;
         transition: background-color 0.3s ease-in;
+
+        @include tablet {
+            border-radius: 10px;
+        }
 
         &:hover {
             background-color: darken($greenish,15%);

@@ -15,6 +15,11 @@
         float: right;
         width: fit-content;
         pointer-events: initial;
+        @include tablet{
+            position: fixed;
+            right: 0px;
+            left: unset;
+        }
 
         .profile_name {
             position: relative;
@@ -23,6 +28,11 @@
             display: inline-block;
             padding: 20px;
             transition: width 0.2s ease-out;
+            @include tablet {
+                top: 0px;
+                left: 0px;
+                padding: 0px 0px 0px 18px;
+            }
         }
 
         .profile_name > * {
@@ -79,6 +89,13 @@
         float: right;
         width: fit-content;
         pointer-events: initial;
+        @include tablet {
+            position: fixed;
+            top: 30px;
+            left: -8px;
+            right: 27px;
+            margin-left: auto;
+        }
 
         .profile_name, .profile_name > * {
             font-size: 1.65rem;
@@ -86,10 +103,14 @@
             position: absolute;
             width: unset;
             max-width: 300px;
+            min-width: 70px;
             right: -10px;
             padding: 0px 0px 0px 18px;
             cursor: initial;
             transition: width 0.2s ease-out, background-color 0.15s ease;
+            @include tablet {
+                position: relative;
+            }
         }
     }
 
@@ -106,6 +127,11 @@
         align-items: flex-end;
         opacity: 1;
         transition: visibility 0.5s ease-out;
+        @include tablet {
+            padding-top: 10px;
+            position: relative;
+            right: -20px;
+        }
 
         * {
             margin-bottom: 10px;

@@ -32,8 +32,21 @@ h5 {
   font-size: 15px;
 }
 
-p, input, textarea, button {
+@media (max-width: 780px) {
+  h5 {
+    font-size: 20px;
+  }
+}
+
+p {
   font-size: 15px;
+}
+
+@media (max-width: 780px) {
+  p {
+    font-size: 17px;
+    line-height: 1.5em;
+  }
 }
 
 button, input .btn {
@@ -42,6 +55,12 @@ button, input .btn {
 
 input, textarea {
   font-size: 18px;
+}
+
+@media (max-width: 780px) {
+  input, textarea {
+    font-size: 22px;
+  }
 }
 
 .main_container {
@@ -74,6 +93,16 @@ input[type="submit"]:disabled, button[type="submit"]:disabled {
       grid-template-columns: auto 520px auto;
   background-image: -webkit-gradient(linear, left top, right bottom, from(#3ec1d3), color-stop(#f6f7d7), to(#ff6392));
   background-image: linear-gradient(to bottom right, #3ec1d3, #f6f7d7, #ff6392);
+}
+
+@media (max-width: 780px) {
+  .App {
+    -ms-grid-rows: auto 100vh auto;
+        grid-template-rows: auto 100vh auto;
+    -ms-grid-columns: auto 100vw auto;
+        grid-template-columns: auto 100vw auto;
+    background-image: unset;
+  }
 }
 
 .link_container > * {

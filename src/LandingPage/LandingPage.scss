@@ -1,111 +1,189 @@
+@import '../scssImports';
+
+@mixin videoTabSize {
+    @media (min-width: 500px) and (max-width: 800px) and (max-height: 1025px) { @content; }
+  }
+
 .landingpage {
     width: 75%;
     margin: auto;
-
-    .landingpage_header {
-        text-align: center;
-        margin-top: 30px;
-
-        * {
-            margin-top: 0px;
-        }
-
-        .title {
-            margin-bottom: 2px;
-            font-size: 30px;
-        }
-
-        .subtitle {
-            margin-bottom: 30px;
-        }
+    @include tablet {
+        display: grid;
+        grid-template-rows: auto auto;
     }
 
-    .enter_btn_container {
-        display: flex;
-        width: 4rem;
-        height: fit-content;
-        margin: 10px auto;
-        font-size: 20px;
-    }
-
-    .enter_btn {
-        margin: auto;
-        padding-bottom: 3px;
-        text-decoration: none;
-        color: white;
-    }
-
-    .info_section {
-
-        * {
-            margin-bottom: 30px;
+    .mobile_grid1 {
+        @include tablet {
+            grid-row: 1/2;
+            height: 310px;
+            display: flex;
+            flex-direction: column-reverse;
         }
-
-        .tech_used_contaier {
-
-            .tech_used {
-                margin: 20px auto;
-                // for browsers that don't support text-justify
-                text-align: center;
-
-                &:before {
-                    content: '';
-                    display: inline-block;
-                    background-color: grey;
-                    padding: 0.5px 15px;
-                    margin: 1rem 10px 0.25rem 0px;
-                }
         
-                &:after {
-                    content: '';
-                    display: inline-block;
-                    background-color: grey;
-                    padding: 0.5px 15px;
-                    margin: 1rem 0px 0.25rem 10px;
+        @include videoTabSize {
+            height: 450px;
+        }
+
+        .landingpage_header {
+            text-align: center;
+            margin-top: 30px;
+    
+            * {
+                margin-top: 0px;
+            }
+    
+            .title {
+                margin-bottom: 2px;
+                font-size: 30px;
+                    @include tablet {
+                    margin-top: 0px;
                 }
             }
+    
+            .subtitle {
+                margin-bottom: 30px;
+                @include tablet {
+                    margin-top: 0px;
+                    margin-bottom: 0px;
+                }
+            }
+        }
+    
+        .videoplayer_container {
+            
+            @include tablet {
+                width: 100vw;
+                position: fixed;
+                top: 0px;
+                left: 0px;
+            }
 
-            // for browsers that support text-justify
-            @supports (text-justify: inter-word) {
+            @include videoTabSize {
+                height: 350px;
+            }
+        }
+    }
+
+    .mobile_grid2{
+        @include tablet {
+            grid-row: 2/3;
+        }
+        .enter_btn_container {
+            display: flex;
+            width: 4rem;
+            height: fit-content;
+            margin: 10px auto;
+            font-size: 20px;
+    
+            @include tablet {
+                width: 6rem;
+                margin: 30px auto;
+            }
+        }
+    
+        .enter_btn {
+            margin: auto;
+            padding-bottom: 3px;
+            text-decoration: none;
+            color: white;
+        }
+    
+        .info_section {
+    
+            * {
+                margin-bottom: 0px;
+                @include tablet {
+                    margin-bottom: 30px;
+                }
+            }
+    
+            .tech_used_contaier {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                margin-top: 30px;
+    
                 .tech_used {
                     margin: 20px auto;
-                    text-align: justify;
-                    text-justify: inter-word;
-
-                    &:before {
+                    // for browsers that don't support text-justify
+                    text-align: center;
+    
+                    @include tablet {
+                        margin: 8px auto;
+                    }
+    
+                    /* &:before {
                         content: '';
-                        display: none;
+                        display: inline-block;
+                        background-color: grey;
+                        padding: 0.5px 15px;
+                        margin: 1rem 10px 0.25rem 0px;
                     }
             
                     &:after {
                         content: '';
-                        display: none;
+                        display: inline-block;
+                        background-color: grey;
+                        padding: 0.5px 15px;
+                        margin: 1rem 0px 0.25rem 10px;
+                    } */
+                }
+    
+                // for browsers that support text-justify
+                /* @supports (text-justify: inter-word) {
+                    .tech_used {
+                        margin: 20px auto;
+                        text-align: justify;
+                        text-justify: inter-word;
+    
+                        &:before {
+                            content: '';
+                            display: none;
+                        }
+                
+                        &:after {
+                            content: '';
+                            display: none;
+                        }
                     }
+                } */
+            }
+    
+            .status_container {
+                margin-top: 10px;
+                text-align: center;
+                @include tablet{
+                    text-align: left;
                 }
             }
         }
-
-        .status_container {
-            margin-top: 10px;
+    
+        .footer {
+            width: 50%;
+            margin: 30px auto;
             text-align: center;
-        }
-    }
-
-    .footer {
-        width: 50%;
-        margin: 30px auto;
-        text-align: center;
-        display: flex;
-        justify-content: space-around;
-
-        span {
-            border-radius: unset;
-            font-weight: 100;
-            transition: scale() 0.3s ease-in;
-
-            &:hover {
-                transform: scale(1.1);
-                transition: scale() 0.1s ease-in;
+            display: flex;
+            justify-content: space-around;
+            @include tablet {
+                width: 80%
+            }
+    
+            span {
+                border-radius: unset;
+                font-weight: 100;
+                transition: scale() 0.3s ease-in;
+    
+                @include tablet {
+                    .fa-2x {
+                        font-size: 2.5em;
+                    }
+                }
+    
+                &:hover {
+                    transform: scale(1.1);
+                    transition: scale() 0.1s ease-in;
+                }
             }
         }
     }

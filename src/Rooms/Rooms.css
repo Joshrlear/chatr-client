@@ -52,6 +52,12 @@
   transition: background-color 0.3s ease-in;
 }
 
+@media (max-width: 780px) {
+  .btn-2 {
+    border-radius: 10px;
+  }
+}
+
 .btn-2:hover {
   background-color: #2491a0;
   -webkit-transition: background-color 0.1s ease-in;
@@ -67,9 +73,29 @@
   text-align: center;
 }
 
+@media (max-width: 780px) {
+  .rooms_form {
+    position: fixed;
+    width: 100vw;
+    padding: 30px 0px;
+    margin-top: 0px;
+    -webkit-box-shadow: 0px -4px 12px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px -4px 12px 4px rgba(0, 0, 0, 0.2);
+    background-color: white;
+  }
+}
+
 .room_section {
   overflow: hidden;
   margin-top: 20px;
+}
+
+@media (max-width: 780px) {
+  .room_section {
+    overflow: scroll;
+    margin-top: 120px;
+    height: calc(100vh - 118px);
+  }
 }
 
 .room_section.scroll_shadow {
@@ -77,10 +103,23 @@
           box-shadow: 0px -4px 12px -4px rgba(0, 0, 0, 0.2) inset, 0px 4px 12px -6px rgba(0, 0, 0, 0.2) inset;
 }
 
+@media (max-width: 780px) {
+  .room_section.scroll_shadow {
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+}
+
 .room_section .room_list_container {
   width: 104%;
   height: 575px;
   overflow-y: scroll;
+}
+
+@media (max-width: 780px) {
+  .room_section .room_list_container {
+    height: auto;
+  }
 }
 
 .room_section .room_list_container .room_list {
