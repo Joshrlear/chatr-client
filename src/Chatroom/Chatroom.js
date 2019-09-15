@@ -5,14 +5,13 @@ import ChatContext from '../ChatContext'
 import fetches from '../fetches'
 import ScrollToBottom from 'react-scroll-to-bottom'
 import Textarea from 'react-textarea-autosize'
-import Moment from 'react-moment'
 import './Chatroom.css'
 import moment from 'moment'
 
 // on render, client connects to socket.io via server
 const socket = io.connect(config.SERVER_BASE_URL)
 
-const { roomFetches, userRoomsFetches } = fetches
+const { userRoomsFetches } = fetches
 
 export default class Chatroom extends Component {
     constructor(props) {

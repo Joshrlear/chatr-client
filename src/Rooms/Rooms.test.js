@@ -1,10 +1,22 @@
 import React from 'react';
-//import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import Rooms from './Rooms';
 import renderer from 'react-test-renderer';
-//import Chat from './Chat';
 import Textarea from 'react-textarea-autosize';
 
-describe('Chat rendering', () => {
+describe('Components', () => {
+    it(`renders Rooms without crashing`, () => {
+        const div = document.createElement('div')
+        ReactDOM.render(
+        <BrowserRouter>
+           <Rooms/>
+        </BrowserRouter>, div)
+        ReactDOM.unmountComponentAtNode(div)
+    })
+})
+
+describe('Textarea rendering', () => {
   it('renders Textarea properly', () => {
     const tree = renderer
       .create(<Textarea />, {

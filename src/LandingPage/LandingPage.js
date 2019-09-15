@@ -41,6 +41,7 @@ export default class LandingPage extends Component {
                 </header>
                 <div className="videoplayer_container">
                 <iframe width="100%" height={ this.state.videoHeight }
+                  title="Chatr demonatration video"
                   src="https://www.youtube.com/embed/ZAUwiCv-5Mw" 
                   frameBorder="0" 
                   allow="accelerometer; 
