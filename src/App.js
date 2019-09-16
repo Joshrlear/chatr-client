@@ -44,6 +44,7 @@ export default class App extends Component {
   }
 
   updateAppState = () => {
+    //console.log('ppppppppppppp', this.state, "ttttttttt", localStorage)
     // update profile path
     this.profilePath()
     console.log('checking local storage')
@@ -102,7 +103,7 @@ export default class App extends Component {
   }
 
   render() {
-
+    
     const { user_id, username, rooms_id, roomName } = this.state
     const contextValue = {
       user: {
