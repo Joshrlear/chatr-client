@@ -209,7 +209,7 @@ const userRoomsFetches = {
         console.log('this is the body posting to /userRooms/userLeavesRoom', body)
         return (
             fetch(`${SERVER_BASE_URL}userRooms/userLeavesRoom`, {
-                method: 'POST',
+                method: 'DELETE',
                 body: JSON.stringify(body),
                 headers: {
                     'Content-Type': 'application/json'
