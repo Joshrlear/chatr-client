@@ -39,19 +39,6 @@ export default class Chatroom extends Component {
         let { user_id, username, rooms_id, roomName } = localStorage
         const storedUserInfo = { user_id, username, rooms_id, roomName }
         this.context.updateState(storedUserInfo)
-        console.log(user_id, username, rooms_id, roomName)
-        /* roomFetches.getRoomById(rooms_id)
-            .then(res => {
-                console.log('this is the res from getroombyid', res)
-                if (!res.name) {
-                    throw new Error('could not get room name')
-                }
-                else {
-                    const roomName = res.name
-                    res.name !== this.state.roomName
-                        && this.setState({ roomName })
-                }
-            }) */
 
         // update state with user info
         const userId = user_id
@@ -76,7 +63,6 @@ export default class Chatroom extends Component {
             filtered = this.state.userTyping.filter(function (arr) { 
                 return arr.indexOf(PATTERN) === -1; 
             });
-            console.log(filtered)
             this.setState({
                 userTyping: filtered
             })
@@ -89,7 +75,6 @@ export default class Chatroom extends Component {
         this.context.updateAppState()
         const { username, roomName } = this.state
         const info = { username, roomName }
-        console.log('///////', info)
         socket.emit('joinRoom', info)
         socket.on('welcome message', message => {
             console.log(message)
@@ -116,7 +101,6 @@ export default class Chatroom extends Component {
         let typingTimeout = null
 
         socket.on('stop typing', user => {
-            console.log('trying to clear typing', user)
             this.clearUserTyping(user, typingTimeout)
         })
 
@@ -128,7 +112,6 @@ export default class Chatroom extends Component {
                 clearTimeout(typingTimeout)
                 // begin timeout
                 typingTimeout = setTimeout(() => {
-                    console.log('//////////this is logging too')
                     // after 3 seconds all usernames will be removed
                     this.clearUserTyping(user)
                 }, 3000)
@@ -147,11 +130,12 @@ export default class Chatroom extends Component {
 
     leaveRoom = e => {
         this.changePointerEvents()
-        console.log('user leaving room')
+        console.log('trying to leave room')
         const user_id = localStorage.user_id
         const { rooms_id } = this.state
         userRoomsFetches.userLeavesRoom(user_id, rooms_id)
             .then(res => {
+                console.log('left the room?', res)
                 if(res.ok) {
                     console.log('user has left room and will disconnect from socket room:',res)
                     // client emits 'disconnected' socket
@@ -159,12 +143,14 @@ export default class Chatroom extends Component {
                     socket.emit('disconnected', localStorage.username)
                 }
             })
-            // remove then update app state
+            .then(() => {
+                // remove then update app state
             const next = Promise.resolve(localStorage.removeItem('rooms_id'))
             const updateAppState = next && localStorage.removeItem('roomName')
             // trigger app rerender
             const goToRooms = Promise.resolve(updateAppState && this.context.updateAppState())
             goToRooms && this.props.history.push('/rooms')
+            })
     }
 
     handleInput = (value) => {

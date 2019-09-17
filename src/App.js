@@ -20,7 +20,6 @@ export default class App extends Component {
 
   updateRoomName = (info) => {
     const roomName = info.roomName
-    console.log('updating roomName!', roomName)
     this.state.roomName !== roomName
       && this.setState({
         roomName
@@ -36,7 +35,6 @@ export default class App extends Component {
       && Object.entries(userInfo).map((entry, i) => {
           key = entry[0]
           value = entry[1]
-          console.log(key, value)
           this.setState({
             [key]: value
           })
@@ -44,10 +42,7 @@ export default class App extends Component {
   }
 
   updateAppState = () => {
-    //console.log('ppppppppppppp', this.state, "ttttttttt", localStorage)
-    // update profile path
     this.profilePath()
-    console.log('checking local storage')
 
     const userState = [
       this.state.user_id, 
@@ -63,7 +58,6 @@ export default class App extends Component {
     ]
 
     const isEqual = JSON.stringify(userState) == JSON.stringify(storedUser)
-    console.log(JSON.stringify(userState), JSON.stringify(storedUser), isEqual)
     if (!isEqual) {
         this.setState({
           user_id: storedUser[0],
@@ -76,29 +70,22 @@ export default class App extends Component {
 
 
   profilePath = () => {
-    console.log(window.location.pathname)
     const profilePath = window.location.pathname === "/" ? "/profile" : "/"
     profilePath !== this.state.profilePath
       && this.setState({ profilePath })
   }
 
   componentWillMount() {
-    console.log('App will mount')
     this.updateAppState()
-    //window.location.pathname !== '/home' && window.location.replace(`${config.CLIENT_BASE_URL}home`)
   }
 
   componentWillUpdate() {
-    console.log('App will update')
     this.updateAppState()
   }
 
   componentDidMount() {
     if (!localStorage.componentConnection) {
       localStorage.componentConnection = this.state.componentConnection
-      /* this.setState({
-        componentConnection: connection_id
-      }) */
     }
   }
 
@@ -117,7 +104,6 @@ export default class App extends Component {
       updateAppState: this.updateAppState,
       componentConnection: this.state.componentConnection
     }
-    console.log('app is running the render')
     return (
       <ChatContext.Provider value={ contextValue }>
         <div className="App">

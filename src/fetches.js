@@ -179,25 +179,16 @@ const userRoomsFetches = {
 
     getUserRooms(user_id, rooms_id) {
         return (
-        fetch(`${SERVER_BASE_URL}userRooms/${user_id}/${rooms_id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => {
-            console.log('user is already in room:', res)
-            return res
-            /* if(!res.ok) {
-                console.log('this is the bad res:', res)
-                throw new Error('user hasn\'t joined this room')
-            }
-            else {
-                console.log('this is the good res:', res)
-                return res.json()
-            } */
-        })
-        //.catch(err => { return err })
+            fetch(`${SERVER_BASE_URL}userRooms/${user_id}/${rooms_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => {
+                console.log('user is already in room:', res)
+                return res
+            })
         )
     },
 

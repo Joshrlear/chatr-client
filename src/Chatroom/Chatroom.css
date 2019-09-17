@@ -100,6 +100,7 @@
   padding: 0px 145px 0px 15px;
   width: auto;
   word-wrap: break-word;
+  word-break: break-word;
   overflow-wrap: break-word;
   color: white;
 }
@@ -290,7 +291,10 @@
 }
 
 .chatroom_container .chat_input_section_container .input_container .chat_intput {
-  width: 103%;
+  position: relative;
+  left: 0px;
+  width: 100%;
+  margin-left: 8px;
   padding-top: 6px;
   border: none;
   resize: none;
