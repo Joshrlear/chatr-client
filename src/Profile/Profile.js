@@ -54,7 +54,7 @@ export default class Profile extends Component {
       console.log('Profile did mount')
       socket.on('changePointerEvents', value => {
         console.log('changing pointer event!', value)
-        this.resetName()
+        this.state.profileOpen && this.resetName()
       })
     }
 

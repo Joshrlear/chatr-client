@@ -140,16 +140,25 @@ export default class Chatroom extends Component {
                     console.log('user has left room and will disconnect from socket room:',res)
                     // client emits 'disconnected' socket
                     // when they leave the chat
-                    socket.emit('disconnected', localStorage.username)
+                    const userLeaving = {
+                        username: this.state.username,
+                        roomName: this.state.roomName
+                    }
+                    socket.emit('disconnected', userLeaving)
                 }
             })
             .then(() => {
-                // remove then update app state
-            const next = Promise.resolve(localStorage.removeItem('rooms_id'))
-            const updateAppState = next && localStorage.removeItem('roomName')
-            // trigger app rerender
-            const goToRooms = Promise.resolve(updateAppState && this.context.updateAppState())
-            goToRooms && this.props.history.push('/rooms')
+                localStorage.removeItem('rooms_id')
+            })
+            .then(() => {
+                localStorage.removeItem('roomName')
+            })
+            .then(() => {
+                // update app state to reflect that user left room
+               this.context.updateAppState()
+            })
+            .then(() => {
+                this.props.history.push('/rooms')
             })
     }
 

@@ -63,15 +63,10 @@ export default class Rooms extends Component {
         }
     }
 
-    componentDidUpdate() {
-        this.messagesEnd.current && this.messagesEnd.current.scrollIntoView({ behavior: "smooth" })
-    }
-
     addUserToSocketRoom = (info, rooms_id) => {
         localStorage.rooms_id = rooms_id
         localStorage.roomName = info.roomName
         this.props.history.push('/chatroom')
-        //window.location.reload()
     }
 
     handleRoomName = e => {
