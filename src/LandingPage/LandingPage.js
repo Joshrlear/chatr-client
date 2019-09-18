@@ -85,9 +85,9 @@ export default class LandingPage extends Component {
                   </article>
                 </section>
                 <footer className="footer">
-                  <a href="https://github.com/Joshrlear/chatr-client"><span className="fab fa-github-square fa-2x btn-1"/></a>
-                  <a href="https://www.facebook.com/josh.lear.7"><span className="fab fa-facebook-square fa-2x btn-1"/></a>
-                  <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer"><span className="fab fa-youtube-square fa-2x btn-1"/></a>
+                  <a href="https://github.com/Joshrlear/chatr-client" target="_blank" rel="noopener noreferrer"><span className="fab fa-github-square fa-2x btn-1"/></a>
+                  <a href="https://www.facebook.com/josh.lear.7" target="_blank" rel="noopener noreferrer"><span className="fab fa-facebook-square fa-2x btn-1"/></a>
+                  <a href="https://www.youtube.com/watch?v=ZAUwiCv-5Mw" target="_blank" rel="noopener noreferrer"><span className="fab fa-youtube-square fa-2x btn-1"/></a>
                 </footer>
               </div>
             </main>

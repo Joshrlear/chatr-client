@@ -13,9 +13,18 @@
     background-image: linear-gradient(to bottom right, $greenish, $lightColor, $orangeish);
 
     @include tablet {
+        height: 100%;
         grid-template-rows: auto 100vh auto;
         grid-template-columns: auto 100vw auto;
         background-image: unset;
+    }
+
+    @include large-tablet {
+        height: 100vh;
+    }
+
+    @include phone-horizontal {
+        height: 100%;
     }
 }
 

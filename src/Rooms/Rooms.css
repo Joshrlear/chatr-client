@@ -69,6 +69,8 @@
 }
 
 .rooms_form {
+  position: relative;
+  top: 0px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -145,6 +147,12 @@
 @media (max-width: 780px) {
   .room_section .room_list_container .room_list {
     margin-top: 30px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .room_section .room_list_container .room_list {
+    padding: 0px 4% 0px 0px;
   }
 }
 
