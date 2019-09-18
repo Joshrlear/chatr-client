@@ -33,6 +33,6 @@ describe('Profile', () => {
         // will ensure that it is qued last 
         setTimeout(() => expect(instance.state.username)
             .toBe("differentuser"), 0)
-        expect(window.location.pathname).toBe("/rooms")
+        setTimeout(() => expect(window.location.pathname).toBe("/rooms"), 0)
     })
 })
