@@ -7,6 +7,7 @@ import Profile from './Profile/Profile';
 import Rooms from './Rooms/Rooms';
 import Chatroom from './Chatroom/Chatroom'
 import './App.css';
+import config from './config';
 
 export default class App extends Component {
   state = {
@@ -84,6 +85,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    console.log("this is the config stuff:", config.SERVER_BASE_URL, config.CLIENT_BASE_URL, process.env)
     if (!localStorage.componentConnection) {
       localStorage.componentConnection = this.state.componentConnection
     }

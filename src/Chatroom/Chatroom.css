@@ -10,6 +10,10 @@
   color: white;
   font-weight: 600;
   cursor: pointer;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 80px;
   -webkit-transition: background-color 0.3s ease-in;
   transition: background-color 0.3s ease-in;
 }
@@ -33,6 +37,10 @@
   color: white;
   font-weight: 600;
   cursor: pointer;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 80px;
   -webkit-transition: background-color 0.3s ease-in;
   transition: background-color 0.3s ease-in;
 }
@@ -86,6 +94,12 @@
 .chatroom_container .message_section .message_container {
   height: inherit;
   width: 104%;
+}
+
+@media (max-width: 780px) {
+  .chatroom_container .message_section .message_container {
+    width: 100%;
+  }
 }
 
 .chatroom_container .message_section .css-1qyrjaz {
@@ -250,6 +264,12 @@
 
 .chatroom_container .user_typing {
   list-style: none;
+}
+
+@media (max-width: 780px) {
+  .chatroom_container .user_typing .typing_msg {
+    font-size: 22px;
+  }
 }
 
 .chatroom_container .forScroll {

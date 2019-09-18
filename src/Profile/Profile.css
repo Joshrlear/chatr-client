@@ -42,6 +42,10 @@
   color: #3ec1d3;
   font-weight: 600;
   cursor: pointer;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 80px;
 }
 
 .btn-1:hover {
@@ -56,6 +60,10 @@
   color: #ff6392;
   font-weight: 600;
   cursor: pointer;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 80px;
 }
 
 .btn-0:hover {
@@ -104,7 +112,7 @@
   .profile_container.has_user.closed .profile_form .profile_name {
     top: 0px;
     left: 0px;
-    padding: 0px 0px 0px 18px;
+    padding: 0px 0px 0px 25px;
   }
 }
 
@@ -180,7 +188,7 @@
     position: fixed;
     top: 30px;
     left: -8px;
-    right: 27px;
+    right: 47px;
     margin-left: auto;
   }
 }
@@ -202,6 +210,7 @@
 @media (max-width: 780px) {
   .profile_container.open.has_user .profile_form .profile_name, .profile_container.open.has_user .profile_form .profile_name > * {
     position: relative;
+    font-size: 32px;
   }
 }
 

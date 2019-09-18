@@ -28,6 +28,9 @@
         .message_container {
             height: inherit;
             width: 104%;
+            @include tablet {
+                width: 100%;
+            }
         }
 
         .css-1qyrjaz {
@@ -175,6 +178,12 @@
 
     .user_typing {
         list-style: none;
+
+        .typing_msg {
+            @include tablet {
+                font-size: 22px;
+            }
+        }
     }
 
     .forScroll {

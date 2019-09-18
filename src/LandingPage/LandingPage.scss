@@ -91,9 +91,11 @@
         .info_section {
     
             * {
+                font-size: 15px;
                 margin-bottom: 0px;
                 @include tablet {
                     margin-bottom: 30px;
+                    font-size: 17px;
                 }
             }
     

@@ -31,43 +31,72 @@
 
     h1 {
         font-size: 40px;
+        @include tablet {
+            font-size: 50px;
+        }
     }
     
     h2 {
         font-size: 30px;
+        @include tablet {
+            font-size: 40px;
+        }
     }
     
     h3 {
         font-size: 20px;
+        @include tablet {
+            font-size: 30px;
+        }
     }
     
     h4 {
         font-size: 20px;
+        @include tablet {
+            font-size: 30px;
+        }
     }
     
     h5 {
-        font-size: 15px;
+        font-size: 17px;
         @include tablet {
             font-size: 20px;
         }
     }
-    
-    p/* , input, textarea, button  */{
-        font-size: 15px;
+
+    h6 {
+        font-size: 10px;
         @include tablet {
-            font-size: 17px;
-            line-height: 1.5em;
+            font-size: 12px;
+        }
+    }
+    
+    p {
+        font-size: 17px;
+        line-height: 1.5em;
+    }
+
+    button, input, .btn {
+        font-size: 25px;
+        @include tablet {
+            font-size: 27px;
         }
     }
 
-    button, input .btn {
-        font-size: 25px;
+    input > * {
+        font-size: 27px;
+        @include tablet {
+            font-size: 30px;
+        }
     }
 
-    input, textarea {
+    textarea {
         font-size: 18px;
         @include tablet {
-            font-size: 22px;
+            font-size: 30px;
+        }
+        @include phone {
+            font-size: 19px;
         }
     }
 }
@@ -110,6 +139,8 @@ $placeholderLight: rgba(255,255,255,0.5);
         color: $greenish;
         font-weight: 600;
         cursor: pointer;
+        width: fit-content;
+        min-width: 80px;  
 
         &:hover {
             color: darken($greenish,15%);
@@ -123,6 +154,8 @@ $placeholderLight: rgba(255,255,255,0.5);
         color: $orangeish;
         font-weight: 600;
         cursor: pointer;
+        width: fit-content;
+        min-width: 80px;  
 
         &:hover {
             color: darken($orangeish,15%);
@@ -159,6 +192,8 @@ $placeholderLight: rgba(255,255,255,0.5);
         color: white;
         font-weight: 600;
         cursor: pointer;
+        width: fit-content;
+        min-width: 80px;  
         transition: background-color 0.3s ease-in;
 
         @include tablet {
@@ -190,6 +225,8 @@ $placeholderLight: rgba(255,255,255,0.5);
         color: white;
         font-weight: 600;
         cursor: pointer;
+        width: fit-content;
+        min-width: 80px;  
         transition: background-color 0.3s ease-in;
 
         @include tablet {
@@ -209,6 +246,8 @@ $placeholderLight: rgba(255,255,255,0.5);
         color: white;
         font-weight: 600;
         cursor: pointer;
+        width: fit-content;
+        min-width: 80px;  
         transition: background-color 0.3s ease-in;
 
         @include tablet {

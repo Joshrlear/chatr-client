@@ -31,7 +31,7 @@
             @include tablet {
                 top: 0px;
                 left: 0px;
-                padding: 0px 0px 0px 18px;
+                padding: 0px 0px 0px 25px;
             }
         }
 
@@ -93,7 +93,7 @@
             position: fixed;
             top: 30px;
             left: -8px;
-            right: 27px;
+            right: 47px;
             margin-left: auto;
         }
 
@@ -110,6 +110,7 @@
             transition: width 0.2s ease-out, background-color 0.15s ease;
             @include tablet {
                 position: relative;
+                font-size: 32px;
             }
         }
     }

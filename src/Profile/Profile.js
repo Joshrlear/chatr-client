@@ -75,15 +75,33 @@ export default class Profile extends Component {
       console.log('------//////////////// profile is unmounting!')
     }
 
+    updateUserRooms = userRooms => {
+      this.props.location.pathname === "/chatroom" 
+        && socket.emit('update userRooms', this.state. user)
+    }
+
     handleSubmit = (e) => {
       e && e.preventDefault()
       // set for quick access everywhere else
       const userName = this.state.username
       const inputName = this.state.name
+      const connection_id = this.context.componentConnection
+      const pathname = this.props.location.pathname
+      // user is on the main profile
+      if(pathname === "/profile") {
+        console.log('user is on the main profile')
+        // user already logged in
+        if(inputName && userName === inputName) {
+          console.log('user already logged in')
+          this.closeProfile()
+          this.props.history.push("/rooms")
+        }
+
+      }
       console.log('check if username is in use')
       if(inputName && userName !== inputName) {
+        console.log('this is the current username in state:', this.state.username, userName, this.state.roomName, this.state.rooms_id)
         console.log('here', inputName && userName !== inputName)
-        userName !== '' && socket.emit('disconnected', userName)
         getUser(inputName)
         .then(res => {
           console.log('checking to see if user exists:', inputName)
@@ -101,9 +119,22 @@ export default class Profile extends Component {
                 console.log('setting localstorage:', user)
                 localStorage.user_id = id
                 localStorage.username = username
-                console.log('if true, we will go to /rooms', this.props.location.pathname !== "/rooms")
-                this.props.location.pathname !== "/rooms" && this.props.history.push('/rooms')
-                this.closeProfile()
+                //console.log('if true, we will go to /rooms', this.props.location.pathname !== "/rooms")
+                //this.props.location.pathname !== "/rooms" && this.props.history.push('/rooms')
+                if(pathname === "/profile") {
+                  this.closeProfile()
+                  this.props.history.push("/rooms")
+                }
+                else {
+                  const userLeavingInfo = {
+                    user_id: id,
+                    username,
+                    connection_id
+                  }
+                  socket.emit('userLeavesRoom', userLeavingInfo)
+                  this.closeProfile()
+                  //this.updateUserRooms()
+                }
               })
         }
         else {
@@ -118,17 +149,27 @@ export default class Profile extends Component {
           localStorage.user_id = id
           localStorage.username = username
           console.log('if true, we will go to /rooms', this.props.location.pathname !== "/rooms")
-          this.closeProfile()
-          this.props.location.pathname !== "/rooms" && this.props.history.push('/rooms')
-        }
-        })
+          if(pathname === "/profile") {
+            this.closeProfile()
+            this.props.history.push("/rooms")
+          }
+          else {
+            const userLeavingInfo = {
+              user_id: id,
+              username,
+              connection_id
+            }
+            socket.emit('userLeavesRoom', userLeavingInfo)
+            this.closeProfile()
+            //this.updateUserRooms()
+          }
+        }})
         .catch(err => {
           console.log(err)
         })
       }
-      console.log('if true, we will go to /rooms', this.props.location.pathname !== "/rooms")
-      this.closeProfile()
-      this.props.location.pathname !== "/rooms" && this.props.history.push('/rooms')
+      //this.closeProfile()
+      //this.updateUserRooms()
     }
 
     updateInputValue = (input, event) => {
@@ -163,7 +204,9 @@ export default class Profile extends Component {
         &&  this.setState({
               profileOpen: false
             })
-            console.log('closing profile and updating state:', this.state.profileOpen, 'name:', this.state.username)
+      console.log('closing profile and updating state:', this.state.profileOpen, 'name:', this.state.username)
+      //console.log('if true, we will go to /rooms', this.props.location.pathname !== "/rooms")
+      //this.props.location.pathname !== "/rooms" && this.props.history.push('/rooms')
     }
 
     render() {

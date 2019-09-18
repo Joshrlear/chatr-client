@@ -16,20 +16,44 @@ h1 {
   font-size: 40px;
 }
 
+@media (max-width: 780px) {
+  h1 {
+    font-size: 50px;
+  }
+}
+
 h2 {
   font-size: 30px;
+}
+
+@media (max-width: 780px) {
+  h2 {
+    font-size: 40px;
+  }
 }
 
 h3 {
   font-size: 20px;
 }
 
+@media (max-width: 780px) {
+  h3 {
+    font-size: 30px;
+  }
+}
+
 h4 {
   font-size: 20px;
 }
 
+@media (max-width: 780px) {
+  h4 {
+    font-size: 30px;
+  }
+}
+
 h5 {
-  font-size: 15px;
+  font-size: 17px;
 }
 
 @media (max-width: 780px) {
@@ -38,28 +62,54 @@ h5 {
   }
 }
 
-p {
-  font-size: 15px;
+h6 {
+  font-size: 10px;
 }
 
 @media (max-width: 780px) {
-  p {
-    font-size: 17px;
-    line-height: 1.5em;
+  h6 {
+    font-size: 12px;
   }
 }
 
-button, input .btn {
+p {
+  font-size: 17px;
+  line-height: 1.5em;
+}
+
+button, input, .btn {
   font-size: 25px;
 }
 
-input, textarea {
+@media (max-width: 780px) {
+  button, input, .btn {
+    font-size: 27px;
+  }
+}
+
+input > * {
+  font-size: 27px;
+}
+
+@media (max-width: 780px) {
+  input > * {
+    font-size: 30px;
+  }
+}
+
+textarea {
   font-size: 18px;
 }
 
 @media (max-width: 780px) {
-  input, textarea {
-    font-size: 22px;
+  textarea {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 599px) {
+  textarea {
+    font-size: 19px;
   }
 }
 

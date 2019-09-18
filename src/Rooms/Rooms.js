@@ -39,6 +39,10 @@ export default class Rooms extends Component {
     }
 
     componentDidMount() {
+        // connect to componentConnection socket room
+        const connection_id = this.context.componentConnection
+        socket.emit('connect to components', connection_id)
+
         if (!localStorage.user_id) {
             console.log('checking the local storage:', !localStorage.user_id, 'if false, go to room', localStorage)
             this.props.history.push('/profile')

@@ -86,6 +86,21 @@ export default class Chatroom extends Component {
             })
         })
 
+        // connect to componentConnection socket room
+        const connection_id = this.context.componentConnection
+        socket.emit('connect to components', connection_id)
+        socket.on('userLeavesRoom', userInfo => {
+            console.log('userLeavesRoom socket is heard!')
+            // leave room then update state
+            const promise = Promise.resolve(this.leaveRoom())
+            promise.then(() => {
+                this.setState({ 
+                    user_id: userInfo.user_id,
+                    username: userInfo.username
+                })
+            })
+        })
+
         // client listens for 'incoming message' socket connection
         // then it logs the IncomingMsg  
         socket.on('incoming message', incomingMsg => {
@@ -125,13 +140,13 @@ export default class Chatroom extends Component {
     }
 
     componentDidUpdate() {
+        console.log('chatRoom just updated')
         this.messagesEnd.current && this.messagesEnd.current.scrollIntoView({ behavior: "smooth" })
     }
 
-    leaveRoom = e => {
+    leaveRoom = (e) => {
         this.changePointerEvents()
-        console.log('trying to leave room')
-        const user_id = localStorage.user_id
+        const { user_id } = this.state
         const { rooms_id } = this.state
         userRoomsFetches.userLeavesRoom(user_id, rooms_id)
             .then(res => {
@@ -158,7 +173,7 @@ export default class Chatroom extends Component {
                this.context.updateAppState()
             })
             .then(() => {
-                this.props.history.push('/rooms')
+                 this.props.history.push('/rooms')
             })
     }
 
@@ -234,23 +249,6 @@ export default class Chatroom extends Component {
             </header>
             <section className="message_section">
                 <ScrollToBottom className="message_container">
-                    {/* 
-                        Message to the grader: **This will not be included
-                        in version 1 for this project**
-                        
-                        If you know how I can do this please let me know as
-                        I would like to implement this action into my app.
-                        
-                        I want to display: "username" has joined the chat
-                        in between messages but currently I only have them
-                        display at the top of the messages              */}
-
-                   { /* this.state.newUserMsg.length > 0 && this.state.newUserMsg.map((newUserMsg, i) => 
-                        <div key={i} className="newUserMsg_container">
-                            <p className="newUserMsg"><em>{newUserMsg}</em></p>
-                        </div>
-                        ) */ 
-                    }
                     <ul className="messages">
                         {this.state.messages.map((msg, i) => 
                             <li key={i} className={`message_wrap ${msg.username !== this.state.username ? "not_me" : "me"}`}>

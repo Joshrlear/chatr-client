@@ -26,7 +26,8 @@
     overflow: hidden;
     margin-top: 20px;
     @include tablet {
-        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
         margin-top: 120px;
         height: calc(100vh - 118px);
     }
@@ -53,6 +54,9 @@
             flex-direction: column;
             align-items: center;
             padding: 0px;
+            @include tablet {
+                margin-top: 30px;
+            }
             
             .room {
                 display: block;

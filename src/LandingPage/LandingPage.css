@@ -120,12 +120,14 @@
 }
 
 .landingpage .mobile_grid2 .info_section * {
+  font-size: 15px;
   margin-bottom: 0px;
 }
 
 @media (max-width: 780px) {
   .landingpage .mobile_grid2 .info_section * {
     margin-bottom: 30px;
+    font-size: 17px;
   }
 }
 

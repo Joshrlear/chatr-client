@@ -1,68 +1,42 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Chatr
 
-## Available Scripts
+An easy to use chat app with clean animations and features
 
-In the project directory, you can run:
+### `To get things started locally`
 
-### `npm start`
+git clone into your project folder. Make sure to git clone the server files as well: https://github.com/Joshrlear/chatr-server<br>
+Run: "npm i" to update all depedencies
+Open them both. For client-side run: "npm start". For server run : "npm run dev"
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### `Built with:`
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- React
+- scss
+- Nodejs
+- postgresql
+- socket.io
+- deployed to zeit (front-end) & heroku (backend)
 
-### `npm test`
+### `Features`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Chatr currently features real time messaging wtih the ability to 
+change profile information from any screen accept the landing page.
+Profile is accessible from most pages.
 
-### `npm run build`
+**Chatr does not require login and does not save messages. who you are**
+**and what you say is your business.**
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `Future updates`
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- ability to add images to profile.
+- ability to send images in chat.
+- the ability to create private "sidechats" inside of a group message without leavine room or current page.
+To start a sidechat the sender starts a message by typing the recievers name
+- switch between group chat and sidechat easily by clicking/tapping that chats icon.
+- chat icons showing thumbnail of all user images to signify who is in which room
+- easily see all users in chatroom with users profile thumbnail displayed at the top
+of the chat.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## version
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Live: v 1.0
