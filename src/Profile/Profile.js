@@ -29,10 +29,6 @@ export default class Profile extends Component {
 
     static contextType = ChatContext
 
-    componentWillMount() {
-      console.log('logging here in profile')
-    }
-
     componentDidMount() {
       let username
       let user_id
@@ -51,28 +47,20 @@ export default class Profile extends Component {
       }
       const connection_id = this.context.componentConnection
       socket.emit('connect to components', connection_id)
-      console.log('Profile did mount')
       socket.on('changePointerEvents', value => {
-        console.log('changing pointer event!', value)
         this.state.profileOpen && this.resetName()
       })
     }
 
     componentDidUpdate() {
-      console.log('component is updating but does it have a username in state?')
       if (this.state.username) {
         const username = this.state.username
         const firstIntitial = Object.values(username).join()[0]
-        console.log('this is the current state:', this.state, 'this.is the firstInitial to be updated with:', firstIntitial)
         this.state.firstIntitial !== firstIntitial
           && this.setState({
             firstIntitial
           })
       }
-    }
-
-    componentWillUnmount() {
-      console.log('------//////////////// profile is unmounting!')
     }
 
     updateUserRooms = userRooms => {
@@ -89,38 +77,28 @@ export default class Profile extends Component {
       const pathname = this.props.location.pathname
       // user is on the main profile
       if(pathname === "/profile") {
-        console.log('user is on the main profile')
         // user already logged in
         if(inputName && userName === inputName) {
-          console.log('user already logged in')
           this.closeProfile()
           this.props.history.push("/rooms")
         }
 
       }
-      console.log('check if username is in use')
+
       if(inputName && userName !== inputName) {
-        console.log('this is the current username in state:', this.state.username, userName, this.state.roomName, this.state.rooms_id)
-        console.log('here', inputName && userName !== inputName)
         getUser(inputName)
         .then(res => {
-          console.log('checking to see if user exists:', inputName)
           //username not found
           if(!res.id) {
-            console.log('no user found:', inputName)
             createUser(inputName)
               .then(user => {
                 const { id, username } = user
-                console.log('updating profile state with:', user)
                 this.setState({
                   user_id: id,
                   username,
                 })
-                console.log('setting localstorage:', user)
                 localStorage.user_id = id
                 localStorage.username = username
-                //console.log('if true, we will go to /rooms', this.props.location.pathname !== "/rooms")
-                //this.props.location.pathname !== "/rooms" && this.props.history.push('/rooms')
                 if(pathname === "/profile") {
                   this.closeProfile()
                   this.props.history.push("/rooms")
@@ -133,22 +111,18 @@ export default class Profile extends Component {
                   }
                   socket.emit('userLeavesRoom', userLeavingInfo)
                   this.closeProfile()
-                  //this.updateUserRooms()
                 }
               })
         }
         else {
           //username found
           const { id, username } = res
-          console.log('user found:', username, id)
           this.setState({
             user_id: id,
             username,
           })
-          console.log('setting localStorage from profile with:', username, id)
           localStorage.user_id = id
           localStorage.username = username
-          console.log('if true, we will go to /rooms', this.props.location.pathname !== "/rooms")
           if(pathname === "/profile") {
             this.closeProfile()
             this.props.history.push("/rooms")
@@ -161,15 +135,12 @@ export default class Profile extends Component {
             }
             socket.emit('userLeavesRoom', userLeavingInfo)
             this.closeProfile()
-            //this.updateUserRooms()
           }
         }})
         .catch(err => {
           console.log(err)
         })
       }
-      //this.closeProfile()
-      //this.updateUserRooms()
     }
 
     updateInputValue = (input, event) => {
@@ -180,7 +151,6 @@ export default class Profile extends Component {
 
     openProfile = e => {
       e.preventDefault()
-      console.log('clicked')
       this.state.profileOpen !== true
         &&  this.setState({
               profileOpen: true
@@ -192,21 +162,16 @@ export default class Profile extends Component {
     }
 
     resetName = e => {
-      console.log('loggin here. Name should still be:', this.state.username)
       this.setState({
         name: this.state.username,
       }, () => this.closeProfile())
     }
 
     closeProfile = e => {
-      console.log('check if the username has popualted the value yet:', this.state, this.state.profileOpen)
       this.state.profileOpen !== false
         &&  this.setState({
               profileOpen: false
             })
-      console.log('closing profile and updating state:', this.state.profileOpen, 'name:', this.state.username)
-      //console.log('if true, we will go to /rooms', this.props.location.pathname !== "/rooms")
-      //this.props.location.pathname !== "/rooms" && this.props.history.push('/rooms')
     }
 
     render() {
@@ -216,7 +181,6 @@ export default class Profile extends Component {
         && this.props.location.pathname !== "/profile" 
           ? "has_user" 
           : ""
-        console.log(this.props.location.pathname)
         const usernameVal = this.state.profileOpen 
           ? this.state.name 
           : this.props.location.pathname === "/profile" || "/"

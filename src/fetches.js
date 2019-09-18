@@ -4,7 +4,6 @@ const { SERVER_BASE_URL } = config
 
 const userFetches = {
     createUser(username) {
-       console.log('--- In userFetches, user doesn\'t exist, so lets create one!', username)
        const body = {
            username
         }
@@ -17,13 +16,10 @@ const userFetches = {
             }
         })
         .then(res => {
-            console.log('this is fetches createUser res:', res)
             if(!res.ok) {
-                console.log('res is not okay here')
                 throw new Error ('user not created')
             }
             else {
-                console.log('res is okay here')
                 return res.json()
             }
         })
@@ -32,7 +28,6 @@ const userFetches = {
     },
 
     getUser(username) {
-        console.log('--- In userFetches, does username already exist?', username)
         return (
             fetch(`${SERVER_BASE_URL}users/${username}`, {
                 method: 'GET',
@@ -41,13 +36,10 @@ const userFetches = {
                 }
             })
             .then(res => {
-                console.log('in fetches, this is the res:', res)
                 if(!res.ok) {
-                    console.log('no goos :(')
                     throw new Error('username not found')
                 }
                 else {
-                    console.log('success!')
                     return res.json()
                 }
             })
@@ -61,7 +53,6 @@ const roomFetches = {
         const body = {
             roomName
         }
-        console.log('body to be sent:',body)
         return (
             fetch(`${SERVER_BASE_URL}rooms`, {
                 method: 'POST',
@@ -71,13 +62,10 @@ const roomFetches = {
                 }
             })
             .then(res => {
-                console.log('in fetches, should show res:', res)
                 if(!res.ok) {
-                    console.log('res is not okay here')
                     throw new Error('room not created')
                 }
                 else {
-                    console.log('res is okay here')
                     return res.json()
                 }
             })
@@ -87,7 +75,6 @@ const roomFetches = {
 
     getRoomByName(roomName) {
         const roomQuery = `${roomName}=name`
-        console.log(roomQuery)
         return fetch(`${SERVER_BASE_URL}rooms/${roomQuery}`, {
                 method: 'GET',
                 headers: {
@@ -96,12 +83,9 @@ const roomFetches = {
             })
             .then(res => {
                 if(!res.ok) {
-                    console.log('no goos :(')
-                    //return res.json()
                     throw new Error('roomName not found')
                 }
                 else {
-                    console.log('success!')
                     return res.json()
                 }
             })
@@ -110,7 +94,6 @@ const roomFetches = {
 
     getRoomById(rooms_id) {
         const roomQuery = `${rooms_id}=id`
-        console.log(roomQuery)
         return fetch(`${SERVER_BASE_URL}rooms/${roomQuery}`, {
                 method: 'GET',
                 headers: {
@@ -119,12 +102,9 @@ const roomFetches = {
             })
             .then(res => {
                 if(!res.ok) {
-                    console.log('no goos :(')
-                    //return res.json()
                     throw new Error('rooms_id not found')
                 }
                 else {
-                    console.log('success!')
                     return res.json()
                 }
             })
@@ -132,7 +112,6 @@ const roomFetches = {
     },
 
     getAllRooms() {
-        console.log('getting all rooms!')
         return fetch(`${config.SERVER_BASE_URL}rooms`, {
             method: 'GET',
             headers: {
@@ -140,7 +119,6 @@ const roomFetches = {
             }
         })
         .then(res => {
-            console.log('this is the res from getting all rooms', res)
             return res.json()
         })
     }
@@ -153,7 +131,6 @@ const userRoomsFetches = {
             user_id,
             rooms_id
         }
-        console.log('this is the body posting to /userRooms', body)
         return (
             fetch(`${SERVER_BASE_URL}userRooms`, {
                 method: 'POST',
@@ -163,13 +140,10 @@ const userRoomsFetches = {
                 }
             })
             .then(res => {
-                console.log('fetches, this is the res:', res)
                 if(!res.ok) {
-                    console.log('sending error')
                     throw new Error('couldn\'t add user to room') 
                 }
                 else {
-                    console.log('All good sending the res:', res)
                     return res
                 }
             })
@@ -186,7 +160,6 @@ const userRoomsFetches = {
                 }
             })
             .then(res => {
-                console.log('user is already in room:', res)
                 return res
             })
         )
@@ -197,7 +170,6 @@ const userRoomsFetches = {
             user_id,
             rooms_id
         }
-        console.log('this is the body posting to /userRooms/userLeavesRoom', body)
         return (
             fetch(`${SERVER_BASE_URL}userRooms/userLeavesRoom`, {
                 method: 'DELETE',
@@ -207,13 +179,10 @@ const userRoomsFetches = {
                 }
             })
             .then(res => {
-                console.log('this is the res:', res)
                 if(!res.ok) {
-                    console.log('this is the bad res:', res)
                     throw new Error('Could not leave room')
                 }
                 else {
-                    console.log('this is the good res:', res)
                     return res
                 }
             })

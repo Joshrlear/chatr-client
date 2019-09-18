@@ -90,7 +90,6 @@ export default class Chatroom extends Component {
         const connection_id = this.context.componentConnection
         socket.emit('connect to components', connection_id)
         socket.on('userLeavesRoom', userInfo => {
-            console.log('userLeavesRoom socket is heard!')
             // leave room then update state
             const promise = Promise.resolve(this.leaveRoom())
             promise.then(() => {
@@ -104,7 +103,6 @@ export default class Chatroom extends Component {
         // client listens for 'incoming message' socket connection
         // then it logs the IncomingMsg  
         socket.on('incoming message', incomingMsg => {
-            console.log(incomingMsg)
             this.setState({
                 messages: [
                     ...this.state.messages, 
@@ -140,7 +138,6 @@ export default class Chatroom extends Component {
     }
 
     componentDidUpdate() {
-        console.log('chatRoom just updated')
         this.messagesEnd.current && this.messagesEnd.current.scrollIntoView({ behavior: "smooth" })
     }
 
@@ -150,9 +147,7 @@ export default class Chatroom extends Component {
         const { rooms_id } = this.state
         userRoomsFetches.userLeavesRoom(user_id, rooms_id)
             .then(res => {
-                console.log('left the room?', res)
                 if(res.ok) {
-                    console.log('user has left room and will disconnect from socket room:',res)
                     // client emits 'disconnected' socket
                     // when they leave the chat
                     const userLeaving = {

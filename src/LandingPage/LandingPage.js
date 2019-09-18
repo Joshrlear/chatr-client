@@ -14,7 +14,6 @@ export default class LandingPage extends Component {
     static contextType = ChatContext
 
     componentWillMount() {
-      console.log('landing page here!', ChatContext.user_id, ChatContext.rooms_id)
       if (ChatContext.user_id) {
           ChatContext.rooms_id
             ? this.props.history.push('/chatroom')

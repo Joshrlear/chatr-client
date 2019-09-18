@@ -28,7 +28,6 @@ export default class Rooms extends Component {
 
     componentWillMount() {
         this.context.updateAppState()
-        console.log('logging in the Rooms component', this.context.user)
 
         // connects to chat namespace 
         let chat = io(`${config.SERVER_BASE_URL}chat`)
@@ -44,16 +43,13 @@ export default class Rooms extends Component {
         socket.emit('connect to components', connection_id)
 
         if (!localStorage.user_id) {
-            console.log('checking the local storage:', !localStorage.user_id, 'if false, go to room', localStorage)
             this.props.history.push('/profile')
         }
         else {
             if (!localStorage.rooms_id) {
-                console.log('looks like you are already logged in', localStorage.username, 'but not in a room.')
                 roomFetches.getAllRooms()
                 .then(res => {
                     if (res.length > 0) {
-                        console.log('here are all the rooms!', res)
                         this.setState({
                             rooms: res
                         })
@@ -61,7 +57,6 @@ export default class Rooms extends Component {
                 })
             }
             else {
-                console.log(`${localStorage.username}! you are already in a room. Lets get you back to: ${localStorage.roomName}`)
                 this.props.history.push('/chatroom')
             }
         }
@@ -82,7 +77,6 @@ export default class Rooms extends Component {
             username
         }
 
-        console.log('this is the roomName and the username:', roomName, username)
         this.setState({
             roomName
         })
@@ -90,13 +84,10 @@ export default class Rooms extends Component {
         // check whether roomName exists
         roomFetches.getRoomByName(roomName)
         .then(res => {
-            console.log('determining if res is ok or not', res)
             if(!res.id) {
                 // if room doesn't exists, create room
-                console.log('room not found')
                 roomFetches.createRoom(roomName)
                 .then(res => {
-                    console.log('res for roomName here:', res)
                     if(!res.id) {
                         throw new Error('Could not create room')
                     }
@@ -104,18 +95,14 @@ export default class Rooms extends Component {
                         // now room exists, add user to room
                         const rooms_id = res.id
                         const user_id = parseInt(localStorage.user_id)
-                        console.log('room created:', rooms_id)
                         userRoomsFetches.addUser(user_id, rooms_id)
                         .then(res => {
-                            console.log('this is the res:', res)
                             if(!res.ok) {
-                                console.log('we are reaching this part')
                                 throw new Error('user not added')
                             }
                             else {
                                 // user has been added to room. update state with room_id
                                 // and add to socket room
-                                console.log('res is ok, we are now updating state with rooms_id')
                                 this.setState({
                                     rooms_id
                                 })
@@ -127,31 +114,24 @@ export default class Rooms extends Component {
 
             }
             else {
-                console.log('res was good!', res)
                 // if room exists, add user to room
                 const rooms_id = res.id
                 const user_id = localStorage.user_id
-                console.log('room exists:', rooms_id)
 
                 // check if user is already in room
                 userRoomsFetches.getUserRooms(user_id, rooms_id)
                     .then(res =>{
-                        console.log('this is the res from getuserRooms:', res)
                         if(!res.ok) {
-                            console.log('are we getting here?')
                             // user not in room yet. add user
                             userRoomsFetches.addUser(user_id, rooms_id)
                                 .then(res => {
-                                    console.log('this is the res from addUser:', res)
                                    if(!res.ok) {
-                                       console.log('this is running')
                                        throw new Error('user not added')
                                    }
                                    else {
                                        // user added to room. update state to 
                                        // show which room they are in
                                        // then add user to socket room
-                                       console.log('Good res')
                                        this.setState({
                                            rooms_id
                                        })
@@ -163,7 +143,6 @@ export default class Rooms extends Component {
                         else {
                             // user is in room. update state to show which 
                             // room they are in then add user to socket room
-                            console.log('user already in room')
                             this.setState({
                                 rooms_id
                             })
@@ -184,7 +163,6 @@ export default class Rooms extends Component {
     };
 
     setRoomName = roomName => {
-        console.log(roomName)
         roomName !== this.state.roomName
             && this.setState({
                 roomName
@@ -196,7 +174,6 @@ export default class Rooms extends Component {
             event: true,
             connection_id: this.context.componentConnection
         }
-        console.log('working!', value)
         socket.emit('changePointerEvents', value)
     }
 

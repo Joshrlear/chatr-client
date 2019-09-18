@@ -85,7 +85,6 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    console.log("this is the config stuff:", config.SERVER_BASE_URL, config.CLIENT_BASE_URL, process.env)
     if (!localStorage.componentConnection) {
       localStorage.componentConnection = this.state.componentConnection
     }
