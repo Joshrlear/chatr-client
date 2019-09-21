@@ -188,9 +188,6 @@ input[type="submit"]:disabled, button[type="submit"]:disabled {
     -ms-grid-column-span: 1;
     grid-column: 2/3;
   }
-  p {
-    color: #9af;
-  }
 }
 
 .link_container > * {
