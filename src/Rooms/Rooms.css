@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,400i&display=swap");
 /* ------ screen responsiveness ------ */
+/* Minimum aspect ratio */
 /* ------ fonts ------ */
 /* ------ colors ------ */
 /* ------ elements ------ */
@@ -56,7 +57,7 @@
   transition: background-color 0.3s ease-in;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .btn-2 {
     border-radius: 10px;
   }
@@ -79,7 +80,7 @@
   text-align: center;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .rooms_form {
     position: fixed;
     width: 100vw;
@@ -96,7 +97,7 @@
   margin-top: 20px;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .room_section {
     overflow-y: scroll;
     overflow-x: hidden;
@@ -110,7 +111,7 @@
           box-shadow: 0px -4px 12px -4px rgba(0, 0, 0, 0.2) inset, 0px 4px 12px -6px rgba(0, 0, 0, 0.2) inset;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .room_section.scroll_shadow {
     -webkit-box-shadow: none;
             box-shadow: none;
@@ -123,9 +124,18 @@
   overflow-y: scroll;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .room_section .room_list_container {
     height: auto;
+    width: 100%;
+  }
+}
+
+@media (min-aspect-ratio: 100 / 43) {
+  .room_section .room_list_container {
+    width: unset;
+    height: unset;
+    overflow-y: unset;
   }
 }
 
@@ -144,13 +154,13 @@
   padding: 0px;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .room_section .room_list_container .room_list {
     margin-top: 30px;
   }
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 800px) and (max-width: 1200px) {
   .room_section .room_list_container .room_list {
     padding: 0px 4% 0px 0px;
   }

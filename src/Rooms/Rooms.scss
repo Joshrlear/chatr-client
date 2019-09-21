@@ -48,6 +48,13 @@
         overflow-y: scroll;
         @include tablet {
             height: auto;
+            width: 100%;
+        }
+
+        @include shortToWide {
+            width: unset;
+            height: unset;
+            overflow-y: unset;
         }
     
         .room_list {

@@ -31,6 +31,15 @@
             @include tablet {
                 width: 100%;
             }
+            @include shortToWide {
+                width: 100%
+            }
+        }
+
+        .css-y1c0xs {
+            @include shortToWide {
+                width: 101%;
+            }
         }
 
         .css-1qyrjaz {
@@ -52,6 +61,10 @@
                 margin: 0px;
                 padding: 0px;
                 width: 100vw;
+            }
+            @include shortToWide {
+                width: 74%;
+                box-sizing: border-box;
             }
 
             .me {

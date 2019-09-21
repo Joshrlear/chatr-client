@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,400i&display=swap");
 /* ------ screen responsiveness ------ */
+/* Minimum aspect ratio */
 /* ------ fonts ------ */
 /* ------ colors ------ */
 /* ------ elements ------ */
@@ -18,7 +19,7 @@
   transition: background-color 0.3s ease-in;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .btn-3 {
     border-radius: 10px;
   }
@@ -45,7 +46,7 @@
   transition: background-color 0.3s ease-in;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .btn-4 {
     border-radius: 10px;
   }
@@ -96,9 +97,21 @@
   width: 104%;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .chatroom_container .message_section .message_container {
     width: 100%;
+  }
+}
+
+@media (min-aspect-ratio: 100 / 43) {
+  .chatroom_container .message_section .message_container {
+    width: 100%;
+  }
+}
+
+@media (min-aspect-ratio: 100 / 43) {
+  .chatroom_container .message_section .css-y1c0xs {
+    width: 101%;
   }
 }
 
@@ -119,11 +132,19 @@
   color: white;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .chatroom_container .message_section .messages {
     margin: 0px;
     padding: 0px;
     width: 100vw;
+  }
+}
+
+@media (min-aspect-ratio: 100 / 43) {
+  .chatroom_container .message_section .messages {
+    width: 74%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
   }
 }
 
@@ -132,7 +153,7 @@
   left: calc(50% - 30px);
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .chatroom_container .message_section .messages .me {
     left: unset;
     margin: 0px 20px;
@@ -147,7 +168,7 @@
   margin-left: auto;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .chatroom_container .message_section .messages .me .message, .chatroom_container .message_section .messages .me .preview {
     margin-right: 0px;
     margin-left: auto;
@@ -170,7 +191,7 @@
           transform: rotate(324deg) scaleY(1.25);
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .chatroom_container .message_section .messages .preview_warp {
     word-break: break-word;
   }
@@ -190,7 +211,7 @@
   padding-right: 60px;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .chatroom_container .message_section .messages .not_me {
     margin: 0px 20px;
   }
@@ -214,7 +235,7 @@
           transform: rotate(212deg) scaleY(-1.25);
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .chatroom_container .message_section .messages .not_me:before {
     left: -4px;
   }
@@ -266,7 +287,7 @@
   list-style: none;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .chatroom_container .user_typing .typing_msg {
     font-size: 22px;
   }

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,400i&display=swap");
 /* ------ screen responsiveness ------ */
+/* Minimum aspect ratio */
 /* ------ fonts ------ */
 /* ------ colors ------ */
 /* ------ elements ------ */
@@ -90,7 +91,7 @@
   pointer-events: initial;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .profile_container.has_user.closed .profile_form {
     position: fixed;
     right: 0px;
@@ -108,7 +109,7 @@
   transition: width 0.2s ease-out;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .profile_container.has_user.closed .profile_form .profile_name {
     top: 0px;
     left: 0px;
@@ -183,7 +184,7 @@
   pointer-events: initial;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .profile_container.open.has_user .profile_form {
     position: fixed;
     top: 30px;
@@ -207,7 +208,7 @@
   transition: width 0.2s ease-out, background-color 0.15s ease;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .profile_container.open.has_user .profile_form .profile_name, .profile_container.open.has_user .profile_form .profile_name > * {
     position: relative;
     font-size: 32px;
@@ -238,7 +239,7 @@
   transition: visibility 0.5s ease-out;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 850px) {
   .profile_container.open.has_user .button_rack {
     padding-top: 10px;
     position: relative;
@@ -306,5 +307,9 @@
   background-color: transparent;
   color: #dddddd;
   cursor: unset;
+}
+
+.profile_container {
+  overflow: unset !important;
 }
 /*# sourceMappingURL=Profile.css.map */

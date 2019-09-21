@@ -53,6 +53,10 @@ export default class LandingPage extends Component {
                 </div>
               </div>
               <div className="mobile_grid2">
+              <header className="landingpage_header_shortToWide">
+                  <h1 className="title">Chatr</h1>
+                  <p className="subtitle">Blah, blah, blah...</p>
+                </header>
                 <div className="enter_btn_container btn-2">
                   <NavLink
                     to="/profile" 

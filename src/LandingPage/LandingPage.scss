@@ -11,6 +11,12 @@
         display: grid;
         grid-template-rows: auto auto;
     }
+    @include shortToWide {
+        height: 100%;
+        display: grid;
+        grid-template-rows: 1fr 7fr 1fr;
+        grid-template-columns: 5fr 1fr 5fr;
+    }
 
     .mobile_grid1 {
         @include tablet {
@@ -18,6 +24,15 @@
             height: 310px;
             display: flex;
             flex-direction: column-reverse;
+        }
+
+        @include shortToWide {
+            grid-column: 1/2;
+            grid-row: 2/3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
         }
         
         @include videoTabSize {
@@ -27,6 +42,9 @@
         .landingpage_header {
             text-align: center;
             margin-top: 30px;
+            @include shortToWide {
+                display: none;
+            }
     
             * {
                 margin-top: 0px;
@@ -61,6 +79,16 @@
             @include videoTabSize {
                 height: 350px;
             }
+
+            @include shortToWide {
+                height: 85%;
+            }
+            
+            * {
+                @include shortToWide {
+                    height: 100%;
+                }
+            }
         }
     }
 
@@ -68,6 +96,46 @@
         @include tablet {
             grid-row: 2/3;
         }
+
+        @include shortToWide {
+            grid-row: 2/3;
+            grid-column: 3/4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 75%;
+            margin: auto;
+        }
+
+        .landingpage_header_shortToWide {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+            @include shortToWide {
+                display: initial;
+            }
+    
+            * {
+                margin-top: 0px;
+            }
+    
+            .title {
+                margin-bottom: 2px;
+                font-size: 30px;
+                    @include tablet {
+                    margin-top: 0px;
+                }
+            }
+    
+            .subtitle {
+                margin-bottom: 30px;
+                @include tablet {
+                    margin-top: 0px;
+                    margin-bottom: 0px;
+                }
+            }
+        }
+
         .enter_btn_container {
             display: flex;
             width: 4rem;
@@ -156,6 +224,10 @@
                 margin-top: 10px;
                 text-align: center;
                 @include tablet{
+                    text-align: left;
+                }
+
+                @include shortToWide {
                     text-align: left;
                 }
             }

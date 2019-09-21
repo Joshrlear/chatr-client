@@ -28,6 +28,25 @@
     }
 }
 
+@include shortToWide {
+    .App {
+        display: grid;
+        grid-template-rows: 1fr 10fr 1fr;
+        grid-template-columns: 1fr 12fr 1fr;
+    }
+
+    .main_container {
+        height: 100%;
+        overflow: auto;
+        grid-row: 2/3;
+        grid-column: 2/3;
+    }
+
+    p {
+        color: #9af;
+    }
+}
+
 .link_container > * {
     text-decoration: none;
     color: black;
