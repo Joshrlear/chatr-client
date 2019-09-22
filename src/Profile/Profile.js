@@ -65,7 +65,7 @@ export default class Profile extends Component {
 
     updateUserRooms = userRooms => {
       this.props.location.pathname === "/chatroom" 
-        && socket.emit('update userRooms', this.state. user)
+        && socket.emit('update userRooms', this.state.user)
     }
 
     handleSubmit = (e) => {
@@ -110,6 +110,8 @@ export default class Profile extends Component {
                     connection_id
                   }
                   socket.emit('userLeavesRoom', userLeavingInfo)
+                  const info = { username: userName, roomName: localStorage.roomName }
+                  localStorage.roomName && socket.emit('leaveRoom', info)
                   this.closeProfile()
                 }
               })
@@ -134,12 +136,11 @@ export default class Profile extends Component {
               connection_id
             }
             socket.emit('userLeavesRoom', userLeavingInfo)
+            const info = { username: userName, roomName: localStorage.roomName }
+            localStorage.roomName && socket.emit('leaveRoom', info)
             this.closeProfile()
           }
         }})
-        .catch(err => {
-          console.log(err)
-        })
       }
     }
 

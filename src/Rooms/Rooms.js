@@ -28,13 +28,6 @@ export default class Rooms extends Component {
 
     componentWillMount() {
         this.context.updateAppState()
-
-        // connects to chat namespace 
-        let chat = io(`${config.SERVER_BASE_URL}chat`)
-        // listens for welcome message then logs to console
-        chat.on('welcome', msg => {
-            console.log(msg)
-        })
     }
 
     componentDidMount() {

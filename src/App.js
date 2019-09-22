@@ -7,7 +7,6 @@ import Profile from './Profile/Profile';
 import Rooms from './Rooms/Rooms';
 import Chatroom from './Chatroom/Chatroom'
 import './App.css';
-import config from './config';
 
 export default class App extends Component {
   state = {
@@ -58,7 +57,7 @@ export default class App extends Component {
       localStorage.roomName == null ? "" : localStorage.roomName
     ]
 
-    const isEqual = JSON.stringify(userState) == JSON.stringify(storedUser)
+    const isEqual = JSON.stringify(userState) === JSON.stringify(storedUser)
     if (!isEqual) {
         this.setState({
           user_id: storedUser[0],

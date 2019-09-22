@@ -76,9 +76,6 @@ export default class Chatroom extends Component {
         const { username, roomName } = this.state
         const info = { username, roomName }
         socket.emit('joinRoom', info)
-        socket.on('welcome message', message => {
-            console.log(message)
-        })
         socket.on('user joined room', message => {
             console.log(message)
             this.setState({
@@ -91,13 +88,15 @@ export default class Chatroom extends Component {
         socket.emit('connect to components', connection_id)
         socket.on('userLeavesRoom', userInfo => {
             // leave room then update state
-            const promise = Promise.resolve(this.leaveRoom())
-            promise.then(() => {
+            this.leaveRoom()
+            // removing but not sure if this is going to
+            // negatively impact.
+            /* promise.then(() => {
                 this.setState({ 
                     user_id: userInfo.user_id,
                     username: userInfo.username
                 })
-            })
+            }) */
         })
 
         // client listens for 'incoming message' socket connection
@@ -139,6 +138,12 @@ export default class Chatroom extends Component {
 
     componentDidUpdate() {
         this.messagesEnd.current && this.messagesEnd.current.scrollIntoView({ behavior: "smooth" })
+    }
+
+    componentWillUnmount() {
+        const { username, roomName } = this.state
+        const info = { username, roomName }
+        socket.emit('leaveRoom', info)
     }
 
     leaveRoom = (e) => {
@@ -287,7 +292,7 @@ export default class Chatroom extends Component {
                         <br/>
                         <div className="button_container">
                             <button 
-                                disabled={ !this.state.currentMessage || this.state.currentMessage.message == '' }
+                                disabled={ !this.state.currentMessage || this.state.currentMessage.message === '' }
                                 className="send_button btn-4" 
                                 type="submit">
                                     Send
