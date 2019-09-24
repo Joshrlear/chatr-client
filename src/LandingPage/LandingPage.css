@@ -4,6 +4,7 @@
 /* ------ fonts ------ */
 /* ------ colors ------ */
 /* ------ elements ------ */
+@import url(c:\Users\Josh\projects\capstones\second-full-capstone\chat-client\src\video-react.css);
 @media (min-width: 1441px) and (min-aspect-ratio: 100 / 42) {
   .landingpage_container {
     display: -ms-grid;
