@@ -158,7 +158,12 @@
         }
     
         .videoplayer_container {
-            //@debugheight: 28vh;
+            //width: 30vw;
+            min-width: 390px;
+
+            @include phone {
+                min-width: unset;
+            }
             
             @include tablet {
                 width: 100vw;
@@ -172,26 +177,29 @@
                 height: 350px;
             }
 
+            @include shortToRegular {
+                width: 30vw;
+            }
+
             /* @include shortToWide {
-                height: 85%;
+                width: 30vw;
             } */
 
             @include shortToWide {
                 height: auto;
+                width: 30vw;
+                min-width: unset;
+            }
+
+            .video-react-big-play-button::before {
+                cursor: pointer;
+                width: 3em;
             }
             
             * {
-                @include tablet {
-                    height: inherit;
-                }
-                //height: 25vh;
-                @include shortToWide {
-                    width: 25vw;
-                    //height: 100%;
-                }
-
-                @include shortToRegular {
-                    width: 100%
+                .video-react-big-play-button::before {
+                    cursor: pointer;
+                    width: 3em;
                 }
             }
         }
@@ -204,7 +212,7 @@
 
         @include tablet {
             grid-row: 2/3;
-            margin-top: 0vh;
+            margin-top: 10vh;
         }
 
         @include shortToRegular {

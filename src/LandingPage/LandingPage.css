@@ -240,9 +240,16 @@
 }
 
 .landingpage .mobile_grid1 .videoplayer_container {
+  min-width: 390px;
   /* @include shortToWide {
-                height: 85%;
+                width: 30vw;
             } */
+}
+
+@media (max-width: 599px) {
+  .landingpage .mobile_grid1 .videoplayer_container {
+    min-width: unset;
+  }
 }
 
 @media (max-width: 850px) {
@@ -261,28 +268,28 @@
   }
 }
 
+@media (min-width: 1101px) and (max-width: 1440px) and (min-aspect-ratio: 100 / 56) {
+  .landingpage .mobile_grid1 .videoplayer_container {
+    width: 30vw;
+  }
+}
+
 @media (min-width: 900px) and (max-width: 1100px) and (min-aspect-ratio: 100 / 76) {
   .landingpage .mobile_grid1 .videoplayer_container {
     height: auto;
+    width: 30vw;
+    min-width: unset;
   }
 }
 
-@media (max-width: 850px) {
-  .landingpage .mobile_grid1 .videoplayer_container * {
-    height: inherit;
-  }
+.landingpage .mobile_grid1 .videoplayer_container .video-react-big-play-button::before {
+  cursor: pointer;
+  width: 3em;
 }
 
-@media (min-width: 900px) and (max-width: 1100px) and (min-aspect-ratio: 100 / 76) {
-  .landingpage .mobile_grid1 .videoplayer_container * {
-    width: 25vw;
-  }
-}
-
-@media (min-width: 1101px) and (max-width: 1440px) and (min-aspect-ratio: 100 / 56) {
-  .landingpage .mobile_grid1 .videoplayer_container * {
-    width: 100%;
-  }
+.landingpage .mobile_grid1 .videoplayer_container * .video-react-big-play-button::before {
+  cursor: pointer;
+  width: 3em;
 }
 
 @media (max-width: 599px) {
@@ -296,7 +303,7 @@
     -ms-grid-row: 2;
     -ms-grid-row-span: 1;
     grid-row: 2/3;
-    margin-top: 0vh;
+    margin-top: 10vh;
   }
 }
 
