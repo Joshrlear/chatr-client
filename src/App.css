@@ -138,8 +138,12 @@ input[type="submit"]:disabled, button[type="submit"]:disabled {
   height: 100vh;
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: auto 750px auto;
-      grid-template-rows: auto 750px auto;
+  overflow: auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-grid-rows: 1fr 90% 1fr;
+      grid-template-rows: 1fr 90% 1fr;
   -ms-grid-columns: auto 520px auto;
       grid-template-columns: auto 520px auto;
   background-image: -webkit-gradient(linear, left top, right bottom, from(#3ec1d3), color-stop(#f6f7d7), to(#ff6392));
@@ -169,7 +173,54 @@ input[type="submit"]:disabled, button[type="submit"]:disabled {
   }
 }
 
-@media (min-aspect-ratio: 100 / 43) {
+.main_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow: auto;
+  max-height: 780px;
+  padding: 0% 12.5%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+@media (max-width: 850px) {
+  .main_container {
+    overflow: hidden;
+    max-height: unset;
+  }
+}
+
+@media (min-width: 1101px) and (max-width: 1440px) and (min-aspect-ratio: 100 / 56) {
+  .App {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: 1fr 10fr 1fr;
+        grid-template-rows: 1fr 10fr 1fr;
+    -ms-grid-columns: 1fr 12fr 1fr;
+        grid-template-columns: 1fr 12fr 1fr;
+  }
+  .main_container {
+    height: 100%;
+    overflow: hidden;
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    grid-row: 2/3;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+    grid-column: 2/3;
+    padding: 0px;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1100px) and (min-aspect-ratio: 100 / 76) {
   .App {
     display: -ms-grid;
     display: grid;
@@ -187,6 +238,29 @@ input[type="submit"]:disabled, button[type="submit"]:disabled {
     -ms-grid-column: 2;
     -ms-grid-column-span: 1;
     grid-column: 2/3;
+    padding: 0px;
+  }
+}
+
+@media (min-width: 1441px) and (min-aspect-ratio: 100 / 42) {
+  .App {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: 1fr 10fr 1fr;
+        grid-template-rows: 1fr 10fr 1fr;
+    -ms-grid-columns: 1fr 12fr 1fr;
+        grid-template-columns: 1fr 12fr 1fr;
+  }
+  .main_container {
+    height: 100%;
+    overflow: auto;
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    grid-row: 2/3;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+    grid-column: 2/3;
+    padding: 0px;
   }
 }
 

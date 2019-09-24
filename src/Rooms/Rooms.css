@@ -131,7 +131,7 @@
   }
 }
 
-@media (min-aspect-ratio: 100 / 43) {
+@media (min-width: 900px) and (max-width: 1100px) and (min-aspect-ratio: 100 / 76) {
   .room_section .room_list_container {
     width: unset;
     height: unset;

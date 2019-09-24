@@ -8,7 +8,10 @@
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-rows: auto 750px auto;
+    overflow: auto;
+    align-items: center;
+    //grid-template-rows: auto 750px auto;
+    grid-template-rows: 1fr 90% 1fr;
     grid-template-columns: auto 520px auto;
     background-image: linear-gradient(to bottom right, $greenish, $lightColor, $orangeish);
 
@@ -28,6 +31,37 @@
     }
 }
 
+.main_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
+    max-height: 780px;
+    padding: 0% 12.5%;
+    box-sizing: border-box;
+
+    @include tablet {
+        overflow: hidden;
+        max-height: unset;
+    }
+}
+
+@include shortToRegular {
+    .App {
+        display: grid;
+        grid-template-rows: 1fr 10fr 1fr;
+        grid-template-columns: 1fr 12fr 1fr;
+    }
+
+    .main_container {
+        height: 100%;
+        overflow: hidden;
+        grid-row: 2/3;
+        grid-column: 2/3;
+        padding: 0px;
+    }
+}
+
 @include shortToWide {
     .App {
         display: grid;
@@ -40,6 +74,23 @@
         overflow: auto;
         grid-row: 2/3;
         grid-column: 2/3;
+        padding: 0px;
+    }
+}
+
+@include wideScreens {
+    .App {
+        display: grid;
+        grid-template-rows: 1fr 10fr 1fr;
+        grid-template-columns: 1fr 12fr 1fr;
+    }
+
+    .main_container {
+        height: 100%;
+        overflow: auto;
+        grid-row: 2/3;
+        grid-column: 2/3;
+        padding: 0px;
     }
 }
 
