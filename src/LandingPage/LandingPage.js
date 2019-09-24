@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import ChatContext from '../ChatContext'
-import { Player } from 'video-react'
+import { Player, BigPlayButton } from 'video-react'
 import './LandingPage.css'
 
 export default class LandingPage extends Component {
   constructor(props) {
     super(props)
-    this.handleValueChange = this.handleValueChange.bind(this);
-    this.updatePlayerInfo = this.updatePlayerInfo.bind(this);
     this.state = {
       videoHeight: '230px',
-      playerSource: '../videos/chatrDemo.mp4'
+      playerSource: '../../public/chatrDemo.mp4'
     }
   }
 
@@ -38,20 +36,6 @@ export default class LandingPage extends Component {
     }
   }
 
-  handleValueChange(e) {
-    const { value } = e.target;
-    this.setState({
-      inputVideoUrl: value
-    });
-  }
-
-  updatePlayerInfo() {
-    const { inputVideoUrl } = this.state;
-    this.setState({
-      playerSource: inputVideoUrl
-    });
-  }
-
   // https://youtu.be/ZAUwiCv-5Mw
   // https://www.youtube.com/watch?v=ZAUwiCv-5Mw
   render() {
@@ -64,21 +48,11 @@ export default class LandingPage extends Component {
                 <p className="subtitle">Blah, blah, blah...</p>
               </header>
               <div className="videoplayer_container">
-              {/* <iframe width="100%" height={ this.state.videoHeight }
-                title="Chatr demonatration video"
-                src="https://www.youtube.com/embed/ZAUwiCv-5Mw" 
-                frameBorder="0" 
-                allow="accelerometer; 
-                      autoplay; 
-                      encrypted-media; 
-                      gyroscope; 
-                      picture-in-picture" 
-                      allowFullScreen>
-                </iframe> */}
                 <Player
                   ref={player => { this.player = player }}
                   videoId="video-1">
-                  <source src={this.state.playerSource} />
+                  <source src='chatrDemo.mp4' />
+                  <BigPlayButton position="center" />
                 </Player>
               </div>
             </div>
