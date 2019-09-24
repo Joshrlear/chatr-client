@@ -174,28 +174,21 @@ input[type="submit"]:disabled, button[type="submit"]:disabled {
 }
 
 .main_container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  overflow: auto;
-  max-height: 780px;
-  padding: 0% 12.5%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
+  height: 100%;
+  max-height: 750px;
+  /*display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
+    height: 100%;
+    max-height: 780px;
+    padding: 0% 12.5%;
+    box-sizing: border-box;
 
-@media (max-width: 850px) {
-  .main_container {
-    overflow: hidden;
-    max-height: unset;
-  }
+    @include tablet {
+        overflow: hidden;
+        max-height: unset;
+    }*/
 }
 
 @media (min-width: 1101px) and (max-width: 1440px) and (min-aspect-ratio: 100 / 56) {

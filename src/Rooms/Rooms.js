@@ -114,7 +114,7 @@ export default class Rooms extends Component {
                 // check if user is already in room
                 userRoomsFetches.getUserRooms(user_id, rooms_id)
                     .then(res =>{
-                        if(!res.ok) {
+                        if(res.status === 204) {
                             // user not in room yet. add user
                             userRoomsFetches.addUser(user_id, rooms_id)
                                 .then(res => {

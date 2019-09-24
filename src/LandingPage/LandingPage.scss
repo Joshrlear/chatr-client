@@ -3,14 +3,27 @@
 
 @mixin videoTabSize {
     @media (min-width: 500px) and (max-width: 800px) and (max-height: 1025px) { @content; }
-  }
+}
+
+.landingpage_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
+    height: 100%;
+    max-height: 780px;
+    padding: 0% 12.5%;
+    box-sizing: border-box;
+
+    @include tablet {
+        overflow: hidden;
+        max-height: unset;
+    }
+}
 
 @include wideScreens {
     .landingpage_container {
         display: grid;
-        p {
-            color: cadetblue;
-        }
     }
 }
 

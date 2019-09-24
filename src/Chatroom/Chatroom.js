@@ -25,7 +25,8 @@ export default class Chatroom extends Component {
             roomName: '',
             rooms_id: '',
             username: '',
-            user_id: ''
+            user_id: '',
+            mounted: false
         }
     }
 
@@ -77,7 +78,6 @@ export default class Chatroom extends Component {
         const info = { username, roomName }
         socket.emit('joinRoom', info)
         socket.on('user joined room', message => {
-            console.log(message)
             this.setState({
                 newUserMsg: [...this.state.newUserMsg, message.message]
             })
@@ -88,15 +88,7 @@ export default class Chatroom extends Component {
         socket.emit('connect to components', connection_id)
         socket.on('userLeavesRoom', userInfo => {
             // leave room then update state
-            this.leaveRoom()
-            // removing but not sure if this is going to
-            // negatively impact.
-            /* promise.then(() => {
-                this.setState({ 
-                    user_id: userInfo.user_id,
-                    username: userInfo.username
-                })
-            }) */
+            this.state.mounted === true && this.leaveRoom()
         })
 
         // client listens for 'incoming message' socket connection
@@ -134,6 +126,11 @@ export default class Chatroom extends Component {
                 })
             }
         })
+
+        this.state.mounted !== true
+            && this.setState({
+                mounted: true
+            })
     }
 
     componentDidUpdate() {
@@ -148,6 +145,10 @@ export default class Chatroom extends Component {
 
     leaveRoom = (e) => {
         this.changePointerEvents()
+        this.state.mounted !== false
+            && this.setState({
+                mounted: false
+            })
         const { user_id } = this.state
         const { rooms_id } = this.state
         userRoomsFetches.userLeavesRoom(user_id, rooms_id)

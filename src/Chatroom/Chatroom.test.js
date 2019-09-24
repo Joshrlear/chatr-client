@@ -13,7 +13,8 @@ describe('Chatroom', () => {
             location: {
                 pathname: "/testpath"
             },
-            history: customHistory
+            history: customHistory,
+            scrollIntoView: window.HTMLElement.prototype.scrollIntoView = function() {}
         }
       const div = document.createElement('div')
         ReactDOM.render(

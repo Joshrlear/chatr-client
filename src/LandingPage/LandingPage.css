@@ -5,13 +5,36 @@
 /* ------ colors ------ */
 /* ------ elements ------ */
 @import url(c:\Users\Josh\projects\capstones\second-full-capstone\chat-client\src\video-react.css);
+.landingpage_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow: auto;
+  height: 100%;
+  max-height: 780px;
+  padding: 0% 12.5%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+@media (max-width: 850px) {
+  .landingpage_container {
+    overflow: hidden;
+    max-height: unset;
+  }
+}
+
 @media (min-width: 1441px) and (min-aspect-ratio: 100 / 42) {
   .landingpage_container {
     display: -ms-grid;
     display: grid;
-  }
-  .landingpage_container p {
-    color: cadetblue;
   }
 }
 

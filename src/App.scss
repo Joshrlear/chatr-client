@@ -31,11 +31,14 @@
     }
 }
 
-.main_container {
-    display: flex;
+ .main_container {
+    height: 100%;
+    max-height: 750px;
+    /*display: flex;
     flex-direction: column;
     justify-content: center;
     overflow: auto;
+    height: 100%;
     max-height: 780px;
     padding: 0% 12.5%;
     box-sizing: border-box;
@@ -43,8 +46,8 @@
     @include tablet {
         overflow: hidden;
         max-height: unset;
-    }
-}
+    }*/
+} 
 
 @include shortToRegular {
     .App {

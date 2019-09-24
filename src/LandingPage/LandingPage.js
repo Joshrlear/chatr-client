@@ -36,8 +36,6 @@ export default class LandingPage extends Component {
     }
   }
 
-  // https://youtu.be/ZAUwiCv-5Mw
-  // https://www.youtube.com/watch?v=ZAUwiCv-5Mw
   render() {
       return (
         <div className="landingpage_container main_container">
