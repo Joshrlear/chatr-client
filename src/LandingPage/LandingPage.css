@@ -4,7 +4,7 @@
 /* ------ fonts ------ */
 /* ------ colors ------ */
 /* ------ elements ------ */
-@import url(video-react.css);
+@import url(c:\Users\Josh\projects\capstones\second-full-capstone\chat-client\src\LandingPage\video-react.css);
 .landingpage_container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -109,7 +109,7 @@
     -ms-grid-row: 1;
     -ms-grid-row-span: 1;
     grid-row: 1/2;
-    height: 310px;
+    height: 30px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -203,7 +203,7 @@
 
 @media (min-width: 500px) and (max-width: 800px) and (max-height: 1025px) {
   .landingpage .mobile_grid1 {
-    height: 450px;
+    height: 280px;
   }
 }
 

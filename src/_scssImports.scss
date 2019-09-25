@@ -121,10 +121,10 @@
 
 /* ------ colors ------ */
 
-$myBlue: #ff9a00;
+$orange: #ff9a00;
 $lightColor: #f6f7d7;
-$greenish: #3ec1d3;
-$orangeish: lighten(#ff165d, 15%);
+$blue: #3ec1d3;
+$pink: lighten(#ff165d, 15%);
 $placeholderDark: rgba(0,0,0,0.5);
 $placeholderLight: rgba(255,255,255,0.5);
 
@@ -137,7 +137,7 @@ $placeholderLight: rgba(255,255,255,0.5);
         padding: 0px 15px;
         border: 0;
         border-radius: 30px;
-        background-color: $greenish;
+        background-color: $blue;
         color: white;
 
         &::placeholder {
@@ -153,14 +153,14 @@ $placeholderLight: rgba(255,255,255,0.5);
     .btn-1 {
         border: 0;
         background-color: transparent;
-        color: $greenish;
+        color: $blue;
         font-weight: 600;
         cursor: pointer;
         width: fit-content;
         min-width: 80px;  
 
         &:hover {
-            color: darken($greenish,15%);
+            color: darken($blue,15%);
             transition: color 0.1s ease-in;
         }
     }
@@ -168,14 +168,14 @@ $placeholderLight: rgba(255,255,255,0.5);
     .btn-0 {
         border: 0;
         background-color: transparent;
-        color: $orangeish;
+        color: $pink;
         font-weight: 600;
         cursor: pointer;
         width: fit-content;
         min-width: 80px;  
 
         &:hover {
-            color: darken($orangeish,15%);
+            color: darken($pink,15%);
             transition: color 0.1s ease-in;
         }
     }
@@ -205,7 +205,7 @@ $placeholderLight: rgba(255,255,255,0.5);
     .btn-2 {
         border: 0;
         border-radius: 20px;
-        background-color: $greenish;
+        background-color: $blue;
         color: white;
         font-weight: 600;
         cursor: pointer;
@@ -218,7 +218,7 @@ $placeholderLight: rgba(255,255,255,0.5);
         }
 
         &:hover {
-            background-color: darken($greenish,15%);
+            background-color: darken($blue,15%);
             transition: background-color 0.1s ease-in;
         }
     }
@@ -238,7 +238,7 @@ $placeholderLight: rgba(255,255,255,0.5);
     .btn-3 {
         border: 0;
         border-radius: 20px;
-        background-color: $orangeish;
+        background-color: $pink;
         color: white;
         font-weight: 600;
         cursor: pointer;
@@ -251,7 +251,7 @@ $placeholderLight: rgba(255,255,255,0.5);
         }
 
         &:hover {
-            background-color: darken($orangeish,15%);
+            background-color: darken($pink,15%);
             transition: background-color 0.1s ease-in;
         }
     }
@@ -259,7 +259,7 @@ $placeholderLight: rgba(255,255,255,0.5);
     .btn-4 {
         border: 0;
         border-radius: 20px;
-        background-color: $greenish;
+        background-color: $blue;
         color: white;
         font-weight: 600;
         cursor: pointer;
@@ -272,7 +272,7 @@ $placeholderLight: rgba(255,255,255,0.5);
         }
 
         &:hover {
-            background-color: darken($greenish,15%);
+            background-color: darken($blue,15%);
             transition: background-color 0.1s ease-in;
         }
     }

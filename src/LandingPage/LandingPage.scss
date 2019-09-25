@@ -79,7 +79,7 @@
     .mobile_grid1 {
         @include tablet {
             grid-row: 1/2;
-            height: 310px;
+            height: 30px;
             display: flex;
             flex-direction: column-reverse;
         }
@@ -125,7 +125,7 @@
         }
         
         @include videoTabSize {
-            height: 450px;
+            height: 280px;
         }
 
         .landingpage_header {

@@ -13,7 +13,7 @@
     //grid-template-rows: auto 750px auto;
     grid-template-rows: 1fr 90% 1fr;
     grid-template-columns: auto 520px auto;
-    background-image: linear-gradient(to bottom right, $greenish, $lightColor, $orangeish);
+    background-image: linear-gradient(to bottom right, $blue, $lightColor, $pink);
 
     @include tablet {
         height: 100%;

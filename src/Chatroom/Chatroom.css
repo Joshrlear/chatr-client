@@ -160,6 +160,18 @@
   }
 }
 
+@media (min-width: 1441px) and (min-aspect-ratio: 100 / 42) {
+  .chatroom_container .message_section .messages .me {
+    left: unset;
+  }
+}
+
+@media (min-width: 1101px) and (max-width: 1440px) and (min-aspect-ratio: 100 / 56) {
+  .chatroom_container .message_section .messages .me {
+    left: unset;
+  }
+}
+
 .chatroom_container .message_section .messages .me .message {
   background-color: #ff6392;
 }

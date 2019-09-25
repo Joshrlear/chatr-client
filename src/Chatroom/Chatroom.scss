@@ -75,8 +75,17 @@
                     margin: 0px 20px;
                 }
 
+                @include wideScreens {
+                    left: unset;
+                }
+            
+                @include shortToRegular {
+                    left: unset;
+                }
+        
+
                 .message {
-                    background-color: $orangeish;
+                    background-color: $pink;
                 }
 
                 .message, .preview {
@@ -90,15 +99,15 @@
                         width: 0px;
                         height: 0px;
                         position: absolute;
-                        border-left: 15px solid $orangeish;
+                        border-left: 15px solid $pink;
                         border-right: 0px solid transparent;
-                        border-top: 20px solid $orangeish;
+                        border-top: 20px solid $pink;
                         border-bottom: 0px solid transparent;
                         border-radius: 2500px 2600px 100px 3750px;
                         right: -4px;
                         top: 47px;
                         transform: rotate(324deg )scaleY(1.25);
-                      }
+                    }
                 }
             }
 
@@ -131,9 +140,9 @@
                     display: block;
                     position: relative;
                     margin-top: -30px;
-                    border-left: 15px solid $greenish;
+                    border-left: 15px solid $blue;
                     border-right: 0px solid transparent;
-                    border-top: 20px solid $greenish;
+                    border-top: 20px solid $blue;
                     border-bottom: 0px solid transparent;
                     border-radius: 2500px 2600px 100px 3750px;
                     left: -5px;
@@ -146,13 +155,13 @@
             }
 
             .message {
-                background-color: $greenish;
+                background-color: $blue;
                 border-radius: 20px;
             }
     
             .preview {
                 color: white;
-                background-color: $orangeish;
+                background-color: $pink;
                 border-radius: 20px;
                 opacity: 0.5;
             }

@@ -49,7 +49,7 @@
         }
 
         .profile_name > *:hover {
-            background-color: darken($greenish,15%);
+            background-color: darken($blue,15%);
             transition: background-color 0.1s ease-in;
         }
     }
@@ -151,7 +151,7 @@
 }
 
 .profile_name.open > input {
-    background-color: darken($greenish,15%);
+    background-color: darken($blue,15%);
     transition: background-color 0.15s ease;
 }
 
