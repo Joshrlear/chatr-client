@@ -4,7 +4,7 @@
 /* ------ fonts ------ */
 /* ------ colors ------ */
 /* ------ elements ------ */
-@import url(c:/Users/Josh/projects/capstones/second-full-capstone/chat-client/src/LandingPage/video-react.css);
+@import url(video-react.css);
 .landingpage_container {
   display: -webkit-box;
   display: -ms-flexbox;
