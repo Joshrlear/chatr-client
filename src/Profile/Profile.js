@@ -89,7 +89,6 @@ export default class Profile extends Component {
       if(inputName && userName !== inputName) {
         getUser(inputName)
         .then(res => {
-          console.log(res.id)
           //username not found
           if(!res.id) {
             createUser(inputName)
@@ -111,7 +110,6 @@ export default class Profile extends Component {
                     username,
                     connection_id
                   }
-                  console.log('here1')
                   socket.emit('userLeavesRoom', userLeavingInfo)
                   const info = { username: userName, roomName: localStorage.roomName }
                   localStorage.roomName && socket.emit('leaveRoom', info)
@@ -138,7 +136,6 @@ export default class Profile extends Component {
               username,
               connection_id
             }
-            console.log('here2')
             socket.emit('userLeavesRoom', userLeavingInfo)
             const info = { username: userName, roomName: localStorage.roomName }
             localStorage.roomName && socket.emit('leaveRoom', info)

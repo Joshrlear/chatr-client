@@ -166,7 +166,6 @@ const userRoomsFetches = {
     },
 
     userLeavesRoom(user_id, rooms_id) {
-        console.log(SERVER_BASE_URL)
         const body = {
             user_id,
             rooms_id
