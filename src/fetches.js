@@ -8,7 +8,7 @@ const userFetches = {
            username
         }
        return (
-        fetch(`${SERVER_BASE_URL}users`, {
+        fetch(`${SERVER_BASE_URL}api/users`, {
             method: 'POST',
             body: JSON.stringify(body),
             headers: {
@@ -29,7 +29,7 @@ const userFetches = {
 
     getUser(username) {
         return (
-            fetch(`${SERVER_BASE_URL}users/${username}`, {
+            fetch(`${SERVER_BASE_URL}api/users/${username}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ const roomFetches = {
             roomName
         }
         return (
-            fetch(`${SERVER_BASE_URL}rooms`, {
+            fetch(`${SERVER_BASE_URL}api/rooms`, {
                 method: 'POST',
                 body: JSON.stringify(body),
                 headers: {
@@ -75,7 +75,7 @@ const roomFetches = {
 
     getRoomByName(roomName) {
         const roomQuery = `${roomName}=name`
-        return fetch(`${SERVER_BASE_URL}rooms/${roomQuery}`, {
+        return fetch(`${SERVER_BASE_URL}api/rooms/${roomQuery}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -94,7 +94,7 @@ const roomFetches = {
 
     getRoomById(rooms_id) {
         const roomQuery = `${rooms_id}=id`
-        return fetch(`${SERVER_BASE_URL}rooms/${roomQuery}`, {
+        return fetch(`${SERVER_BASE_URL}api/rooms/${roomQuery}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -112,7 +112,7 @@ const roomFetches = {
     },
 
     getAllRooms() {
-        return fetch(`${config.SERVER_BASE_URL}rooms`, {
+        return fetch(`${config.SERVER_BASE_URL}api/rooms`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -132,7 +132,7 @@ const userRoomsFetches = {
             rooms_id
         }
         return (
-            fetch(`${SERVER_BASE_URL}userRooms`, {
+            fetch(`${SERVER_BASE_URL}api/userRooms`, {
                 method: 'POST',
                 body: JSON.stringify(body),
                 headers: {
@@ -153,7 +153,7 @@ const userRoomsFetches = {
 
     getUserRooms(user_id, rooms_id) {
         return (
-            fetch(`${SERVER_BASE_URL}userRooms/${user_id}/${rooms_id}`, {
+            fetch(`${SERVER_BASE_URL}api/userRooms/${user_id}/${rooms_id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -166,12 +166,13 @@ const userRoomsFetches = {
     },
 
     userLeavesRoom(user_id, rooms_id) {
+        console.log(SERVER_BASE_URL)
         const body = {
             user_id,
             rooms_id
         }
         return (
-            fetch(`${SERVER_BASE_URL}userRooms/userLeavesRoom`, {
+            fetch(`${SERVER_BASE_URL}api/userRooms/userLeavesRoom`, {
                 method: 'DELETE',
                 body: JSON.stringify(body),
                 headers: {

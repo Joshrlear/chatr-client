@@ -11,6 +11,7 @@ import './Profile.css'
 const socket = io.connect(config.SERVER_BASE_URL)
 
 const { createUser, getUser } = fetches.userFetches
+const { userLeavesRoom } = fetches.userRoomsFetches
 
 export default class Profile extends Component {
     constructor(props) {
@@ -88,6 +89,7 @@ export default class Profile extends Component {
       if(inputName && userName !== inputName) {
         getUser(inputName)
         .then(res => {
+          console.log(res.id)
           //username not found
           if(!res.id) {
             createUser(inputName)
@@ -109,6 +111,7 @@ export default class Profile extends Component {
                     username,
                     connection_id
                   }
+                  console.log('here1')
                   socket.emit('userLeavesRoom', userLeavingInfo)
                   const info = { username: userName, roomName: localStorage.roomName }
                   localStorage.roomName && socket.emit('leaveRoom', info)
@@ -135,6 +138,7 @@ export default class Profile extends Component {
               username,
               connection_id
             }
+            console.log('here2')
             socket.emit('userLeavesRoom', userLeavingInfo)
             const info = { username: userName, roomName: localStorage.roomName }
             localStorage.roomName && socket.emit('leaveRoom', info)
@@ -173,6 +177,15 @@ export default class Profile extends Component {
         &&  this.setState({
               profileOpen: false
             })
+    }
+    
+    logout = () => {
+      const { user_id, rooms_id } = localStorage
+      userLeavesRoom(user_id, rooms_id)
+      localStorage.clear()
+      this.context.updateAppState()
+      this.props.history.push('/')
+
     }
 
     render() {
@@ -213,6 +226,12 @@ export default class Profile extends Component {
                       value='Cancel' 
                     />
                     <input disabled={ this.state.name.length < 1 } className="save_btn btn-1" type='submit' value='Save' />
+                    <input
+                      onClick={e => this.logout()}
+                      className={`logout_btn ${hasUser} btn-3`} 
+                      type='button' 
+                      value='Logout' 
+                    />
                   </div>
                 </form>
             </div>

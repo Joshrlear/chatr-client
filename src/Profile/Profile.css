@@ -303,6 +303,10 @@
   display: none;
 }
 
+.profile_container.profile .button_rack .logout_btn {
+  display: none;
+}
+
 .profile_container.profile .button_rack .btn-1:disabled {
   background-color: transparent;
   color: #dddddd;

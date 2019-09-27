@@ -87,6 +87,7 @@ export default class Chatroom extends Component {
         const connection_id = this.context.componentConnection
         socket.emit('connect to components', connection_id)
         socket.on('userLeavesRoom', userInfo => {
+            console.log('in chatroom, is mounted?', this.state.mounted)
             // leave room then update state
             this.state.mounted === true && this.leaveRoom()
         })
@@ -144,6 +145,7 @@ export default class Chatroom extends Component {
     }
 
     leaveRoom = (e) => {
+        console.log('leaving room in chatroom')
         this.changePointerEvents()
         this.state.mounted !== false
             && this.setState({
@@ -153,6 +155,7 @@ export default class Chatroom extends Component {
         const { rooms_id } = this.state
         userRoomsFetches.userLeavesRoom(user_id, rooms_id)
             .then(res => {
+                console.log('user leaving room:', res.ok)
                 if(res.ok) {
                     // client emits 'disconnected' socket
                     // when they leave the chat

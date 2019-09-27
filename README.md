@@ -10,38 +10,40 @@ Try it out: https://chat-client.joshrlear.now.sh/
 
 git clone into your project folder. Make sure to git clone the server files as well: https://github.com/Joshrlear/chatr-server<br>
 Run: "npm i" to update all depedencies
-Open them both. For client-side run: "npm start". For server run : "npm run dev"
+For client-side run: "npm start"
 
-### `Api Docs`
+**To start just click enter, and type a name, no password needed.**
+**Then either click on a room to join or create you own.**
+**when chatting in the chatroom, your messages show on right, other users are on the left**
+**while typing you can view a preview of your message and the other users will see "username" is typing...**
+**changing username while inside the chatroom will leave the room. logout will leave room(if in room) and redirect to home page**
 
-No external api. All api makes calls to postgres database.
-the database can recieve the following req methods: GET, POST, DELETE
+### `How it works`
 
-- user enters name > GET(check for user) > POST (create if doesn't exist)
+- user enters name > check for user > create if doesn't exist)
 ![main profile page](src/images/main-profile-page.png)
-- user enters new name while in chatroom > DELETE (remove userRooms row that corresponds to user_id and rooms_id) > POST (create new userRooms row - manyToMany relational table)
+- user enters new name while in chatroom > remove userRooms row that corresponds to user_id and rooms_id > create new userRooms row
 ![chatroom edit name](src/images/chatroom-new-name.png)
-- user enters room > socket.io (add user to room) > POST (create new userRooms row)
+- user enters room > add user to room > create new userRooms row
 ![chatroom](src/images/profile-overlay.png)
-- user leaves room > socket.io (remove user from room) > DELETE from userRooms
+- user leaves room > remove user from room
 ![rooms page](src/images/rooms-page.png)
-- user creates room > socket.io (user joins room) > GET (check rooms to see if room exists) > POST (if doesn't exist, room created in rooms table) > GET (check userRooms table if userRooms connection exists) > POST (if userRooms doesn't exist, create userRooms connection)
+- user creates room > user joins room > check rooms to see if room exists > if doesn't exist, room created in rooms table > check userRooms table if userRooms connection exists > if userRooms doesn't exist, create userRooms connection
 ![create room](src/images/create-room.png)
-- user types > socket.io (broadcast.emit userTyping message to all but user)
+- user types > show userTyping message to all but user that is typing
 ![user typing](src/images/user-typing.png)
-- user stops typing > socket.io (wait 3 seconds, then end broadcast.emit userTyping messasge)
+- user stops typing > shows username is typing for 3 seconds. after 3 seconds user typing message is removed
 ![user stops typing](src/images/message-preview.png)
-- user sends message > socket.io (if exists, end userTyping message) > socket.io (broadcast.emit message: { user_id, username, rooms_id, roomName, timeStamp })
+- user sends message > shows user message, username, and time received
 ![send message](src/images/word-wrap.png)
 
 ### `Built with:`
 
 - React
 - scss
-- Nodejs
-- postgresql
-- socket.io
-- deployed to zeit (front-end) & heroku (backend)
+- video-react
+- deployed to zeit
+- testing: enzyme & jest
 
 ### `Features`
 
